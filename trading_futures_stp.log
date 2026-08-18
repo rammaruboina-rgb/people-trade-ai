@@ -1,0 +1,4 @@
+2026-08-18 03:17:09,994 - WARNING - ⚠️ CoinDCX API Secret not set in .env. Running Futures STP Agent in PAPER TRADING mode.
+2026-08-18 03:17:09,995 - INFO - 🚀 Starting CoinDCX Futures STP Agent (10x Leverage | SL: 5.0% | TP: 10.0%)...
+2026-08-18 03:17:10,119 - INFO - 📊 BTC/USDT:USDT @ $64,379.30
+2026-08-18 03:17:10,121 - INFO - ⏳ No active position: $64,379.30 is between $50,000.00 and $70,000.00

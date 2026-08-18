@@ -1,0 +1,7 @@
+ccxt
+python-dotenv
+requests
+schedule
+rich
+fastapi
+uvicorn

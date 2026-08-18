@@ -1,0 +1,6 @@
+2026-08-18 03:24:22,304 - WARNING - ⚠️ CoinDCX API Secret not set. Running Master Agent in FULL PAPER TRADING MODE.
+2026-08-18 03:24:22,305 - INFO - 🤖 Master Unified Autonomous Trading Engine Active...
+2026-08-18 03:24:22,584 - INFO - 🔴 OVERBOUGHT SIGNAL (RSI 65.03 >= 65) -> Opening Futures SHORT
+2026-08-18 03:24:22,586 - INFO - 📊 BTC @ $64,384.42 | RSI: 65.03 | Pos: SHORT | SL: $65,672.11 | TP: $61,809.04 | Mode: PAPER
+2026-08-18 03:24:27,830 - INFO - 📉 TRAILING SL UPGRADED (SHORT): $65,672.11 ➔ $65,347.04 (Trough: $64,381.32)
+2026-08-18 03:24:27,831 - INFO - 📊 BTC @ $64,381.32 | RSI: 65.03 | Pos: SHORT | SL: $65,347.04 | TP: $61,809.04 | Mode: PAPER

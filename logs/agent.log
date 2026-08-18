@@ -1,0 +1,183 @@
+2026-08-18 03:30:26,165 [INFO] 🤖 Master Agent started in PAPER mode.
+2026-08-18 03:30:26,368 [INFO] 📊 BTC @ $64,394.92 | Pos: NONE | Mode: PAPER
+2026-08-18 03:30:31,631 [INFO] 📊 BTC @ $64,399.05 | Pos: NONE | Mode: PAPER
+2026-08-18 03:30:36,889 [INFO] 📊 BTC @ $64,399.04 | Pos: NONE | Mode: PAPER
+2026-08-18 03:33:07,727 [INFO] 🤖 Master Agent started in PAPER mode (News Trading: ENABLED).
+2026-08-18 03:33:08,069 [INFO] 📊 BTC @ $64,395.61 | News Score: +0.00 (No Data) | Pos: NONE | Mode: PAPER
+2026-08-18 03:35:55,254 [INFO] 📩 RECEIVED TRADINGVIEW SIGNAL: OPEN LONG BTCUSDT | Strategy: RSI_Breakout_V2
+2026-08-18 03:35:55,382 [INFO] ⚡ ORDER EXECUTED VIA TRADINGVIEW: LONG 0.001 BTC @ $64,348.66 | SL: $63,061.69 | TP: $66,922.61
+2026-08-18 03:39:34,685 [INFO] 🤖 Master Agent started in PAPER mode (News Trading: ENABLED).
+2026-08-18 03:39:35,019 [INFO] 📊 BTC @ $64,343.64 | News Score: +0.00 (No Data) | Pos: NONE | Mode: PAPER
+2026-08-18 03:39:40,392 [INFO] 📊 BTC @ $64,334.01 | News Score: +0.00 (No Data) | Pos: NONE | Mode: PAPER
+2026-08-18 03:40:11,263 [INFO] 🤖 Master Agent started in PAPER mode (News Trading: ENABLED).
+2026-08-18 03:40:11,589 [INFO] 🚀 ORDER OPENED [TECHNICAL]: LONG 0.007773 BTC @ $64,324.01 | SL: $63,037.53 | TP: $66,896.97 | Event: N/A
+2026-08-18 03:40:11,594 [INFO] 📊 BTC @ $64,324.01 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:16,810 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,037.53 ➔ $63,359.15
+2026-08-18 03:40:16,811 [INFO] 📊 BTC @ $64,324.00 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:22,148 [INFO] 📊 BTC @ $64,324.01 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:27,502 [INFO] 📊 BTC @ $64,324.01 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:32,850 [INFO] 📊 BTC @ $64,324.01 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:38,152 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,359.15 ➔ $63,361.65
+2026-08-18 03:40:38,152 [INFO] 📊 BTC @ $64,326.55 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:43,470 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,361.65 ➔ $63,370.56
+2026-08-18 03:40:43,470 [INFO] 📊 BTC @ $64,335.59 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:48,709 [INFO] 📊 BTC @ $64,333.57 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:53,975 [INFO] 📊 BTC @ $64,332.56 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:40:59,333 [INFO] 📊 BTC @ $64,325.44 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:04,638 [INFO] 📊 BTC @ $64,325.44 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:09,930 [INFO] 📊 BTC @ $64,325.45 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:15,295 [INFO] 📊 BTC @ $64,325.45 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:20,627 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:25,974 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:31,274 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:36,580 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:41,858 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:47,188 [INFO] 📊 BTC @ $64,321.18 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:52,514 [INFO] 📊 BTC @ $64,321.18 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:41:57,898 [INFO] 📊 BTC @ $64,321.19 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:03,136 [INFO] 📊 BTC @ $64,321.18 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:08,456 [INFO] 📊 BTC @ $64,321.18 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:13,752 [INFO] 📊 BTC @ $64,321.18 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:19,065 [INFO] 📊 BTC @ $64,318.03 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:24,405 [INFO] 📊 BTC @ $64,318.03 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:29,681 [INFO] 📊 BTC @ $64,318.02 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:34,994 [INFO] 📊 BTC @ $64,320.10 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 03:42:40,354 [INFO] 📊 BTC @ $64,320.10 | News Score: +0.00 (No Data) | Pos: LONG | Mode: PAPER
+2026-08-18 04:29:39,486 [INFO] 🤖 Master Agent started in PAPER mode (99% Confluence Gate: ENABLED).
+2026-08-18 04:29:39,974 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:40,299 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:40,380 [INFO] 📊 Signal Evaluated | Conf: 96.8% (< 99% Threshold) | Action: SKIPPED
+2026-08-18 04:29:40,380 [INFO] 📊 BTC @ $64,291.25 | Pos: NONE | Mode: PAPER
+2026-08-18 04:29:42,911 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:43,217 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:45,260 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:45,578 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:45,790 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:46,113 [WARNING] ⚠️ X API Auth Error (401): {
+  "title": "Unauthorized",
+  "type": "about:blank",
+  "status": 401,
+  "detail": "Unauthorized"
+}. Falling back to paper mode.
+2026-08-18 04:29:46,177 [INFO] 📊 Signal Evaluated | Conf: 96.8% (< 99% Threshold) | Action: SKIPPED
+2026-08-18 04:29:46,178 [INFO] 📊 BTC @ $64,291.25 | Pos: NONE | Mode: PAPER
+2026-08-18 04:41:56,194 [INFO] 🤖 Master Agent started in PAPER mode (99% Confluence Gate: ENABLED).
+2026-08-18 04:41:57,083 [INFO] 📊 Signal Evaluated | Conf: 96.8% (< 99% Threshold) | Action: SKIPPED
+2026-08-18 04:41:57,084 [INFO] 📊 BTC @ $64,356.00 | Pos: NONE | Mode: PAPER
+2026-08-18 04:52:05,661 [INFO] 🤖 Master Agent started in PAPER mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 04:52:06,706 [INFO] 🚀 ORDER OPENED: LONG 0.007765 BTC @ $64,388.27 | Conf: 96.8% | Market: FUTURES | Microstructure: PASSED
+2026-08-18 04:52:06,707 [INFO] 📊 BTC @ $64,388.27 | Pos: LONG | Mode: PAPER
+2026-08-18 04:52:11,839 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,100.50 ➔ $63,422.45
+2026-08-18 04:52:11,840 [INFO] 📊 BTC @ $64,388.26 | Pos: LONG | Mode: PAPER
+2026-08-18 04:57:51,004 [INFO] 🤖 Master Agent started in PAPER mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 04:57:52,031 [INFO] 🚀 ORDER OPENED: LONG 0.007755 BTC @ $64,475.99 | Conf: 96.8% | Market: FUTURES | Microstructure: PASSED
+2026-08-18 04:57:52,033 [INFO] 📊 BTC @ $64,475.99 | Pos: LONG | Mode: PAPER
+2026-08-18 04:57:57,156 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,186.47 ➔ $63,508.86
+2026-08-18 04:57:57,156 [INFO] 📊 BTC @ $64,476.00 | Pos: LONG | Mode: PAPER
+2026-08-18 05:02:47,118 [INFO] 🤖 Master Agent started in PAPER mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 05:02:48,188 [INFO] 📊 Signal Evaluated | Conf: 96.8% | Action: SKIPPED (Microstructure Filter Failed (Spread: 0.0%, Depth: $243,600))
+2026-08-18 05:02:48,189 [INFO] 📊 BTC @ $64,554.54 | Pos: NONE | Mode: PAPER
+2026-08-18 05:05:18,849 [INFO] 🤖 Master Agent started in PAPER mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 05:05:19,955 [INFO] 🚀 ORDER OPENED: LONG 0.007749 BTC @ $64,522.03 | Conf: 96.8% | Market: FUTURES | Microstructure: PASSED
+2026-08-18 05:05:19,956 [INFO] 📊 BTC @ $64,522.03 | Pos: LONG | Mode: PAPER
+2026-08-18 05:05:25,065 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,231.59 ➔ $63,554.20
+2026-08-18 05:05:25,067 [INFO] 📊 BTC @ $64,521.68 | Pos: LONG | Mode: PAPER
+2026-08-18 05:06:40,037 [INFO] 🤖 Master Agent started in LIVE mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 05:06:41,087 [INFO] 🚀 ORDER OPENED: LONG 0.007751 BTC @ $64,508.81 | Conf: 96.8% | Market: FUTURES | Microstructure: PASSED
+2026-08-18 05:06:41,090 [INFO] 📊 BTC @ $64,508.81 | Pos: LONG | Mode: LIVE
+2026-08-18 05:06:46,195 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,218.63 ➔ $63,541.19
+2026-08-18 05:06:46,196 [INFO] 📊 BTC @ $64,508.82 | Pos: LONG | Mode: LIVE
+2026-08-18 05:09:05,186 [INFO] 🤖 Master Agent started in LIVE mode (90% Confluence Gate + Microstructure Filter: ENABLED).
+2026-08-18 05:09:06,323 [INFO] 🚀 ORDER OPENED: LONG 0.007751 BTC @ $64,508.82 | Conf: 96.8% | Market: FUTURES | Microstructure: PASSED
+2026-08-18 05:09:06,326 [INFO] 📊 BTC @ $64,508.82 | Pos: LONG | Mode: LIVE
+2026-08-18 05:09:11,447 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,218.64 ➔ $63,541.19
+2026-08-18 05:09:11,447 [INFO] 📊 BTC @ $64,508.82 | Pos: LONG | Mode: LIVE
+2026-08-18 05:12:54,026 [INFO] 🤖 Master Agent started in LIVE mode (FUTURES ONLY | Target: $1,000/day | 90% Gate: ENABLED).
+2026-08-18 05:12:54,026 [INFO] 📋 System Prompt Loaded:
+You are the CoinDCX Max-Level Trading Brain for FUTURES only.
+
+CORE OBJECTIVE:
+- As soon as funds are deposited, start doing FULLY AUTOMATED LIVE futures trades.
+- Do NOT run in PAPER mode when real funds are available. Mode must be LIVE.
+
+SIGNAL & ENTRY RULES:
+- Use all available tools:
+  - X (Twitter) API: track @elonmusk, @realDonaldTrump, and other high-impact accounts.
+  - LLM/NLP sentiment, conviction, novelty, and market impact.
+  - Market data: price, volume, order book, recent trades, funding rates, open interest.
+- Only take a trade when:
+  - Confluence score >= 90%.
+  - Microstructure filter passes (spread, depth, trade flow confirmation).
+
+PROFIT TARGET:
+- Target: at least $1,000 USD profit per day.
+- If daily realized P&L reaches +$1,000, reduce position size or pause new entries to lock in profit.
+
+RISK & POSITION SIZING:
+- All calculations in USD ($).
+- Use aggressive but controlled sizing to aim for the $1,000/day target.
+- Always use stop-loss and take-profit on every trade.
+- Respect exchange margin and liquidation constraints.
+
+DISPLAY:
+- Show all values in USD ($): balance, P&L, position size, profit/loss.
+- Mode must display as LIVE once funds are available and API keys are configured.
+2026-08-18 05:12:55,062 [INFO] 🚀 FUTURES ORDER OPENED: LONG 0.015508 BTC @ $64,480.76 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:12:55,064 [INFO] 📊 BTC @ $64,480.76 | Daily PnL: $+0.00 / $1,000 | Pos: LONG | Mode: LIVE
+2026-08-18 05:13:00,197 [INFO] 📈 TRAILING SL UPGRADED (LONG): $63,191.14 ➔ $63,513.55
+2026-08-18 05:13:00,197 [INFO] 📊 BTC @ $64,480.76 | Daily PnL: $+0.00 / $1,000 | Pos: LONG | Mode: LIVE
+2026-08-18 05:15:33,094 [INFO] 🤖 Master Agent started in LIVE mode (MULTI-ALTCOIN FUTURES | Coins: BTC, ETH, SOL, DOGE, XRP, ADA, AVAX, MATIC, LINK, PEPE, SHIB, SUI, APT | Target: $1,000/day).
+2026-08-18 05:15:34,378 [INFO] 🚀 BTC FUTURES ORDER OPENED: LONG 0.01551 BTC @ $64,476.42 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:15:35,548 [INFO] 🚀 ETH FUTURES ORDER OPENED: LONG 0.05 ETH @ $1,912.57 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:15:36,715 [INFO] 🚀 SOL FUTURES ORDER OPENED: LONG 0.05 SOL @ $75.95 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:15:37,917 [INFO] 🚀 DOGE FUTURES ORDER OPENED: LONG 0.05 DOGE @ $0.07 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:15:39,063 [INFO] 🚀 XRP FUTURES ORDER OPENED: LONG 0.05 XRP @ $1.00 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:33,831 [WARNING] ⚠️ COINDCX_API_SECRET is set to 'your_api_secret_here' in .env! Please paste your real API Secret in .env to place real orders.
+2026-08-18 05:38:33,831 [INFO] 🤖 Master Agent started in PAPER mode (MULTI-ALTCOIN FUTURES | Coins: BTC, ETH, SOL, DOGE, XRP, ADA, AVAX, MATIC, LINK, PEPE, SHIB, SUI, APT | Target: $1,000/day).
+2026-08-18 05:38:34,955 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:34,955 [INFO] 🚀 BTC FUTURES ORDER OPENED: LONG 0.015521 BTC @ $64,429.53 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:36,029 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:36,030 [INFO] 🚀 ETH FUTURES ORDER OPENED: LONG 0.05 ETH @ $1,910.51 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:37,082 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:37,083 [INFO] 🚀 SOL FUTURES ORDER OPENED: LONG 0.05 SOL @ $75.94 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:38,105 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:38,106 [INFO] 🚀 DOGE FUTURES ORDER OPENED: LONG 0.05 DOGE @ $0.07 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:39,182 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:39,183 [INFO] 🚀 XRP FUTURES ORDER OPENED: LONG 0.05 XRP @ $1.00 | Conf: 96.8% | Target: $1,000/day
+2026-08-18 05:38:40,234 [ERROR] ❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!
+2026-08-18 05:38:40,234 [INFO] 🚀 ADA FUTURES ORDER OPENED: LONG 0.05 ADA @ $0.17 | Conf: 96.8% | Target: $1,000/day
