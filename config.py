@@ -11,25 +11,16 @@ from coindcx_futures_mapper import futures_mapper
 
 # System Prompt & Core Objective Configuration
 AGENT_SYSTEM_PROMPT = """
-You are the CoinDCX Ultra-Aggressive 1m Altcoin Scalping Trading Brain.
+You are the CoinDCX High-Conviction +20% Profit Altcoin Futures Trading Brain.
 
 CORE OBJECTIVE:
 - Initial Equity: $9.65 USD
-- Ultra-Aggressive Risk Per Trade: 50% of equity per trade
-- Daily Profit Target: $100.00 USD / day
-- Daily Max Loss Limit: $9.65 USD (Full account protection stop)
-- Target Assets: Top 5 Trending Altcoins (ETH, SOL, XRP, DOGE, AVAX, LINK, PEPE, SHIB, SUI, APT, etc. Excludes BTC).
-
-SIGNAL & ENTRY RULES:
-- Confluence score >= 90%.
-- 1m Candle Trend & MA20 filter.
-- Top 5 Trending Altcoins 1h momentum ranking.
-- Fully automated LIVE futures execution.
-
-PROFIT & LOSS TARGETS:
-- Take-Profit (TP): +1.0%
-- Stop-Loss (SL): -0.5%
-- Breakeven Trigger: +0.3% (locks in profit)
+- Full Margin / Max Leverage Utilization: 100% of equity per trade
+- Target Profit Per Trade: +20.0%
+- Stop-Loss Per Trade: -10.0%
+- Strict Confluence Gate: >= 98.0% (Perfect setups only)
+- Daily Profit Goal: $100.00 USD / day
+- Target Assets: Top 5 Trending Altcoins (Excludes BTC)
 """
 
 # Base Currency Configuration
@@ -51,29 +42,32 @@ SYMBOL_SPOT = "ETHUSDT"
 SYMBOL_FUTURES = futures_mapper.get_dcx_future_symbol("ETH")
 CANDLE_PAIR = "B-ETH_USDT"
 
-# Ultra-Aggressive Strategy Settings
-HIGH_CONFIDENCE_THRESHOLD = 90.0  # Confluence Gate >= 90%
-EQUITY_USD = 9.65                 # $9.65 USD Initial Balance
-RISK_PER_TRADE_PCT = 50.0         # 50% equity risk per scalp
-DEFAULT_MAX_DAILY_TARGET_USD = 100.0 # $100.00 USD Daily Profit Target
-DAILY_LOSS_LIMIT_USD = 9.65       # $9.65 USD Daily Loss Limit Guard
-MAX_TRADES_PER_DAY = 50
+# High-Conviction Strategy Settings
+MIN_CONFLUENCE_PCT = 98.0         # Strict 98%+ Confluence Gate for Perfect Setups
+HIGH_CONFIDENCE_THRESHOLD = 98.0
+EQUITY_USD = 9.65                 # $9.65 USD Balance
+RISK_PER_TRADE_PCT = 100.0        # 100% Equity / Max Leverage Utilization
+PROFIT_TARGET_PCT = 0.20          # +20.0% Profit Target Per Trade
+STOP_LOSS_PCT = 0.10              # -10.0% Stop-Loss Per Trade
+DEFAULT_MAX_DAILY_TARGET_USD = 100.0 # $100.00 USD Daily Target
+DAILY_LOSS_LIMIT_USD = 9.65       # $9.65 USD Daily Loss Stop
+MAX_TRADES_PER_DAY = 20
 
 def get_dynamic_daily_target_usd(equity_usd: float) -> float:
     return DEFAULT_MAX_DAILY_TARGET_USD
 
-# Risk & Protection (1m Scalp Parameters)
-DEFAULT_SL_PCT = 0.005            # -0.5% Stop-Loss
-DEFAULT_TP_PCT = 0.010            # +1.0% Take-Profit
-BREAKEVEN_PROFIT_PCT = 0.003      # +0.3% Breakeven Trigger
-TRAILING_STOP_PCT = 0.003         # 0.3% Trailing Stop distance
+# Risk & Protection Parameters
+DEFAULT_SL_PCT = 0.10             # -10.0% Stop-Loss
+DEFAULT_TP_PCT = 0.20             # +20.0% Take-Profit
+BREAKEVEN_PROFIT_PCT = 0.05       # +5.0% Breakeven Trigger
+TRAILING_STOP_PCT = 0.03          # 3.0% Trailing Stop distance
 LIQUIDATION_SAFETY_BUFFER_PCT = 0.20  # 20% safety distance before liquidation
 
 # Leverage & Margin
-MAX_LEVERAGE_CAP = 5              # 5x leverage cap for major coins
-ALTCOIN_LEVERAGE_CAP = 3          # 3x leverage cap for altcoins
+MAX_LEVERAGE_CAP = 10             # Max 10x leverage cap for major coins
+ALTCOIN_LEVERAGE_CAP = 5          # Max 5x leverage cap for altcoins
 MARGIN_MODE = "isolated"          # isolated margin mode
-MAX_FUTURES_MARGIN_UTILIZATION = 0.5
+MAX_FUTURES_MARGIN_UTILIZATION = 1.0  # Full 100% margin utilization
 
 # Webhook Server Configuration
 WEBHOOK_ENABLED = os.getenv("WEBHOOK_ENABLED", "false").lower() == "true"

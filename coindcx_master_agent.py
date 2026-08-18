@@ -55,7 +55,7 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (ULTRA-AGGRESSIVE ALTCOINS | RISK: 50% | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
+        logger.info(f"🤖 Master Agent started in {mode_str} mode (HIGH-CONVICTION +20% PROFIT ALTCOINS | CONFLUENCE: >=98% | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
@@ -111,19 +111,19 @@ class MasterAgent:
                         else:
                             state["lowest"] = min(state.get("lowest", mark_price), mark_price)
 
-                        # ZERO-LOSS BREAK-EVEN GUARD (+0.3% Profit = SL moved to Entry + Fees)
+                        # ZERO-LOSS BREAK-EVEN GUARD (+5.0% Profit = SL moved to Entry + Fees)
                         is_breakeven_set = state.get("is_breakeven_set", False)
                         if not is_breakeven_set:
-                            if side == "LONG" and mark_price >= entry * (1 + BREAKEVEN_PROFIT_PCT):
-                                be_sl = round(entry * 1.003, 2)
+                            if side == "LONG" and mark_price >= entry * 1.05:
+                                be_sl = round(entry * 1.03, 2)
                                 if be_sl > current_sl:
-                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} LONG): Profit +0.3% reached! SL moved to +0.3% profit lock (${be_sl:,.2f})")
+                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} LONG): Profit +5.0% reached! SL moved to +3.0% profit lock (${be_sl:,.2f})")
                                     state["sl_price"] = be_sl
                                     state["is_breakeven_set"] = True
-                            elif side == "SHORT" and mark_price <= entry * (1 - BREAKEVEN_PROFIT_PCT):
-                                be_sl = round(entry * 0.997, 2)
+                            elif side == "SHORT" and mark_price <= entry * 0.95:
+                                be_sl = round(entry * 0.97, 2)
                                 if current_sl == 0 or be_sl < current_sl:
-                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} SHORT): Profit +0.3% reached! SL moved to +0.3% profit lock (${be_sl:,.2f})")
+                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} SHORT): Profit +5.0% reached! SL moved to +3.0% profit lock (${be_sl:,.2f})")
                                     state["sl_price"] = be_sl
                                     state["is_breakeven_set"] = True
 
@@ -154,7 +154,7 @@ class MasterAgent:
                             del self.active_positions[coin]
                         elif (side == "LONG" and mark_price >= state.get("tp_price", 0.0)) or \
                              (side == "SHORT" and mark_price <= state.get("tp_price", 0.0)):
-                            logger.info(f"🎯 TAKE-PROFIT TRIGGERED ({coin} {side}): ${mark_price:,.2f}")
+                            logger.info(f"🎯 +20% TAKE-PROFIT TRIGGERED ({coin} {side}): ${mark_price:,.2f}")
                             del self.active_positions[coin]
 
                     # 2) Signal Evaluation for New FUTURES Entries
@@ -163,12 +163,12 @@ class MasterAgent:
                         conf = sig["confidence"]
                         side = sig.get("side", "LONG")
 
-                        if sig.get("action") == "EXECUTE" and conf >= 90.0:
+                        if sig.get("action") == "EXECUTE" and conf >= 98.0:
                             m_type = "futures"
                             coin_risk = futures_mapper.get_coin_risk_params(coin)
                             leverage = apply_leverage_cap(coin_risk["leverage"])
-                            sl_price = sig.get("sl_price", round(mark_price * 0.995, 2))
-                            tp_price = sig.get("tp_price", round(mark_price * 1.010, 2))
+                            sl_price = sig.get("sl_price", round(mark_price * 0.90, 2))
+                            tp_price = sig.get("tp_price", round(mark_price * 1.20, 2))
                             size = calc_position_size(equity, mark_price, sl_price, coin)
                             liq_price = calc_liquidation_price(mark_price, side, leverage)
 
@@ -184,7 +184,7 @@ class MasterAgent:
 
                             if isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]:
                                 order_id = resp[0]["id"]
-                                logger.info(f"🚀 {coin} LIVE ALTCOIN FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Order ID: {order_id}")
+                                logger.info(f"🚀 {coin} PERFECT +20% ALTCOIN FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
                                 self.active_positions[coin] = {
                                     "coin": coin,
                                     "side": side,
@@ -198,7 +198,7 @@ class MasterAgent:
                                     "liquidation_price": liq_price,
                                     "confidence": conf,
                                     "is_breakeven_set": False,
-                                    "signal_source": f"90%_ALTCOIN_{coin}_1M_SCALP",
+                                    "signal_source": f"98%_PERFECT_ALTCOIN_{coin}_20PCT_SCALP",
                                     "news_summary": sig.get("summary", "N/A")
                                 }
 
