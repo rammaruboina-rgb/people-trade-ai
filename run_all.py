@@ -1,9 +1,10 @@
 # run_all.py
 """
 Single-Terminal Interactive Master Runner for CoinDCX Autonomous Agent
-Provides interactive START / SEARCH & FOCUS BAR before launching live trading.
+Supports Interactive Start Screen AND `--coin <SYMBOL>` Search CLI Argument (e.g. python run_all.py --coin SUI)
 """
 
+import argparse
 import threading
 import time
 import sys
@@ -30,6 +31,11 @@ logging.getLogger("fastapi").setLevel(logging.WARNING)
 agent_instance = None
 trading_active = False
 
+def parse_args():
+    parser = argparse.ArgumentParser(description="CoinDCX 20X Scalper with Coin Focus Bar")
+    parser.add_argument("--coin", "-c", type=str, default=None, help="Target specific coin symbol to focus (e.g. SUI, AVAX, PEPE, NEAR, APT, FIL)")
+    return parser.parse_known_args()[0]
+
 def start_master_agent_thread():
     """Background Thread: Runs technical + news strategy execution & risk management"""
     global agent_instance, trading_active
@@ -51,10 +57,15 @@ def start_webhook_server_thread():
     except Exception as e:
         print(f"❌ Webhook server thread error: {e}", file=sys.stderr)
 
-def prompt_user_start():
+def prompt_user_start(cli_coin: str = None):
     """Displays Interactive Start Screen & Search Bar to Focus on a Particular Coin"""
     console = Console()
     
+    if cli_coin:
+        set_focus_coin(cli_coin)
+        console.print(f"\n🎯 TARGETED FOCUS MODE ACTIVATED VIA CLI: TRADING {config.TARGETED_FOCUS_COIN} ONLY!\n", style="bold green reverse")
+        return
+
     start_banner = Text()
     start_banner.append("🚀 COINDCX 20X AUTONOMOUS FUTURES TRADER\n\n", style="bold yellow")
     start_banner.append("💵 Equity Capital Base: $9.52 USDT\n", style="bold green")
@@ -81,8 +92,10 @@ def prompt_user_start():
         console.print("\n🌐 MULTI-ALTCOIN MODE ACTIVATED: TRADING ALL TOP VOLATILE ALTCOINS!\n", style="bold green")
 
 def main():
+    args = parse_args()
+
     # 1. Interactive Start & Coin Search Bar Prompt
-    prompt_user_start()
+    prompt_user_start(cli_coin=args.coin)
 
     # 2. Start Master Agent in Background Thread
     agent_thread = threading.Thread(target=start_master_agent_thread, daemon=True)

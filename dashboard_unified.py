@@ -1,8 +1,7 @@
 # dashboard_unified.py
 """
 Unified Terminal Dashboard for CoinDCX Master Trading Agent
-Renders real-time Wallet Equity, Active Futures Positions, Live Signals & Trade Ledger.
-Displays Targeted Coin Focus Mode status header.
+Renders real-time Wallet Equity, Active Futures Positions, Live Signals, Trade Ledger & Search/Focus Bar.
 """
 
 import os
@@ -32,7 +31,7 @@ class UnifiedDashboardApp:
         header_text.append("🚀 COINDCX 20X AUTONOMOUS FUTURES TRADER  |  ", style="bold yellow")
         
         if config.TARGETED_FOCUS_COIN:
-            header_text.append(f"🎯 FOCUS MODE: {config.TARGETED_FOCUS_COIN} ONLY  |  ", style="bold green reverse")
+            header_text.append(f"🎯 TARGETED FOCUS: {config.TARGETED_FOCUS_COIN} ONLY  |  ", style="bold green reverse")
         else:
             header_text.append("🌐 MODE: MULTI-ALTCOIN BASKET  |  ", style="bold cyan")
 
@@ -100,7 +99,7 @@ class UnifiedDashboardApp:
         table.add_column("Size", justify="center")
         table.add_column("Signal Source", justify="center")
 
-        recent = list(reversed(trades[-6:])) if trades else []
+        recent = list(reversed(trades[-5:])) if trades else []
         for t in recent:
             side = t.get("side", "LONG")
             side_style = "bold green" if side == "LONG" or side == "BUY" else "bold red"
@@ -118,11 +117,25 @@ class UnifiedDashboardApp:
 
         return Panel(table, border_style="magenta", title="[bold yellow]RECENT EXECUTION LEDGER[/bold yellow]")
 
+    def generate_search_bar_panel(self) -> Panel:
+        search_text = Text()
+        search_text.append("🔍 TARGET COIN SEARCH BAR: ", style="bold yellow")
+        
+        if config.TARGETED_FOCUS_COIN:
+            search_text.append(f" [FOCUSED ON: {config.TARGETED_FOCUS_COIN}] ", style="bold green reverse")
+            search_text.append("  |  To change coin: run `python run_all.py --coin <SYMBOL>` (e.g. --coin SUI)", style="dim white")
+        else:
+            search_text.append(" [MODE: ALL ALTCOINS SCANNER] ", style="bold cyan reverse")
+            search_text.append("  |  To focus specific coin: run `python run_all.py --coin <SYMBOL>` (e.g. --coin SUI, AVAX, PEPE)", style="dim white")
+
+        return Panel(Align.center(search_text), border_style="yellow", title="[bold cyan]TARGET COIN FOCUS & SEARCH CONTROL[/bold cyan]")
+
     def generate_layout(self) -> Layout:
         layout = Layout()
         layout.split_column(
             Layout(name="header", size=3),
-            Layout(name="main", ratio=1)
+            Layout(name="main", ratio=1),
+            Layout(name="search_bar", size=3)
         )
         layout["main"].split_column(
             Layout(name="account", size=5),
@@ -141,5 +154,6 @@ class UnifiedDashboardApp:
         layout["account"].update(self.generate_account_panel(balances, realized_pnl, unrealized_pnl))
         layout["positions"].update(self.generate_positions_table(positions))
         layout["trades"].update(self.generate_recent_trades_table(trades))
+        layout["search_bar"].update(self.generate_search_bar_panel())
 
         return layout
