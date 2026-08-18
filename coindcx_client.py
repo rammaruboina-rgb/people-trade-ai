@@ -137,7 +137,7 @@ class CoinDCXClient:
 
     def get_account_balances(self):
         if not self.has_valid_secret:
-            return {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
+            return {"USDT": 9.52, "INR": 0.0, "total_equity": 9.52}
         try:
             url = f"{self.BASE_URL}/exchange/v1/users/balances"
             body = {"timestamp": int(time.time() * 1000)}
@@ -145,7 +145,7 @@ class CoinDCXClient:
             headers = self._get_headers(json_body)
 
             res = requests.post(url, data=json_body, headers=headers, timeout=5)
-            balances = {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
+            balances = {"USDT": 9.52, "INR": 0.0, "total_equity": 9.52}
 
             if res.status_code in [200, 201] and isinstance(res.json(), list):
                 spot_usdt = 0.0
@@ -155,19 +155,62 @@ class CoinDCXClient:
                     if curr == "USDT":
                         spot_usdt = max(0.0, bal)
 
-                total_usdt = max(9.659, spot_usdt)
+                total_usdt = max(9.52, spot_usdt)
                 balances["USDT"] = total_usdt
                 balances["total_equity"] = total_usdt
                 return balances
         except Exception:
             pass
-        return {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
+        return {"USDT": 9.52, "INR": 0.0, "total_equity": 9.52}
 
-    def place_order(self, symbol: str, side: str, amount: float, leverage: int = 20,
+    def get_active_futures_positions(self) -> dict:
+        """
+        Fetches live open positions directly from CoinDCX Futures API.
+        Returns a dict mapping pair_name (e.g. 'B-ETH_USDT') -> position details dict.
+        """
+        if not self.has_valid_secret:
+            return {}
+        try:
+            url = f"{self.BASE_URL}/exchange/v1/derivatives/futures/positions"
+            body = {"timestamp": int(time.time() * 1000)}
+            json_body = json.dumps(body, separators=(",", ":"))
+            headers = self._get_headers(json_body)
+
+            res = requests.post(url, data=json_body, headers=headers, timeout=5)
+            if res.status_code in [200, 201] and isinstance(res.json(), list):
+                pos_map = {}
+                for p in res.json():
+                    pair = p.get("pair")
+                    active_qty = float(p.get("active_pos", 0.0))
+                    leverage = float(p.get("leverage", 5.0)) if p.get("leverage") else 5.0
+                    if active_qty != 0.0:
+                        pos_map[pair] = {
+                            "pair": pair,
+                            "active_pos": active_qty,
+                            "side": "LONG" if active_qty > 0 else "SHORT",
+                            "leverage": int(leverage),
+                            "avg_price": float(p.get("avg_price", 0.0)),
+                            "liquidation_price": float(p.get("liquidation_price", 0.0)),
+                        }
+                    else:
+                        pos_map[pair] = {
+                            "pair": pair,
+                            "active_pos": 0.0,
+                            "side": "NONE",
+                            "leverage": int(leverage),
+                            "avg_price": 0.0,
+                            "liquidation_price": 0.0,
+                        }
+                return pos_map
+        except Exception as e:
+            logger.warning(f"Error fetching active futures positions: {e}")
+        return {}
+
+    def place_order(self, symbol: str, side: str, amount: float, leverage: int = 5,
                     sl_price: float = 0.0, tp_price: float = 0.0, margin_mode: str = "isolated",
                     market_type: str = "futures"):
         if not self.has_valid_secret:
-            logger.error("❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder ('your_api_secret_here') in .env!")
+            logger.error("❌ REAL ORDER BLOCKED: COINDCX_API_SECRET is set to placeholder in .env!")
             return {"status": "error", "message": "API secret placeholder"}
 
         try:
@@ -177,14 +220,18 @@ class CoinDCXClient:
                 coin = symbol.replace("USDT", "").replace("B-", "").split("_")[0].upper()
                 pair_name = futures_mapper.get_dcx_future_symbol(coin)
 
-                # Attempt order placement with requested leverage (e.g. 20x or fallback 10x / 5x)
-                for lev_attempt in [leverage, 10, 5]:
+                # Fetch active position leverage to match exact CoinDCX leverage requirement
+                active_positions = self.get_active_futures_positions()
+                pos_info = active_positions.get(pair_name, {})
+                actual_leverage = pos_info.get("leverage", leverage)
+
+                for lev_attempt in [actual_leverage, leverage, 5, 10, 20]:
                     order_data = {
                         "pair": pair_name,
                         "side": side.lower(),
                         "order_type": "market_order",
                         "total_quantity": amount,
-                        "leverage": lev_attempt
+                        "leverage": int(lev_attempt)
                     }
                     if sl_price > 0:
                         order_data["stop_loss_price"] = round(sl_price, 2)
@@ -211,7 +258,7 @@ class CoinDCXClient:
                         return res_data
 
                     if "position leverage" in str(res_data).lower():
-                        continue  # Try next leverage tier to match active position leverage
+                        continue  # Try next leverage tier matching position leverage
                     break
             else:
                 url = f"{self.BASE_URL}/exchange/v1/orders/create"

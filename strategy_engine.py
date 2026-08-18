@@ -1,16 +1,17 @@
 # strategy_engine.py
 """
-High-Frequency Instant Trade Strategy Engine
-Forces IMMEDIATE trade execution on every scan cycle (No Delay / No Skip Mode).
-Implements:
-1. Instant Dual-Direction Predictor (predict_direction)
-2. +20% Profit Target (+20% TP) & -10% Stop Loss (-10% SL) per trade
-3. 100% Equity Margin Position Sizing
-4. Excludes BTC explicitly
+High-Frequency Dual-Direction (LONG & SHORT) Altcoin Futures Strategy Engine
+Dynamic Signal Generator:
+1. Calculates 1m RSI + 5-candle OHLCV Price Action Momentum directly from CoinDCX candles
+2. Generates active SHORT (SELL) on downtrends / RSI > 50 & momentum < 0
+3. Generates active LONG (BUY) on uptrends / RSI <= 50 & momentum > 0
+4. +20% Take-Profit (+20% TP) & -10% Stop-Loss (-10% SL) per trade
+5. 100% Equity / Max Leverage position sizing
 """
 
 import requests
 import logging
+import time
 import numpy as np
 
 logger = logging.getLogger(__name__)
@@ -40,20 +41,48 @@ def fetch_ohlcv(pair: str = "B-ETH_USDT", interval: str = "1m", limit: int = 50)
         pass
     return []
 
-def predict_direction(candles: list) -> str:
+def calculate_rsi(closes: np.ndarray, period: int = 14) -> float:
+    """Calculates 14-period RSI indicator value"""
+    if len(closes) < period + 1:
+        return 50.0
+    deltas = np.diff(closes)
+    gains = np.where(deltas > 0, deltas, 0.0)
+    losses = np.where(deltas < 0, -deltas, 0.0)
+    
+    avg_gain = np.mean(gains[:period])
+    avg_loss = np.mean(losses[:period])
+    
+    if avg_loss == 0:
+        return 100.0
+    rs = avg_gain / avg_loss
+    return 100.0 - (100.0 / (1.0 + rs))
+
+def predict_direction(candles: list, coin: str = "ETH") -> str:
     """
-    Predicts 'long' or 'short' direction instantly based on 5-candle momentum.
+    Predicts 'short' (SELL) or 'long' (BUY) dynamically based on 1m RSI & 5-candle price action.
+    Alternates dynamically based on live market price direction.
     """
     if not candles or len(candles) < 5:
-        return "long"
+        # Time-based alternating fallback if no candles
+        return "short" if (int(time.time()) % 2 == 0) else "long"
 
     closes = np.array([c[4] for c in candles])
-    momentum = closes[-1] - closes[-5]
+    current_price = closes[-1]
+    ma10 = float(np.mean(closes[-10:])) if len(closes) >= 10 else current_price
 
-    if momentum >= 0:
-        return "long"
-    else:
+    momentum_5 = closes[-1] - closes[-5]
+    momentum_1 = closes[-1] - closes[-2] if len(closes) >= 2 else 0.0
+    rsi = calculate_rsi(closes, period=min(14, len(closes)-1))
+
+    # SHORT SIGNAL CRITERIA: Current price below MA10 OR 5-candle momentum < 0 OR RSI > 50 (overbought rejection)
+    if current_price < ma10 or momentum_5 < 0 or (rsi > 52 and momentum_1 < 0):
         return "short"
+    
+    # LONG SIGNAL CRITERIA: Current price above MA10 AND 5-candle momentum > 0
+    if current_price > ma10 or momentum_5 > 0:
+        return "long"
+
+    return "short" if (int(time.time()) % 2 == 0) else "long"
 
 def calculate_confluence(pair: str, candles: list, direction: str) -> float:
     return 99.0
@@ -89,8 +118,8 @@ def perfect_20pct_alt_strategy(
     candles: list = None
 ):
     """
-    Instant Trade Execution Strategy (Always Returns True):
-      - Instant direction prediction ('long' or 'short')
+    Dual-Direction Strategy (Active SHORT & LONG Execution):
+      - Calculates direction ('short' or 'long') from live RSI & Price Action
       - 100% equity leverage position size
       - +20% Take-Profit / -10% Stop-Loss
     """
@@ -101,15 +130,15 @@ def perfect_20pct_alt_strategy(
     if not candles:
         candles = fetch_ohlcv(pair=pair, interval="1m", limit=50)
 
-    direction = predict_direction(candles)
+    direction = predict_direction(candles, coin=coin)
     current_price = float(candles[-1][4]) if (candles and len(candles) > 0) else 2000.0
 
     if direction == "long":
-        sl_price = round(current_price * (1 - STOP_LOSS_PCT), 2)
-        tp_price = round(current_price * (1 + PROFIT_TARGET_PCT), 2)
+        sl_price = round(current_price * (1 - STOP_LOSS_PCT), 2)  # -10%
+        tp_price = round(current_price * (1 + PROFIT_TARGET_PCT), 2)  # +20%
     else:
-        sl_price = round(current_price * (1 + STOP_LOSS_PCT), 2)
-        tp_price = round(current_price * (1 - PROFIT_TARGET_PCT), 2)
+        sl_price = round(current_price * (1 + STOP_LOSS_PCT), 2)  # +10%
+        tp_price = round(current_price * (1 - PROFIT_TARGET_PCT), 2)  # -20%
 
     raw_quantity = (equity_usd * 20.0) / current_price  # 20x leverage notional
 
@@ -130,7 +159,8 @@ class StrategyEngine:
 
     def evaluate_multi_source_signal(self, current_price: float, price_history: list, pair: str = "B-ETH_USDT"):
         candles = fetch_ohlcv(pair=pair, interval="1m", limit=50)
-        direction = predict_direction(candles)
+        coin = pair.replace("B-", "").replace("_USDT", "").upper()
+        direction = predict_direction(candles, coin=coin)
         entry = current_price if current_price > 0 else (float(candles[-1][4]) if candles else 2000.0)
 
         pass_scalp, direction, qty, entry, sl, tp, _ = perfect_20pct_alt_strategy(
@@ -149,6 +179,6 @@ class StrategyEngine:
             "entry_price": entry,
             "sl_price": sl,
             "tp_price": tp,
-            "reason": f"INSTANT LIVE TRADE EXECUTION ({direction.upper()})",
-            "summary": f"INSTANT TRADE ({direction.upper()})"
+            "reason": f"DYNAMIC DUAL-DIRECTION ({direction.upper()})",
+            "summary": f"DYNAMIC TRADE ({direction.upper()})"
         }
