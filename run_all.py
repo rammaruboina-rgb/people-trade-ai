@@ -4,7 +4,7 @@ Single-Terminal Master Runner for CoinDCX Autonomous Agent
 Runs:
 1. Autonomous Master Trading Loop (Background Thread)
 2. TradingView Webhook Listener Server (Background Thread - Optional via WEBHOOK_ENABLED)
-3. Live Rich Terminal Dashboard (Foreground Single Terminal Window)
+3. Live Rich Terminal Dashboard (Foreground Single Terminal Window with Full-Screen Screen Refresh)
 """
 
 import threading
@@ -66,14 +66,14 @@ def main():
     print("📺 Launching Unified Dashboard in 2 seconds...")
     time.sleep(2)
 
-    # 3. Render Live Dashboard in Foreground Single Terminal
+    # 3. Render Live Dashboard in Full Screen Alternate Terminal Buffer (No Line Stacking)
     dash_app = UnifiedDashboardApp()
     console = Console()
 
     try:
-        with Live(dash_app.generate_layout(), console=console, refresh_per_second=1) as live:
+        with Live(dash_app.generate_layout(), console=console, refresh_per_second=1, screen=True) as live:
             while True:
-                time.sleep(1.5)
+                time.sleep(1.0)
                 live.update(dash_app.generate_layout())
     except KeyboardInterrupt:
         print("\n👋 CoinDCX Autonomous Agent shutdown cleanly. Goodbye!")
