@@ -2,7 +2,7 @@
 """
 Centralized Configuration Module for CoinDCX Master Trading Agent
 Updated for Multi-Trade Concurrent Scalping (Up to 3 Simultaneous Active Trades)
-and a realistic $20.00 USD Daily Profit Target.
+and Pure Altcoin Futures Scalping (EXCLUDES BTC, ETH, DOGE, LTC, ADA).
 """
 
 import os
@@ -43,17 +43,19 @@ WEBHOOK_HOST = os.getenv("WEBHOOK_HOST", "0.0.0.0")
 WEBHOOK_PORT = int(os.getenv("WEBHOOK_PORT", "5000"))
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "super_secret_webhook_token_123")
 
-# CoinDCX Symbol Defaults (No BTC)
-SYMBOL_SPOT = "ETHUSDT"
-SYMBOL_FUTURES = "B-ETH_USDT"
-CANDLE_PAIR = "B-ETH_USDT"
+# CoinDCX Symbol Defaults (Pure Altcoin Default: SOL)
+SYMBOL_SPOT = "SOLUSDT"
+SYMBOL_FUTURES = "B-SOL_USDT"
+CANDLE_PAIR = "B-SOL_USDT"
 CURRENCY = "USDT"
 
+# Explicitly Excluded: BTC, ETH, DOGE, LTC, ADA
+EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA"]
+
 ALLOWED_FUTURES_COINS = [
-    "ETH", "SOL", "XRP", "BNB", "ADA", "DOGE", "TRX", "LTC", "BCH", "EOS",
-    "LINK", "AVAX", "DOT", "ATOM", "NEAR", "APT", "SUI", "ARB", "OP", "SEI",
-    "TON", "FIL", "INJ", "HBAR", "UNI", "ETC", "ICP", "PEPE", "SHIB", "WIF",
-    "BONK", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO", "CRV", "AAVE", "MKR"
+    "SOL", "XRP", "AVAX", "SUI", "APT", "NEAR", "DOT", "ATOM", "ARB", "OP",
+    "SEI", "TON", "FIL", "INJ", "HBAR", "UNI", "ETC", "ICP", "PEPE", "SHIB",
+    "WIF", "BONK", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO", "CRV", "AAVE", "MKR"
 ]
 
 def get_dynamic_daily_target_usd(equity_usd: float = 9.52) -> float:

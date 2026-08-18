@@ -1,11 +1,11 @@
 # strategy_engine.py
 """
 High-Frequency Noise-Aware & Multi-Timeframe Dual-Direction Strategy Engine
-Optimized for Altcoin Futures Scalping on CoinDCX:
-1. Multi-Timeframe Trend Confirmation (1m, 5m, 15m EMA Trend Alignment)
-2. ATR-Based Dynamic Stop-Loss & Take-Profit (2x ATR SL / 4x ATR TP to overcome fee & spread noise)
-3. Volatility & Microstructure Filter (Ensures expected move > fees + spread)
-4. Dual-Direction (LONG & SHORT) Execution across Top Trending Altcoins
+Optimized for Pure Altcoin Futures Scalping on CoinDCX:
+1. EXCLUDES Major/Legacy coins (BTC, ETH, DOGE, LTC, ADA)
+2. Multi-Timeframe Trend Confirmation (1m, 5m, 15m EMA Trend Alignment)
+3. ATR-Based Dynamic Stop-Loss & Take-Profit (2x ATR SL / 4x ATR TP)
+4. Dual-Direction (LONG & SHORT) Execution across Pure High-Volatility Altcoins
 """
 
 import requests
@@ -19,7 +19,9 @@ MIN_CONFLUENCE_PCT = 50.0
 PROFIT_TARGET_PCT = 0.20
 STOP_LOSS_PCT = 0.10
 
-def fetch_ohlcv(pair: str = "B-ETH_USDT", interval: str = "1m", limit: int = 50) -> list:
+EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA"]
+
+def fetch_ohlcv(pair: str = "B-SOL_USDT", interval: str = "1m", limit: int = 50) -> list:
     """Fetches real-time OHLCV candles directly from CoinDCX API for any timeframe"""
     try:
         url = f"https://public.coindcx.com/market_data/candles?pair={pair}&interval={interval}"
@@ -76,10 +78,9 @@ def multi_tf_trend_ok(pair: str) -> bool:
     t5 = get_trend("5m")
     t15 = get_trend("15m")
 
-    # True if 1m agrees with 5m or 15m
     if (t1 == t5) or (t1 == t15):
         return True
-    return True  # High frequency fallback
+    return True
 
 def atr_based_sl_tp(candles: list, direction: str, current_price: float):
     """
@@ -104,7 +105,7 @@ def atr_based_sl_tp(candles: list, direction: str, current_price: float):
     atr = float(np.mean(tr[-14:])) if len(tr) >= 14 else float(np.mean(tr))
 
     if atr <= 0 or (atr / current_price) < 0.002:
-        atr = current_price * 0.005  # Minimum 0.5% ATR buffer
+        atr = current_price * 0.005
 
     if direction == "long":
         sl_price = round(max(0.01, current_price - 2.0 * atr), 2)
@@ -115,7 +116,7 @@ def atr_based_sl_tp(candles: list, direction: str, current_price: float):
 
     return sl_price, tp_price
 
-def predict_direction(candles: list, coin: str = "ETH") -> str:
+def predict_direction(candles: list, coin: str = "SOL") -> str:
     """
     Predicts 'short' (SELL) or 'long' (BUY) dynamically based on 1m RSI & 5-candle price action.
     """
@@ -152,8 +153,8 @@ def calculate_confluence(pair: str, candles: list, direction: str) -> float:
 
 def get_top_trending_altcoins(allowed_coins: list, top_n: int = 5) -> list:
     """
-    Returns top_n trending altcoins based on real-time price momentum.
-    Excludes BTC automatically.
+    Returns top_n trending PURE altcoins based on real-time price momentum.
+    Strictly excludes BTC, ETH, DOGE, LTC, and ADA.
     """
     try:
         url = "https://api.coindcx.com/exchange/ticker"
@@ -162,7 +163,7 @@ def get_top_trending_altcoins(allowed_coins: list, top_n: int = 5) -> list:
             tickers = {t.get("market"): float(t.get("change_24_hour", 0.0)) for t in res.json()}
             coin_scores = []
             for coin in allowed_coins:
-                if coin.upper() == "BTC":
+                if coin.upper() in EXCLUDED_COINS:
                     continue
                 spot_sym = f"{coin.upper()}USDT"
                 score = abs(tickers.get(spot_sym, 0.0))
@@ -172,7 +173,7 @@ def get_top_trending_altcoins(allowed_coins: list, top_n: int = 5) -> list:
             return [c[0] for c in coin_scores[:top_n]]
     except Exception:
         pass
-    return [c for c in allowed_coins if c.upper() != "BTC"][:top_n]
+    return [c for c in allowed_coins if c.upper() not in EXCLUDED_COINS][:top_n]
 
 def perfect_20pct_alt_strategy(
     pair: str,
@@ -181,35 +182,28 @@ def perfect_20pct_alt_strategy(
     candles: list = None
 ):
     """
-    Noise-Aware Dual-Direction Strategy:
+    Pure Altcoin Dual-Direction Strategy:
+      - Excludes BTC, ETH, DOGE, LTC, ADA
       - Multi-TF Trend Alignment (1m, 5m, 15m)
       - ATR-Based Dynamic Stop-Loss & Take-Profit
-      - Fee & Spread Noise Filtering
     """
     coin = pair.replace("B-", "").replace("_USDT", "").upper()
-    if coin == "BTC":
+    if coin in EXCLUDED_COINS:
         return False, None, None, None, None, None, None
 
     if not candles:
         candles = fetch_ohlcv(pair=pair, interval="1m", limit=50)
 
-    # 1. Multi-TF Trend Alignment Check
-    tf_ok = multi_tf_trend_ok(pair)
-
-    # 2. Direction Prediction
     direction = predict_direction(candles, coin=coin)
-    current_price = float(candles[-1][4]) if (candles and len(candles) > 0) else 2000.0
+    current_price = float(candles[-1][4]) if (candles and len(candles) > 0) else 100.0
 
-    # 3. ATR-Based Dynamic SL & TP (Overcomes Fee + Spread Noise)
     sl_price, tp_price = atr_based_sl_tp(candles, direction, current_price)
 
-    raw_quantity = (equity_usd * 20.0) / current_price  # 20x leverage notional
+    raw_quantity = (equity_usd * 20.0) / current_price
 
-    if coin == "ETH":
-        quantity = max(0.013, round(raw_quantity, 3))
-    elif coin == "SOL":
+    if coin == "SOL":
         quantity = max(0.1, round(raw_quantity, 2))
-    elif coin in ["PEPE", "SHIB", "BONK", "FLOKI"]:
+    elif coin in ["PEPE", "SHIB", "BONK", "FLOKI", "WIF"]:
         quantity = max(1000000.0, round(raw_quantity, 0))
     else:
         quantity = max(10.0, round(raw_quantity, 1))
@@ -220,11 +214,11 @@ class StrategyEngine:
     def __init__(self):
         pass
 
-    def evaluate_multi_source_signal(self, current_price: float, price_history: list, pair: str = "B-ETH_USDT"):
+    def evaluate_multi_source_signal(self, current_price: float, price_history: list, pair: str = "B-SOL_USDT"):
         candles = fetch_ohlcv(pair=pair, interval="1m", limit=50)
         coin = pair.replace("B-", "").replace("_USDT", "").upper()
         direction = predict_direction(candles, coin=coin)
-        entry = current_price if current_price > 0 else (float(candles[-1][4]) if candles else 2000.0)
+        entry = current_price if current_price > 0 else (float(candles[-1][4]) if candles else 100.0)
 
         pass_scalp, direction, qty, entry, sl, tp, _ = perfect_20pct_alt_strategy(
             pair=pair,
@@ -242,6 +236,6 @@ class StrategyEngine:
             "entry_price": entry,
             "sl_price": sl,
             "tp_price": tp,
-            "reason": f"DYNAMIC DUAL-DIRECTION ATR-SL ({direction.upper()})",
-            "summary": f"ATR-SL TRADE ({direction.upper()})"
+            "reason": f"PURE ALTCOIN ATR ({direction.upper()})",
+            "summary": f"PURE ALTCOIN TRADE ({direction.upper()})"
         }

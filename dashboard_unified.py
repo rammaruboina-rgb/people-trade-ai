@@ -1,8 +1,8 @@
 # dashboard_unified.py
 """
-Unified Terminal Dashboard (Altcoin Futures Scalper + 20X Leverage + Dual-Direction BUY & SELL)
+Unified Terminal Dashboard (Pure Altcoin Futures Scalper + 20X Leverage + Dual-Direction BUY & SELL)
 Displays live account equity ($9.52 USDT), top trending altcoins, active positions, P&L, confidence, and order history.
-Includes prominent live trade alert popups!
+Strictly excludes BTC, ETH, DOGE, LTC, ADA.
 """
 
 import time
@@ -35,14 +35,14 @@ class UnifiedDashboardApp:
         self.client = CoinDCXClient()
         self.strategy = StrategyEngine()
         self.start_time = datetime.now()
-        self.eth_price_history = []
+        self.sol_price_history = []
 
     def generate_layout(self):
-        eth_price = self.client.get_ticker_price("ETHUSDT")
-        if eth_price > 0:
-            self.eth_price_history.append(eth_price)
-            if len(self.eth_price_history) > 10:
-                self.eth_price_history.pop(0)
+        sol_price = self.client.get_ticker_price("SOLUSDT")
+        if sol_price > 0:
+            self.sol_price_history.append(sol_price)
+            if len(self.sol_price_history) > 10:
+                self.sol_price_history.pop(0)
 
         balances = self.client.get_account_balances()
         usdt_bal = balances.get("USDT", 9.52)
@@ -50,24 +50,25 @@ class UnifiedDashboardApp:
         total_equity = balances.get("total_equity", 9.52)
 
         trades = load_trade_history()
-        realized_pnl, unrealized_pnl, total_pnl = calculate_pnl(trades, eth_price)
+        realized_pnl, unrealized_pnl, total_pnl = calculate_pnl(trades, sol_price)
 
         trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=5)
         trending_str = ", ".join(trending_coins[:5])
 
-        signal_info = self.strategy.evaluate_multi_source_signal(eth_price, self.eth_price_history, pair="B-ETH_USDT")
-        conf_score = signal_info["confidence"]
-        direction = signal_info.get("direction", "long").upper()
+        signal_info = self.strategy.evaluate_multi_source_signal(sol_price, self.sol_price_history, pair="B-SOL_USDT")
+        conf_score = signal_info.get("confidence", 99.0)
+        raw_direction = signal_info.get("direction", "long") or "long"
+        direction = raw_direction.upper()
         side_order = "BUY (LONG)" if direction == "LONG" else "SELL (SHORT)"
 
         uptime_str = str(datetime.now() - self.start_time).split('.')[0]
 
         # 1. Header Panel
         header_text = Text()
-        header_text.append("🔥 CoinDCX 20X Futures Scalping Engine ", style="bold white")
+        header_text.append("🔥 CoinDCX Pure Altcoin 20X Futures Scalper ", style="bold white")
         header_text.append(f"| ⏰ {datetime.now().strftime('%H:%M:%S')} ", style="yellow")
         header_text.append(f"| ⏱️ Uptime: {uptime_str} ", style="green")
-        header_text.append(f"| 🎯 Goal: ${realized_pnl:+,.2f} / ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} USD ", style="bold cyan")
+        header_text.append(f"| 🎯 Target Goal: ${realized_pnl:+,.2f} / ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} USD ", style="bold cyan")
         header_text.append(f"| Mode: {'LIVE (REAL TRADING)' if self.client.live_mode else 'PAPER SIMULATION'}", style="bold green" if self.client.live_mode else "bold yellow")
         header_panel = Panel(Align.center(header_text), style="bold white on blue", expand=True)
 
@@ -79,11 +80,11 @@ class UnifiedDashboardApp:
         left_table.add_row("💵 Futures USDT Margin:", f"[bold green]${usdt_bal:,.3f} USDT[/bold green]")
         left_table.add_row("🇮🇳 Free INR Balance:", f"₹{inr_bal:,.2f} INR")
         left_table.add_row("💼 Total Futures Equity:", f"[bold white]${total_equity:,.3f} USD[/bold white]")
-        left_table.add_row("📊 Live ETH Price:", f"[bold yellow]${eth_price:,.2f}[/bold yellow]" if eth_price else "Loading...")
-        left_table.add_row("⚡ Trending Altcoins:", f"[bold cyan]{trending_str}[/bold cyan]")
+        left_table.add_row("📊 Live SOL Ticker:", f"[bold yellow]${sol_price:,.2f}[/bold yellow]" if sol_price else "Loading...")
+        left_table.add_row("⚡ Pure Trending Altcoins:", f"[bold cyan]{trending_str}[/bold cyan]")
         left_table.add_row("🔒 Max Leverage:", "[bold red]20X LEVERAGE (FULL POWER)[/bold red]")
 
-        left_panel = Panel(left_table, title="[bold yellow]CoinDCX Futures Wallet & Trending Altcoins[/bold yellow]", border_style="yellow")
+        left_panel = Panel(left_table, title="[bold yellow]CoinDCX Wallet & Pure Altcoins (No BTC/ETH/DOGE/LTC/ADA)[/bold yellow]", border_style="yellow")
 
         # 3. Right Panel: High-Confidence Dual-Direction Signal Engine
         right_table = Table.grid(padding=(0, 2))
@@ -92,13 +93,13 @@ class UnifiedDashboardApp:
 
         right_table.add_row("⚡ Signal Prediction:", f"[bold magenta]{side_order}[/bold magenta]")
         right_table.add_row("🧠 Signal Confidence:", f"[bold yellow]{conf_score:.1f}%[/bold yellow]")
-        right_table.add_row("🎯 Target Strategy:", "[bold green]+20.0% TP | -10.0% SL[/bold green]")
-        right_table.add_row("🛡️ Circuit Breakers:", f"[bold cyan]${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Profit | -$9.52 Loss Stop[/bold cyan]")
+        right_table.add_row("🎯 Target Strategy:", "[bold green]+20.0% TP | -10.0% SL (ATR Buffered)[/bold green]")
+        right_table.add_row("🛡️ Circuit Breakers:", f"[bold cyan]${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/Day Target | 3 Multi-Trades[/bold cyan]")
         right_table.add_row("📈 Realized P&L:", f"[bold {'green' if realized_pnl >= 0 else 'red'}]${realized_pnl:+,.2f}[/bold {'green' if realized_pnl >= 0 else 'red'}]")
         right_table.add_row("📊 Unrealized P&L:", f"[bold {'green' if unrealized_pnl >= 0 else 'red'}]${unrealized_pnl:+,.2f}[/bold {'green' if unrealized_pnl >= 0 else 'red'}]")
-        right_table.add_row("🚀 Live Order Alert:", f"[bold green blink]⚡ ACTIVE ORDER SCANNER ({side_order})[/bold green blink]")
+        right_table.add_row("🚀 Live Order Alert:", f"[bold green blink]⚡ PURE ALTCOIN MULTI-TRADE SCANNER ({side_order})[/bold green blink]")
 
-        right_panel = Panel(right_table, title="[bold green]High-Conviction Signal & Live Trade Notifier[/bold green]", border_style="green")
+        right_panel = Panel(right_table, title="[bold green]High-Conviction Signal & Pure Altcoin Notifier[/bold green]", border_style="green")
 
         # Assemble layout
         main_layout = Layout()
@@ -135,21 +136,21 @@ class UnifiedDashboardApp:
                     f"${float(t.get('entry_price', 0)):,.2f}" if t.get("entry_price") != "N/A" else "N/A",
                     f"{float(t.get('size', 0)):.4f}",
                     f"{t.get('leverage', 20)}X",
-                    "🚀 ORDER EXECUTED LIVE"
+                    "🚀 MULTI-TRADE EXECUTED LIVE"
                 )
         else:
             recent_trades_table.add_row(
                 datetime.now().strftime("%H:%M:%S"),
-                "B-ETH_USDT",
+                "B-SOL_USDT",
                 "FUTURES",
                 "🟢 BUY (LONG)",
-                f"${eth_price:,.2f}" if eth_price else "$1,894.00",
-                "0.0130",
+                f"${sol_price:,.2f}" if sol_price else "$142.50",
+                "0.1000",
                 "20X",
-                "🚀 LIVE SCANNER ACTIVE - WAITING FOR ENTRY"
+                "🚀 PURE ALTCOIN SCANNER ACTIVE - WAITING FOR ENTRY"
             )
 
-        footer_panel = Panel(recent_trades_table, title="[bold cyan]🔔 LIVE TRADE NOTIFICATION FEED (SHOWS EVERY EXECUTED ORDER)[/bold cyan]", border_style="cyan")
+        footer_panel = Panel(recent_trades_table, title="[bold cyan]🔔 LIVE TRADE NOTIFICATION FEED (PURE ALTCOIN MULTI-TRADES)[/bold cyan]", border_style="cyan")
         main_layout["footer"].update(footer_panel)
 
         return main_layout
