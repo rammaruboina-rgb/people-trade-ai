@@ -14629,3 +14629,82 @@
 2026-08-18 09:50:01,317 - INFO - ⏳ No action: $64,142.30 is between $50,000.00 and $70,000.00
 2026-08-18 09:50:01,641 - INFO - 📊 BTCUSDT @ $64,142.29 | 📈 RSI(14): 58.27 | Mode: PAPER
 2026-08-18 09:50:01,642 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:50:12,451 - INFO - 📊 BTCUSDT @ $64,142.30
+2026-08-18 09:50:12,637 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:50:12,644 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:50:12,646 - INFO - ⏳ No action: $64,142.30 is between $50,000.00 and $70,000.00
+2026-08-18 09:50:18,959 - INFO - 📊 BTCUSDT @ $64,142.29 | 📈 RSI(14): 52.34 | Mode: PAPER
+2026-08-18 09:50:18,960 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:50:32,661 - ERROR - ❌ Failed to fetch ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:50:42,870 - INFO - 📊 BTCUSDT @ $64,141.10
+2026-08-18 09:50:44,101 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:50:44,101 - INFO - 📊 BTCUSDT @ $64,141.11 | 📈 RSI(14): 50.0 | Mode: PAPER
+2026-08-18 09:50:44,101 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:50:50,088 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:50:50,089 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:50:50,090 - INFO - ⏳ No action: $64,141.10 is between $50,000.00 and $70,000.00
+2026-08-18 09:51:00,314 - INFO - 📊 BTCUSDT @ $64,138.50
+2026-08-18 09:51:00,444 - INFO - 📊 BTCUSDT @ $64,138.50 | 📈 RSI(14): 50.97 | Mode: PAPER
+2026-08-18 09:51:00,445 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:51:03,598 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:51:03,600 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:51:03,603 - INFO - ⏳ No action: $64,138.50 is between $50,000.00 and $70,000.00
+2026-08-18 09:51:13,728 - INFO - 📊 BTCUSDT @ $64,138.07
+2026-08-18 09:51:13,855 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:51:13,859 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:51:13,864 - INFO - ⏳ No action: $64,138.07 is between $50,000.00 and $70,000.00
+2026-08-18 09:51:22,701 - INFO - 📊 BTCUSDT @ $64,134.33 | 📈 RSI(14): 49.56 | Mode: PAPER
+2026-08-18 09:51:22,705 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:51:23,968 - INFO - 📊 BTCUSDT @ $64,134.33
+2026-08-18 09:51:24,094 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:51:24,095 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:51:24,095 - INFO - ⏳ No action: $64,134.33 is between $50,000.00 and $70,000.00
+2026-08-18 09:51:39,216 - INFO - 📊 BTCUSDT @ $64,134.34
+2026-08-18 09:51:48,137 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:51:48,138 - INFO - 📊 BTCUSDT @ $64,134.34 | 📈 RSI(14): 50.0 | Mode: PAPER
+2026-08-18 09:51:48,138 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:51:49,229 - ERROR - ❌ Exception fetching balance: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/v1/users/balances (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:51:49,230 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:51:49,230 - INFO - ⏳ No action: $64,134.34 is between $50,000.00 and $70,000.00
+2026-08-18 09:51:59,358 - INFO - 📊 BTCUSDT @ $64,137.99
+2026-08-18 09:52:00,515 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:52:00,517 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:52:00,519 - INFO - ⏳ No action: $64,137.99 is between $50,000.00 and $70,000.00
+2026-08-18 09:52:03,375 - INFO - 📊 BTCUSDT @ $64,142.12 | 📈 RSI(14): 52.15 | Mode: PAPER
+2026-08-18 09:52:03,376 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:52:10,634 - INFO - 📊 BTCUSDT @ $64,142.12
+2026-08-18 09:52:10,866 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:52:10,870 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:52:10,889 - INFO - ⏳ No action: $64,142.12 is between $50,000.00 and $70,000.00
+2026-08-18 09:52:23,074 - INFO - 📊 BTCUSDT @ $64,142.12
+2026-08-18 09:52:28,385 - ERROR - ❌ Error fetching ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:52:33,087 - ERROR - ❌ Exception fetching balance: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/v1/users/balances (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:52:33,087 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:52:33,088 - INFO - ⏳ No action: $64,142.12 is between $50,000.00 and $70,000.00
+2026-08-18 09:52:38,395 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:52:43,244 - INFO - 📊 BTCUSDT @ $64,142.12
+2026-08-18 09:52:43,406 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:52:43,411 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:52:43,420 - INFO - ⏳ No action: $64,142.12 is between $50,000.00 and $70,000.00
+2026-08-18 09:52:53,590 - INFO - 📊 BTCUSDT @ $64,132.05 | 📈 RSI(14): 52.09 | Mode: PAPER
+2026-08-18 09:52:53,590 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:52:54,724 - INFO - 📊 BTCUSDT @ $64,132.05
+2026-08-18 09:53:04,769 - ERROR - ❌ Exception fetching balance: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/v1/users/balances (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:53:04,769 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:53:04,769 - INFO - ⏳ No action: $64,132.05 is between $50,000.00 and $70,000.00
+2026-08-18 09:53:12,927 - INFO - 📊 BTCUSDT @ $64,130.00 | 📈 RSI(14): 55.14 | Mode: PAPER
+2026-08-18 09:53:12,929 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:53:24,813 - ERROR - ❌ Failed to fetch ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:53:28,177 - INFO - 📊 BTCUSDT @ $64,130.00 | 📈 RSI(14): 55.15 | Mode: PAPER
+2026-08-18 09:53:28,209 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:53:43,456 - INFO - 📊 BTCUSDT @ $64,126.28 | 📈 RSI(14): 53.66 | Mode: PAPER
+2026-08-18 09:53:43,462 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:53:44,837 - ERROR - ❌ Failed to fetch ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:53:55,003 - INFO - 📊 BTCUSDT @ $64,130.94
+2026-08-18 09:53:59,737 - INFO - 📊 BTCUSDT @ $64,130.93 | 📈 RSI(14): 55.53 | Mode: PAPER
+2026-08-18 09:53:59,737 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:54:05,033 - ERROR - ❌ Exception fetching balance: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/v1/users/balances (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:54:05,033 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:54:05,033 - INFO - ⏳ No action: $64,130.94 is between $50,000.00 and $70,000.00
+2026-08-18 09:54:20,049 - INFO - 📊 BTCUSDT @ $64,130.93 | 📈 RSI(14): 52.91 | Mode: PAPER
+2026-08-18 09:54:20,050 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.

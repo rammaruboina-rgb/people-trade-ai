@@ -58,7 +58,7 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (MULTI-TRADE DUAL-DIRECTION FUTURES | GOAL: {MAX_DAILY_TRADES} TRADES/DAY | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
+        logger.info(f"🤖 Master Agent started in {mode_str} mode (INSTANT NO-SKIP MULTI-TRADE FUTURES | GOAL: {MAX_DAILY_TRADES} TRADES/DAY | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
@@ -75,13 +75,7 @@ class MasterAgent:
                 self.daily_realized_pnl = realized_pnl
                 self.daily_trades_count = len([t for t in trades if t.get("timestamp", "").startswith(datetime.now().strftime("%Y-%m-%d"))])
 
-                # 1) $20.00 Daily Profit Target Circuit Breaker
-                if self.daily_realized_pnl >= DEFAULT_MAX_DAILY_TARGET_USD:
-                    logger.info(f"🎉 $20.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target!")
-                    time.sleep(LOOP_INTERVAL_SEC * 5)
-                    continue
-
-                top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=7)
+                top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=10)
 
                 for coin in top_trending_coins:
                     if current_active_count >= MAX_CONCURRENT_TRADES:
@@ -105,7 +99,7 @@ class MasterAgent:
 
                     if not has_active_pos:
                         sig = self.strategy.evaluate_multi_source_signal(mark_price, p_hist, pair=candle_pair)
-                        direction = sig.get("direction", "long")
+                        direction = sig.get("direction", "long") or "long"
                         side_order = "BUY" if direction == "long" else "SELL"
 
                         coin_risk = futures_mapper.get_coin_risk_params(coin)
@@ -115,6 +109,8 @@ class MasterAgent:
                         
                         per_trade_equity = equity / MAX_CONCURRENT_TRADES
                         size = calc_position_size(per_trade_equity, mark_price, sl_price, coin)
+
+                        logger.info(f"⚡ INSTANT EXECUTION TRIGGERED FOR {coin} ({side_order}). Placing Live Order...")
 
                         resp = self.client.place_order(
                             symbol=spot_sym,
@@ -140,14 +136,14 @@ class MasterAgent:
                             "exit_price": "N/A",
                             "exit_reason": "N/A",
                             "confidence": 99.0,
-                            "signal_source": f"20_TRADES_GOAL_{direction.upper()}_{coin}",
+                            "signal_source": f"INSTANT_EXECUTION_{direction.upper()}_{coin}",
                             "news_summary": sig.get("summary", "N/A"),
                             "mode": mode_str
                         }
                         log_trade(trade_row)
                         current_active_count += 1
                         self.daily_trades_count += 1
-                        logger.info(f"🚀 {coin} LIVE FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Daily Trade #{self.daily_trades_count}/{MAX_DAILY_TRADES}")
+                        logger.info(f"🔥 {coin} LIVE FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Trade #{self.daily_trades_count}/{MAX_DAILY_TRADES}")
 
                 time.sleep(LOOP_INTERVAL_SEC)
 
