@@ -13746,3 +13746,206 @@
 2026-08-18 09:16:37,982 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 75.86 >= 60.0)
 2026-08-18 09:16:37,983 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.00
 2026-08-18 09:16:37,983 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:16:37.983502', 'order_id': 'PAPER_1787024797', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.0, 'mode': 'PAPER'}
+2026-08-18 09:16:54,203 - INFO - 📊 BTCUSDT @ $64,150.01 | 📈 RSI(14): 75.86 | Mode: PAPER
+2026-08-18 09:16:54,203 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 75.86 >= 60.0)
+2026-08-18 09:16:54,204 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.01
+2026-08-18 09:16:54,204 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:16:54.204254', 'order_id': 'PAPER_1787024814', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.01, 'mode': 'PAPER'}
+2026-08-18 09:16:56,030 - ERROR - ❌ Failed to fetch ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:17:06,166 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:17:07,324 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:07,326 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:07,328 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:17:09,433 - INFO - 📊 BTCUSDT @ $64,150.01 | 📈 RSI(14): 74.64 | Mode: PAPER
+2026-08-18 09:17:09,435 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 74.64 >= 60.0)
+2026-08-18 09:17:09,435 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.01
+2026-08-18 09:17:09,436 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:17:09.435906', 'order_id': 'PAPER_1787024829', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.01, 'mode': 'PAPER'}
+2026-08-18 09:17:17,442 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:17:17,593 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:17,595 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:17,623 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:17:24,636 - INFO - 📊 BTCUSDT @ $64,150.00 | 📈 RSI(14): 74.64 | Mode: PAPER
+2026-08-18 09:17:24,638 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 74.64 >= 60.0)
+2026-08-18 09:17:24,638 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.00
+2026-08-18 09:17:24,639 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:17:24.639112', 'order_id': 'PAPER_1787024844', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.0, 'mode': 'PAPER'}
+2026-08-18 09:17:27,816 - INFO - 📊 BTCUSDT @ $64,150.01
+2026-08-18 09:17:27,954 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:27,956 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:27,957 - INFO - ⏳ No action: $64,150.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:17:38,063 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:17:38,239 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:38,246 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:38,253 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:17:48,349 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:17:48,463 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:48,470 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:48,472 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:17:49,797 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:17:49,797 - INFO - 📊 BTCUSDT @ $64,150.01 | 📈 RSI(14): 50.0 | Mode: PAPER
+2026-08-18 09:17:49,797 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:17:58,590 - INFO - 📊 BTCUSDT @ $64,150.01
+2026-08-18 09:17:58,718 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:17:58,719 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:17:58,721 - INFO - ⏳ No action: $64,150.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:18:04,993 - INFO - 📊 BTCUSDT @ $64,146.01 | 📈 RSI(14): 77.6 | Mode: PAPER
+2026-08-18 09:18:04,994 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 77.6 >= 60.0)
+2026-08-18 09:18:04,994 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.01
+2026-08-18 09:18:04,994 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:18:04.994776', 'order_id': 'PAPER_1787024884', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.01, 'mode': 'PAPER'}
+2026-08-18 09:18:08,857 - INFO - 📊 BTCUSDT @ $64,146.00
+2026-08-18 09:18:10,669 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:18:10,670 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:18:10,670 - INFO - ⏳ No action: $64,146.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:18:20,215 - INFO - 📊 BTCUSDT @ $64,146.00 | 📈 RSI(14): 75.7 | Mode: PAPER
+2026-08-18 09:18:20,216 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 75.7 >= 60.0)
+2026-08-18 09:18:20,216 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.00
+2026-08-18 09:18:20,216 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:18:20.216389', 'order_id': 'PAPER_1787024900', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.0, 'mode': 'PAPER'}
+2026-08-18 09:18:20,787 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:18:20,905 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:18:20,907 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:18:20,908 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:18:31,019 - INFO - 📊 BTCUSDT @ $64,146.00
+2026-08-18 09:18:31,149 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:18:31,152 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:18:31,152 - INFO - ⏳ No action: $64,146.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:18:41,253 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:18:41,373 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:18:41,375 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:18:41,379 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:18:45,415 - INFO - 📊 BTCUSDT @ $64,146.01 | 📈 RSI(14): 75.7 | Mode: PAPER
+2026-08-18 09:18:45,415 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 75.7 >= 60.0)
+2026-08-18 09:18:45,416 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.01
+2026-08-18 09:18:45,416 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:18:45.416148', 'order_id': 'PAPER_1787024925', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.01, 'mode': 'PAPER'}
+2026-08-18 09:18:56,528 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:18:56,656 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:18:56,663 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:18:56,684 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:19:06,703 - INFO - 📊 BTCUSDT @ $64,146.00 | 📈 RSI(14): 70.24 | Mode: PAPER
+2026-08-18 09:19:06,703 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 70.24 >= 60.0)
+2026-08-18 09:19:06,703 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.00
+2026-08-18 09:19:06,704 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:19:06.704051', 'order_id': 'PAPER_1787024946', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.0, 'mode': 'PAPER'}
+2026-08-18 09:19:06,819 - INFO - 📊 BTCUSDT @ $64,146.00
+2026-08-18 09:19:08,010 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:19:08,011 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:19:08,013 - INFO - ⏳ No action: $64,146.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:19:18,116 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:19:20,307 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:19:20,314 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:19:20,320 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:19:26,987 - INFO - 📊 BTCUSDT @ $64,146.01 | 📈 RSI(14): 70.24 | Mode: PAPER
+2026-08-18 09:19:26,987 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 70.24 >= 60.0)
+2026-08-18 09:19:26,987 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.01
+2026-08-18 09:19:26,988 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:19:26.987950', 'order_id': 'PAPER_1787024966', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.01, 'mode': 'PAPER'}
+2026-08-18 09:19:37,513 - INFO - 📊 BTCUSDT @ $64,146.00
+2026-08-18 09:19:37,630 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:19:37,632 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:19:37,633 - INFO - ⏳ No action: $64,146.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:19:42,189 - INFO - 📊 BTCUSDT @ $64,146.00 | 📈 RSI(14): 70.24 | Mode: PAPER
+2026-08-18 09:19:42,190 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 70.24 >= 60.0)
+2026-08-18 09:19:42,190 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.00
+2026-08-18 09:19:42,190 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:19:42.190542', 'order_id': 'PAPER_1787024982', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.0, 'mode': 'PAPER'}
+2026-08-18 09:19:53,751 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:19:53,860 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:19:53,863 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:19:53,867 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:19:57,479 - INFO - 📊 BTCUSDT @ $64,146.00 | 📈 RSI(14): 70.24 | Mode: PAPER
+2026-08-18 09:19:57,479 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 70.24 >= 60.0)
+2026-08-18 09:19:57,481 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.00
+2026-08-18 09:19:57,482 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:19:57.482016', 'order_id': 'PAPER_1787024997', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.0, 'mode': 'PAPER'}
+2026-08-18 09:20:03,966 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:20:05,105 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:20:05,107 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:20:05,108 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:20:13,831 - INFO - 📊 BTCUSDT @ $64,146.00 | 📈 RSI(14): 62.35 | Mode: PAPER
+2026-08-18 09:20:13,831 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 62.35 >= 60.0)
+2026-08-18 09:20:13,832 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,146.00
+2026-08-18 09:20:13,832 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:20:13.832234', 'order_id': 'PAPER_1787025013', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64146.0, 'mode': 'PAPER'}
+2026-08-18 09:20:15,252 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:20:15,378 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:20:15,379 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:20:15,380 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:20:25,485 - INFO - 📊 BTCUSDT @ $64,146.01
+2026-08-18 09:20:26,661 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:20:26,664 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:20:26,672 - INFO - ⏳ No action: $64,146.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:20:34,109 - INFO - 📊 BTCUSDT @ $64,150.01 | 📈 RSI(14): 63.73 | Mode: PAPER
+2026-08-18 09:20:34,109 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 63.73 >= 60.0)
+2026-08-18 09:20:34,110 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.01
+2026-08-18 09:20:34,110 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:20:34.110541', 'order_id': 'PAPER_1787025034', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.01, 'mode': 'PAPER'}
+2026-08-18 09:20:42,826 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:20:43,976 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:20:43,978 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:20:43,978 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:20:54,080 - INFO - 📊 BTCUSDT @ $64,150.00
+2026-08-18 09:20:55,202 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:20:55,203 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:20:55,204 - INFO - ⏳ No action: $64,150.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:20:59,269 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:20:59,269 - INFO - 📊 BTCUSDT @ $64,150.00 | 📈 RSI(14): 50.0 | Mode: PAPER
+2026-08-18 09:20:59,269 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:21:05,310 - INFO - 📊 BTCUSDT @ $64,150.01
+2026-08-18 09:21:05,441 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:21:05,442 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:21:05,443 - INFO - ⏳ No action: $64,150.01 is between $50,000.00 and $70,000.00
+2026-08-18 09:21:14,474 - INFO - 📊 BTCUSDT @ $64,150.01 | 📈 RSI(14): 64.88 | Mode: PAPER
+2026-08-18 09:21:14,474 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 64.88 >= 60.0)
+2026-08-18 09:21:14,475 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,150.01
+2026-08-18 09:21:14,475 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:21:14.475342', 'order_id': 'PAPER_1787025074', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64150.01, 'mode': 'PAPER'}
+2026-08-18 09:21:24,649 - INFO - 📊 BTCUSDT @ $64,163.99
+2026-08-18 09:21:24,765 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:21:24,767 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:21:24,768 - INFO - ⏳ No action: $64,163.99 is between $50,000.00 and $70,000.00
+2026-08-18 09:21:29,676 - INFO - 📊 BTCUSDT @ $64,164.73 | 📈 RSI(14): 68.92 | Mode: PAPER
+2026-08-18 09:21:29,679 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 68.92 >= 60.0)
+2026-08-18 09:21:29,680 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,164.73
+2026-08-18 09:21:29,682 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:21:29.681179', 'order_id': 'PAPER_1787025089', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64164.73, 'mode': 'PAPER'}
+2026-08-18 09:21:34,884 - INFO - 📊 BTCUSDT @ $64,165.60
+2026-08-18 09:21:40,145 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:21:40,147 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:21:40,148 - INFO - ⏳ No action: $64,165.60 is between $50,000.00 and $70,000.00
+2026-08-18 09:21:44,927 - INFO - 📊 BTCUSDT @ $64,165.60 | 📈 RSI(14): 69.33 | Mode: PAPER
+2026-08-18 09:21:44,927 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 69.33 >= 60.0)
+2026-08-18 09:21:44,928 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,165.60
+2026-08-18 09:21:44,928 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:21:44.928141', 'order_id': 'PAPER_1787025104', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64165.6, 'mode': 'PAPER'}
+2026-08-18 09:21:50,267 - INFO - 📊 BTCUSDT @ $64,165.61
+2026-08-18 09:21:50,392 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:21:50,396 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:21:50,399 - INFO - ⏳ No action: $64,165.61 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:00,503 - INFO - 📊 BTCUSDT @ $64,165.61
+2026-08-18 09:22:00,619 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:22:00,621 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:22:00,625 - INFO - ⏳ No action: $64,165.61 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:10,791 - INFO - 📊 BTCUSDT @ $64,166.48
+2026-08-18 09:22:10,940 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:22:10,943 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:22:10,945 - INFO - ⏳ No action: $64,166.48 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:12,217 - INFO - 📊 BTCUSDT @ $64,166.48 | 📈 RSI(14): 63.69 | Mode: PAPER
+2026-08-18 09:22:12,217 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 63.69 >= 60.0)
+2026-08-18 09:22:12,217 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,166.48
+2026-08-18 09:22:12,217 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:22:12.217800', 'order_id': 'PAPER_1787025132', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64166.48, 'mode': 'PAPER'}
+2026-08-18 09:22:21,057 - INFO - 📊 BTCUSDT @ $64,166.48
+2026-08-18 09:22:21,177 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:22:21,181 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:22:21,182 - INFO - ⏳ No action: $64,166.48 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:27,412 - INFO - 📊 BTCUSDT @ $64,166.48 | 📈 RSI(14): 63.69 | Mode: PAPER
+2026-08-18 09:22:27,413 - INFO - 🔴 OVERBOUGHT SELL SIGNAL (RSI 63.69 >= 60.0)
+2026-08-18 09:22:27,414 - INFO - 🎮 PAPER TRADE EXECUTED: SELL 0.001 BTCUSDT @ $64,166.48
+2026-08-18 09:22:27,415 - INFO - 📝 Trade logged to CSV: {'timestamp': '2026-08-18T09:22:27.414930', 'order_id': 'PAPER_1787025147', 'symbol': 'BTCUSDT', 'side': 'sell', 'amount': 0.001, 'price': 64166.48, 'mode': 'PAPER'}
+2026-08-18 09:22:37,300 - INFO - 📊 BTCUSDT @ $64,166.48
+2026-08-18 09:22:37,417 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:22:37,418 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:22:37,419 - INFO - ⏳ No action: $64,166.48 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:47,544 - INFO - 📊 BTCUSDT @ $64,169.99
+2026-08-18 09:22:48,673 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:22:48,674 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:22:48,675 - INFO - ⏳ No action: $64,169.99 is between $50,000.00 and $70,000.00
+2026-08-18 09:22:52,521 - ERROR - ❌ Error calculating RSI: HTTPSConnectionPool(host='public.coindcx.com', port=443): Max retries exceeded with url: /market_data/candles?pair=B-BTC_USDT&interval=1m (Caused by NameResolutionError("HTTPSConnection(host='public.coindcx.com', port=443): Failed to resolve 'public.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:22:52,521 - INFO - 📊 BTCUSDT @ $64,170.00 | 📈 RSI(14): 50.0 | Mode: PAPER
+2026-08-18 09:22:52,521 - INFO - ⏳ Holding position. Waiting for RSI <= 40.0 or RSI >= 60.0.
+2026-08-18 09:23:03,821 - INFO - 📊 BTCUSDT @ $64,170.00
+2026-08-18 09:23:13,834 - ERROR - ❌ Exception fetching balance: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/v1/users/balances (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:23:13,835 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:23:13,835 - INFO - ⏳ No action: $64,170.00 is between $50,000.00 and $70,000.00
+2026-08-18 09:23:17,529 - ERROR - ❌ Error fetching ticker: HTTPSConnectionPool(host='api.coindcx.com', port=443): Max retries exceeded with url: /exchange/ticker (Caused by NameResolutionError("HTTPSConnection(host='api.coindcx.com', port=443): Failed to resolve 'api.coindcx.com' ([Errno -3] Temporary failure in name resolution)"))
+2026-08-18 09:23:28,959 - INFO - 📊 BTCUSDT @ $64,170.00
+2026-08-18 09:23:29,074 - ERROR - ❌ Failed to fetch balances: Invalid credentials
+2026-08-18 09:23:29,080 - INFO - 💰 Balances -> USDT: $0.00 | BTC: 0.000000
+2026-08-18 09:23:29,083 - INFO - ⏳ No action: $64,170.00 is between $50,000.00 and $70,000.00
