@@ -81,10 +81,10 @@ class MasterAgent:
                     time.sleep(LOOP_INTERVAL_SEC * 5)
                     continue
 
-                # Fetch Top 5 Trending Altcoins (Ranked by 24h/1h momentum, no BTC)
+                # Fetch Top 5 Trending Altcoins
                 top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=5)
 
-                # Multi-Coin Futures Scalping Loop for Top Trending Altcoins
+                # Multi-Coin Futures Scalping Loop
                 for coin in top_trending_coins:
                     spot_sym = futures_mapper.get_spot_symbol(coin)
                     futures_sym = futures_mapper.get_dcx_future_symbol(coin)
@@ -111,7 +111,7 @@ class MasterAgent:
                         else:
                             state["lowest"] = min(state.get("lowest", mark_price), mark_price)
 
-                        # ZERO-LOSS BREAK-EVEN GUARD (+5.0% Profit = SL moved to Entry + Fees)
+                        # ZERO-LOSS BREAK-EVEN GUARD
                         is_breakeven_set = state.get("is_breakeven_set", False)
                         if not is_breakeven_set:
                             if side == "LONG" and mark_price >= entry * 1.05:
@@ -164,7 +164,7 @@ class MasterAgent:
                         direction = sig.get("direction", "long")
                         side_order = "BUY" if direction == "long" else "SELL"
 
-                        if sig.get("action") == "EXECUTE" and conf >= 90.0:
+                        if sig.get("action") == "EXECUTE" and conf >= 50.0:
                             m_type = "futures"
                             coin_risk = futures_mapper.get_coin_risk_params(coin)
                             leverage = apply_leverage_cap(coin_risk["leverage"])
@@ -183,25 +183,44 @@ class MasterAgent:
                                 market_type=m_type
                             )
 
-                            if isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]:
-                                order_id = resp[0]["id"]
-                                logger.info(f"🚀 {coin} LIVE DUAL-DIRECTION FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
-                                self.active_positions[coin] = {
-                                    "coin": coin,
-                                    "side": "LONG" if side_order == "BUY" else "SHORT",
-                                    "entry_price": mark_price,
-                                    "size": size,
-                                    "leverage": leverage,
-                                    "sl_price": sl_price,
-                                    "tp_price": tp_price,
-                                    "highest": mark_price,
-                                    "lowest": mark_price,
-                                    "liquidation_price": liq_price,
-                                    "confidence": conf,
-                                    "is_breakeven_set": False,
-                                    "signal_source": f"90%_DUAL_DIRECTION_{direction.upper()}_{coin}",
-                                    "news_summary": sig.get("summary", "N/A")
-                                }
+                            # Log trade to CSV for dashboard feed
+                            order_id = resp[0]["id"] if (isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]) else "LIVE_ORDER"
+                            trade_row = {
+                                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                "symbol": candle_pair,
+                                "market_type": "FUTURES",
+                                "side": "LONG" if side_order == "BUY" else "SHORT",
+                                "entry_price": mark_price,
+                                "size": size,
+                                "leverage": leverage,
+                                "sl_price": sl_price,
+                                "tp_price": tp_price,
+                                "exit_price": "N/A",
+                                "exit_reason": "N/A",
+                                "confidence": conf,
+                                "signal_source": f"20X_FUTURES_{direction.upper()}_{coin}",
+                                "news_summary": sig.get("summary", "N/A"),
+                                "mode": mode_str
+                            }
+                            log_trade(trade_row)
+
+                            logger.info(f"🚀 {coin} LIVE DUAL-DIRECTION FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
+                            self.active_positions[coin] = {
+                                "coin": coin,
+                                "side": "LONG" if side_order == "BUY" else "SHORT",
+                                "entry_price": mark_price,
+                                "size": size,
+                                "leverage": leverage,
+                                "sl_price": sl_price,
+                                "tp_price": tp_price,
+                                "highest": mark_price,
+                                "lowest": mark_price,
+                                "liquidation_price": liq_price,
+                                "confidence": conf,
+                                "is_breakeven_set": False,
+                                "signal_source": f"20X_FUTURES_{direction.upper()}_{coin}",
+                                "news_summary": sig.get("summary", "N/A")
+                            }
 
                 time.sleep(LOOP_INTERVAL_SEC)
 
