@@ -1,0 +1,30 @@
+# Security & Secrets (CRITICAL)
+.env
+*.env
+*.pem
+*.key
+COINDCX_API_KEY
+COINDCX_API_SECRET
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# Python Cache & Logs
+__pycache__/
+*.py[cod]
+*$py.class
+logs/
+*.log
+agent_data.csv
+trades_unified.csv
+trades.csv
+coindcx_futures_symbols.json
+candles_chart.png
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
