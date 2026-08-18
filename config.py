@@ -1,8 +1,7 @@
 # config.py
 """
 Centralized Configuration Module for CoinDCX Master Trading Agent
-Updated for Multi-Trade Concurrent Scalping (Up to 3 Simultaneous Active Trades)
-and Pure Altcoin Futures Scalping (EXCLUDES BTC, ETH, DOGE, LTC, ADA).
+Configured for High-Frequency Pure Altcoin Scalping (20 Trades / Day Target)
 """
 
 import os
@@ -14,14 +13,15 @@ load_dotenv()
 MODE = os.getenv("MODE", "LIVE").upper()
 LOG_FILE = "trading_bot.log"
 TRADES_CSV = "trades_unified.csv"
-LOOP_INTERVAL_SEC = 1.5
+LOOP_INTERVAL_SEC = 1.0  # Ultra-fast 1.0s scan rate
 
 # Portfolio & Target Configuration
 EQUITY_USD = 9.52
 DEFAULT_MAX_DAILY_TARGET_USD = 20.0  # $20.00 USD / day target
-DAILY_LOSS_LIMIT_USD = 9.52  # Max equity protection stop
-MAX_CONCURRENT_TRADES = 3  # Up to 3 multi-trades active at the same time
-RISK_PER_TRADE_PCT = 100.0  # Full leverage equity margin sizing
+MAX_DAILY_TRADES = 20               # 20 Trades per day frequency goal
+DAILY_LOSS_LIMIT_USD = 9.52          # Max equity protection stop
+MAX_CONCURRENT_TRADES = 3          # Up to 3 multi-trades active at the same time
+RISK_PER_TRADE_PCT = 100.0          # Full leverage equity margin sizing
 LEVERAGE = 20
 MAX_LEVERAGE_CAP = 20
 ALTCOIN_LEVERAGE_CAP = 20
