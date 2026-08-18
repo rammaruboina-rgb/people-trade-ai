@@ -2,7 +2,7 @@
 """
 CoinDCX API Client Module
 Handles authentication, futures position querying, leverage auto-sync, and validated futures order placement.
-Includes HTTP Session pooling and exponential retry logic to eliminate DNS & network timeout failures.
+Includes DNS retry handling to ensure order execution uninterrupted by network jitter.
 """
 
 import os
@@ -47,7 +47,6 @@ class CoinDCXClient:
         self.live_mode = self.mode == "LIVE" and bool(self.api_key) and bool(self.api_secret)
         self.base_url = "https://api.coindcx.com"
         
-        # Configure robust HTTP session with retry logic for network resilience
         self.session = requests.Session()
         retries = Retry(total=3, backoff_factor=0.5, status_forcelist=[500, 502, 503, 504])
         adapter = HTTPAdapter(max_retries=retries)
@@ -61,98 +60,107 @@ class CoinDCXClient:
     def get_ticker_price(self, symbol: str = "SOLUSDT") -> float:
         """Fetches current mark price with Binance Global fallback if CoinDCX DNS times out"""
         clean_sym = symbol.replace("B-", "").replace("_USDT", "USDT")
-        try:
-            url = f"{self.base_url}/exchange/ticker"
-            res = self.session.get(url, timeout=3)
-            if res.status_code == 200 and isinstance(res.json(), list):
-                for t in res.json():
-                    if t.get("market") == clean_sym:
-                        return float(t.get("last_price", 0.0))
-        except Exception:
-            pass
+        
+        for attempt in range(2):
+            try:
+                url = f"{self.base_url}/exchange/ticker"
+                res = self.session.get(url, timeout=3)
+                if res.status_code == 200 and isinstance(res.json(), list):
+                    for t in res.json():
+                        if t.get("market") == clean_sym:
+                            return float(t.get("last_price", 0.0))
+            except Exception:
+                time.sleep(0.2)
 
         # Fallback to Binance Global REST API for zero lag price resolution
-        try:
-            url = f"https://api.binance.com/api/v3/ticker/price?symbol={clean_sym}"
-            res = self.session.get(url, timeout=3)
-            if res.status_code == 200 and "price" in res.json():
-                return float(res.json()["price"])
-        except Exception:
-            pass
+        for attempt in range(2):
+            try:
+                url = f"https://api.binance.com/api/v3/ticker/price?symbol={clean_sym}"
+                res = self.session.get(url, timeout=3)
+                if res.status_code == 200 and "price" in res.json():
+                    return float(res.json()["price"])
+            except Exception:
+                time.sleep(0.2)
 
         return 0.0
 
     def get_account_balances(self) -> dict:
-        """Fetches account USDT and INR balance from CoinDCX API"""
+        """Fetches account USDT balance with retry loop"""
         if not self.live_mode:
             return {"USDT": 9.52, "INR": 0.0, "total_equity": 9.52}
 
-        try:
-            timeStamp = int(round(time.time() * 1000))
-            body = {"timestamp": timeStamp}
-            json_body = json.dumps(body, separators=(',', ':'))
-            signature = self._get_signature(json_body)
+        for attempt in range(3):
+            try:
+                timeStamp = int(round(time.time() * 1000))
+                body = {"timestamp": timeStamp}
+                json_body = json.dumps(body, separators=(',', ':'))
+                signature = self._get_signature(json_body)
 
-            headers = {
-                "Content-Type": "application/json",
-                "X-AUTH-APIKEY": self.api_key,
-                "X-AUTH-SIGNATURE": signature
-            }
+                headers = {
+                    "Content-Type": "application/json",
+                    "X-AUTH-APIKEY": self.api_key,
+                    "X-AUTH-SIGNATURE": signature
+                }
 
-            url = f"{self.base_url}/exchange/v1/users/balances"
-            res = self.session.post(url, data=json_body, headers=headers, timeout=4)
-            if res.status_code == 200:
-                usdt_bal = 0.0
-                inr_bal = 0.0
-                for item in res.json():
-                    currency = item.get("currency", "")
-                    if currency == "USDT":
-                        usdt_bal = float(item.get("balance", 0.0))
-                    elif currency == "INR":
-                        inr_bal = float(item.get("balance", 0.0))
-                total_eq = usdt_bal if usdt_bal > 0 else 9.52
-                return {"USDT": usdt_bal, "INR": inr_bal, "total_equity": total_eq}
-        except Exception as e:
-            logger.warning(f"Error fetching balances: {e}")
+                url = f"{self.base_url}/exchange/v1/users/balances"
+                res = self.session.post(url, data=json_body, headers=headers, timeout=4)
+                if res.status_code == 200:
+                    usdt_bal = 0.0
+                    inr_bal = 0.0
+                    for item in res.json():
+                        currency = item.get("currency", "")
+                        if currency == "USDT":
+                            usdt_bal = float(item.get("balance", 0.0))
+                        elif currency == "INR":
+                            inr_bal = float(item.get("balance", 0.0))
+                    total_eq = usdt_bal if usdt_bal > 0 else 9.52
+                    return {"USDT": usdt_bal, "INR": inr_bal, "total_equity": total_eq}
+            except Exception as e:
+                logger.warning(f"Attempt {attempt+1} balance fetch error: {e}")
+                time.sleep(0.5)
+
         return {"USDT": 9.52, "INR": 0.0, "total_equity": 9.52}
 
     def get_active_futures_positions(self) -> dict:
-        """Fetches real-time active open futures positions directly from CoinDCX API"""
+        """Fetches active open futures positions with retry loop"""
         if not self.live_mode:
             return {}
 
-        try:
-            timeStamp = int(round(time.time() * 1000))
-            body = {"timestamp": timeStamp}
-            json_body = json.dumps(body, separators=(',', ':'))
-            signature = self._get_signature(json_body)
+        for attempt in range(3):
+            try:
+                timeStamp = int(round(time.time() * 1000))
+                body = {"timestamp": timeStamp}
+                json_body = json.dumps(body, separators=(',', ':'))
+                signature = self._get_signature(json_body)
 
-            headers = {
-                "Content-Type": "application/json",
-                "X-AUTH-APIKEY": self.api_key,
-                "X-AUTH-SIGNATURE": signature
-            }
+                headers = {
+                    "Content-Type": "application/json",
+                    "X-AUTH-APIKEY": self.api_key,
+                    "X-AUTH-SIGNATURE": signature
+                }
 
-            url = f"{self.base_url}/exchange/v1/derivatives/futures/positions"
-            res = self.session.post(url, data=json_body, headers=headers, timeout=4)
-            if res.status_code == 200 and isinstance(res.json(), list):
-                positions = {}
-                for p in res.json():
-                    pair = p.get("pair", "")
-                    active_pos = float(p.get("active_pos", 0.0) or 0.0)
-                    lev_raw = p.get("leverage")
-                    leverage = int(float(lev_raw)) if lev_raw is not None else 20
-                    positions[pair] = {
-                        "pair": pair,
-                        "active_pos": active_pos,
-                        "side": p.get("side", "NONE"),
-                        "leverage": leverage,
-                        "avg_price": float(p.get("avg_price", 0.0) or 0.0),
-                        "liquidation_price": float(p.get("liquidation_price", 0.0) or 0.0)
-                    }
-                return positions
-        except Exception as e:
-            logger.warning(f"Error fetching active futures positions: {e}")
+                url = f"{self.base_url}/exchange/v1/derivatives/futures/positions"
+                res = self.session.post(url, data=json_body, headers=headers, timeout=4)
+                if res.status_code == 200 and isinstance(res.json(), list):
+                    positions = {}
+                    for p in res.json():
+                        pair = p.get("pair", "")
+                        active_pos = float(p.get("active_pos", 0.0) or 0.0)
+                        lev_raw = p.get("leverage")
+                        leverage = int(float(lev_raw)) if lev_raw is not None else 20
+                        positions[pair] = {
+                            "pair": pair,
+                            "active_pos": active_pos,
+                            "side": p.get("side", "NONE"),
+                            "leverage": leverage,
+                            "avg_price": float(p.get("avg_price", 0.0) or 0.0),
+                            "liquidation_price": float(p.get("liquidation_price", 0.0) or 0.0)
+                        }
+                    return positions
+            except Exception as e:
+                logger.warning(f"Attempt {attempt+1} active positions error: {e}")
+                time.sleep(0.5)
+
         return {}
 
     def resolve_futures_symbol(self, symbol: str) -> str:
@@ -173,8 +181,7 @@ class CoinDCXClient:
         market_type: str = "futures"
     ) -> list:
         """
-        Executes a validated futures market order with auto-matching leverage and strict SL/TP boundary verification.
-        Auto-resolves instrument symbol against CoinDCX active instruments list.
+        Executes a validated futures market order with retry loop and strict SL/TP boundary verification.
         """
         futures_symbol = self.resolve_futures_symbol(symbol)
 
@@ -231,14 +238,18 @@ class CoinDCXClient:
         }
 
         url = f"{self.base_url}/exchange/v1/derivatives/futures/orders/create"
-        try:
-            res = self.session.post(url, data=json_payload, headers=headers, timeout=5)
-            if res.status_code == 200:
-                logger.info(f"✅ LIVE ORDER EXECUTED: {side_payload.upper()} {amount} {futures_symbol} @ Leverage {account_leverage}x | SL: {sl_price} | TP: {tp_price}")
-                return res.json()
-            else:
-                logger.error(f"❌ ORDER PLACEMENT REJECTED (HTTP {res.status_code}): {res.text}")
-                return [{"id": "FAILED", "status": "error", "message": res.text}]
-        except Exception as e:
-            logger.error(f"❌ ORDER PLACEMENT NETWORK ERROR: {e}")
-            return [{"id": "FAILED", "status": "error", "message": str(e)}]
+
+        for attempt in range(3):
+            try:
+                res = self.session.post(url, data=json_payload, headers=headers, timeout=5)
+                if res.status_code == 200:
+                    logger.info(f"✅ LIVE ORDER EXECUTED: {side_payload.upper()} {amount} {futures_symbol} @ Leverage {account_leverage}x | SL: {sl_price} | TP: {tp_price}")
+                    return res.json()
+                else:
+                    logger.error(f"❌ ORDER PLACEMENT REJECTED (HTTP {res.status_code}): {res.text}")
+                    return [{"id": "FAILED", "status": "error", "message": res.text}]
+            except Exception as e:
+                logger.error(f"❌ Attempt {attempt+1} order placement error: {e}")
+                time.sleep(0.5)
+
+        return [{"id": "FAILED", "status": "error", "message": "Network Retry Limit Reached"}]

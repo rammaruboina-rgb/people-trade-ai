@@ -1,7 +1,9 @@
 # config.py
 """
 Centralized Configuration Module for CoinDCX Master Trading Agent
-Configured for High-Frequency Pure Altcoin Scalping (20 Trades / Day Target)
+Configured for Multi-Trade Concurrent Scalping (Up to 5 Simultaneous Active Trades)
+Target: $20.00 USD / Day Profit Goal | Pure High-Volatility Altcoins
+SOL HAS BEEN PERMANENTLY EXCLUDED PER USER DIRECTIVE.
 """
 
 import os
@@ -20,7 +22,7 @@ EQUITY_USD = 9.52
 DEFAULT_MAX_DAILY_TARGET_USD = 20.0  # $20.00 USD / day target
 MAX_DAILY_TRADES = 20               # 20 Trades per day frequency goal
 DAILY_LOSS_LIMIT_USD = 9.52          # Max equity protection stop
-MAX_CONCURRENT_TRADES = 3          # Up to 3 multi-trades active at the same time
+MAX_CONCURRENT_TRADES = 5          # Up to 5 multi-trades active simultaneously
 RISK_PER_TRADE_PCT = 100.0          # Full leverage equity margin sizing
 LEVERAGE = 20
 MAX_LEVERAGE_CAP = 20
@@ -43,19 +45,18 @@ WEBHOOK_HOST = os.getenv("WEBHOOK_HOST", "0.0.0.0")
 WEBHOOK_PORT = int(os.getenv("WEBHOOK_PORT", "5000"))
 WEBHOOK_SECRET = os.getenv("WEBHOOK_SECRET", "super_secret_webhook_token_123")
 
-# CoinDCX Symbol Defaults (Pure Altcoin Default: SOL)
-SYMBOL_SPOT = "SOLUSDT"
-SYMBOL_FUTURES = "B-SOL_USDT"
-CANDLE_PAIR = "B-SOL_USDT"
+# Default Pure Altcoin Symbol: SUI
+SYMBOL_SPOT = "SUIUSDT"
+SYMBOL_FUTURES = "B-SUI_USDT"
+CANDLE_PAIR = "B-SUI_USDT"
 CURRENCY = "USDT"
 
-# Explicitly Excluded: BTC, ETH, DOGE, LTC, ADA
-EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA"]
+# Explicitly Excluded Coins: BTC, ETH, DOGE, LTC, ADA, SOL (SOL BLACKLISTED PER USER INSTRUCTION)
+EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA", "SOL"]
 
 ALLOWED_FUTURES_COINS = [
-    "SOL", "XRP", "AVAX", "SUI", "APT", "NEAR", "DOT", "ATOM", "ARB", "OP",
-    "SEI", "TON", "FIL", "INJ", "HBAR", "UNI", "ETC", "ICP", "PEPE", "SHIB",
-    "WIF", "BONK", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO", "CRV", "AAVE", "MKR"
+    "SUI", "AVAX", "XRP", "NEAR", "APT", "FIL", "INJ", "DOT", "SEI",
+    "ARB", "OP", "PEPE", "SHIB", "BONK", "FLOKI", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO"
 ]
 
 def get_dynamic_daily_target_usd(equity_usd: float = 9.52) -> float:
