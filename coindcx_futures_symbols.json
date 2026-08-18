@@ -1,755 +1,754 @@
 {
-  "total": 495,
-  "instruments": [
-    "B-XRP_USDT",
-    "B-LPT_USDT",
-    "B-LTC_USDT",
-    "B-ETC_USDT",
-    "B-LINK_USDT",
-    "B-ARIA_USDT",
-    "B-ZEC_USDT",
-    "B-SAND_USDT",
-    "B-JASMY_USDT",
-    "B-ATH_USDT",
-    "B-BNB_USDT",
-    "B-1000LUNC_USDT",
-    "B-KERNEL_USDT",
-    "B-GRVT_USDT",
-    "B-ORDI_USDT",
-    "B-INIT_USDT",
-    "B-NEO_USDT",
-    "B-GWEI_USDT",
-    "B-B_USDT",
-    "B-IOST_USDT",
-    "B-KNC_USDT",
-    "B-JUP_USDT",
-    "B-KAVA_USDT",
-    "B-LSK_USDT",
-    "B-DOT_USDT",
-    "B-WLFI_USDT",
-    "B-TRB_USDT",
-    "B-XAU_USDT",
-    "B-AIOT_USDT",
-    "B-SUSHI_USDT",
-    "B-ZETA_USDT",
-    "B-CYS_USDT",
-    "B-SXT_USDT",
-    "B-EGLD_USDT",
-    "B-UNI_USDT",
-    "B-CVC_USDT",
-    "B-AWE_USDT",
-    "B-AT_USDT",
-    "B-AVAX_USDT",
-    "B-NEAR_USDT",
-    "B-FET_USDT",
-    "B-ORCA_USDT",
-    "B-AAVE_USDT",
-    "B-SOPH_USDT",
-    "B-POPCAT_USDT",
-    "B-H_USDT",
-    "B-ELSA_USDT",
-    "B-TAC_USDT",
-    "B-FIL_USDT",
-    "B-BEL_USDT",
-    "B-GRT_USDT",
-    "B-XLM_USDT",
-    "B-BANK_USDT",
-    "B-IN_USDT",
-    "B-EDGE_USDT",
-    "B-1INCH_USDT",
-    "B-RVN_USDT",
-    "B-AIO_USDT",
-    "B-KAITO_USDT",
-    "B-MTL_USDT",
-    "B-MAGIC_USDT",
-    "B-ALGO_USDT",
-    "B-JST_USDT",
-    "B-HEMI_USDT",
-    "B-AR_USDT",
-    "B-ASTR_USDT",
-    "B-BTC_USDT",
-    "B-OG_USDT",
-    "B-ROSE_USDT",
-    "B-SOON_USDT",
-    "B-HUMA_USDT",
-    "B-API3_USDT",
-    "B-FF_USDT",
-    "B-GRAM_USDT",
-    "B-GMX_USDT",
-    "B-CFX_USDT",
-    "B-LQTY_USDT",
-    "B-HYPE_USDT",
-    "B-ARB_USDT",
-    "B-XVS_USDT",
-    "B-USUAL_USDT",
-    "B-XVG_USDT",
-    "B-AGLD_USDT",
-    "B-F_USDT",
-    "B-NEWT_USDT",
-    "B-BICO_USDT",
-    "B-BIGTIME_USDT",
-    "B-BLUR_USDT",
-    "B-BOME_USDT",
-    "B-ADA_USDT",
-    "B-VELVET_USDT",
-    "B-KAS_USDT",
-    "B-MYX_USDT",
-    "B-BLESS_USDT",
-    "B-DASH_USDT",
-    "B-GIGGLE_USDT",
-    "B-RSR_USDT",
-    "B-ETHW_USDT",
-    "B-ACE_USDT",
-    "B-LAB_USDT",
-    "B-GLM_USDT",
-    "B-ALPINE_USDT",
-    "B-ON_USDT",
-    "B-PTB_USDT",
-    "B-TAO_USDT",
-    "B-STBL_USDT",
-    "B-WET_USDT",
-    "B-FRAX_USDT",
-    "B-ZRO_USDT",
-    "B-G_USDT",
-    "B-PRL_USDT",
-    "B-CHIP_USDT",
-    "B-FLUX_USDT",
-    "B-OPG_USDT",
-    "B-CATI_USDT",
-    "B-THETA_USDT",
-    "B-ESPORTS_USDT",
-    "B-AIGENSYN_USDT",
-    "B-BILL_USDT",
-    "B-PHAROS_USDT",
-    "B-CTR_USDT",
-    "B-AIN_USDT",
-    "B-ARX_USDT",
-    "B-1000FLOKI_USDT",
-    "B-CAP_USDT",
-    "B-ETH_USDT",
-    "B-PNUT_USDT",
-    "B-GRIFFAIN_USDT",
-    "B-FLOCK_USDT",
-    "B-BCH_USDT",
-    "B-AVNT_USDT",
-    "B-HOLO_USDT",
-    "B-ERA_USDT",
-    "B-AERO_USDT",
-    "B-ARC_USDT",
-    "B-TRX_USDT",
-    "B-VTHO_USDT",
-    "B-BMT_USDT",
-    "B-SIREN_USDT",
-    "B-JELLYJELLY_USDT",
-    "B-SWARMS_USDT",
-    "B-CLO_USDT",
-    "B-UB_USDT",
-    "B-PLAY_USDT",
-    "B-XAN_USDT",
-    "B-EDEN_USDT",
-    "B-SOL_USDT",
-    "B-TST_USDT",
-    "B-KGEN_USDT",
-    "B-RECALL_USDT",
-    "B-STORJ_USDT",
-    "B-ZBT_USDT",
-    "B-TRUTH_USDT",
-    "B-RIVER_USDT",
-    "B-APR_USDT",
-    "B-RAVE_USDT",
-    "B-MAGMA_USDT",
-    "B-VIRTUAL_USDT",
-    "B-SLP_USDT",
-    "B-BSV_USDT",
-    "B-INX_USDT",
-    "B-TRIA_USDT",
-    "B-KAT_USDT",
-    "B-AVAAI_USDT",
-    "B-XNY_USDT",
-    "B-XMR_USDT",
-    "B-BSB_USDT",
-    "B-CL_USDT",
-    "B-SLX_USDT",
-    "B-Q_USDT",
-    "B-DATAIP_USDT",
-    "B-DOS_USDT",
-    "B-MOCA_USDT",
-    "B-MMT_USDT",
-    "B-HIVE_USDT",
-    "B-GPS_USDT",
-    "B-BB_USDT",
-    "B-BR_USDT",
-    "B-BLUAI_USDT",
-    "B-LIGHT_USDT",
-    "B-TURTLE_USDT",
-    "B-SFP_USDT",
-    "B-LIT_USDT",
-    "B-WCT_USDT",
-    "B-UAI_USDT",
-    "B-POL_USDT",
-    "B-DIA_USDT",
-    "B-ATOM_USDT",
-    "B-BZ_USDT",
-    "B-BAT_USDT",
-    "B-RARE_USDT",
-    "B-1000000MOG_USDT",
-    "B-STO_USDT",
-    "B-COTI_USDT",
-    "B-QTUM_USDT",
-    "B-GRASS_USDT",
-    "B-ZRX_USDT",
-    "B-CHR_USDT",
-    "B-JCT_USDT",
-    "B-HAEDAL_USDT",
-    "B-DOGE_USDT",
-    "B-BEAT_USDT",
-    "B-RLC_USDT",
-    "B-YFI_USDT",
-    "B-NIGHT_USDT",
-    "B-ASR_USDT",
-    "B-MANA_USDT",
-    "B-PIPPIN_USDT",
-    "B-CHILLGUY_USDT",
-    "B-SKYAI_USDT",
-    "B-HBAR_USDT",
-    "B-SCRT_USDT",
-    "B-WAL_USDT",
-    "B-A_USDT",
-    "B-ZEST_USDT",
-    "B-MASK_USDT",
-    "B-1000XEC_USDT",
-    "B-TAIKO_USDT",
-    "B-DUSK_USDT",
-    "B-IMX_USDT",
-    "B-GMT_USDT",
-    "B-CTSI_USDT",
-    "B-ENS_USDT",
-    "B-QNT_USDT",
-    "B-MINA_USDT",
-    "B-CROSS_USDT",
-    "B-MOVE_USDT",
-    "B-USELESS_USDT",
-    "B-STX_USDT",
-    "B-IOTX_USDT",
-    "B-SEI_USDT",
-    "B-PEOPLE_USDT",
-    "B-TIA_USDT",
-    "B-SUPER_USDT",
-    "B-ARPA_USDT",
-    "B-MOVR_USDT",
-    "B-INJ_USDT",
-    "B-SPELL_USDT",
-    "B-AUCTION_USDT",
-    "B-FLOW_USDT",
-    "B-PORTAL_USDT",
-    "B-SQD_USDT",
-    "B-DYM_USDT",
-    "B-KAIA_USDT",
-    "B-STG_USDT",
-    "B-LISTA_USDT",
-    "B-ID_USDT",
-    "B-ACH_USDT",
-    "B-LA_USDT",
-    "B-ME_USDT",
-    "B-JOE_USDT",
-    "B-FIDA_USDT",
-    "B-METIS_USDT",
-    "B-EDU_USDT",
-    "B-YGG_USDT",
-    "B-PENDLE_USDT",
-    "B-ARKM_USDT",
-    "B-ETHFI_USDT",
-    "B-ENA_USDT",
-    "B-BNT_USDT",
-    "B-SAGA_USDT",
-    "B-GAS_USDT",
-    "B-RIF_USDT",
-    "B-POWR_USDT",
-    "B-CAKE_USDT",
-    "B-MEME_USDT",
-    "B-LUMIA_USDT",
-    "B-LUNA2_USDT",
-    "B-REZ_USDT",
-    "B-T_USDT",
-    "B-TNSR_USDT",
-    "B-TURBO_USDT",
-    "B-HMSTR_USDT",
-    "B-SCR_USDT",
-    "B-SUI_USDT",
-    "B-GOAT_USDT",
-    "B-UMA_USDT",
-    "B-MAV_USDT",
-    "B-MOODENG_USDT",
-    "B-CYBER_USDT",
-    "B-ARK_USDT",
-    "B-DRIFT_USDT",
-    "B-WAXP_USDT",
-    "B-MORPHO_USDT",
-    "B-AKT_USDT",
-    "B-SSV_USDT",
-    "B-ONG_USDT",
-    "B-AVA_USDT",
-    "B-MANTA_USDT",
-    "B-AIXBT_USDT",
-    "B-ALT_USDT",
-    "B-PHA_USDT",
-    "B-SONIC_USDT",
-    "B-PROM_USDT",
-    "B-TRUMP_USDT",
-    "B-SPX_USDT",
-    "B-BERA_USDT",
-    "B-SHELL_USDT",
-    "B-PENGU_USDT",
-    "B-KMNO_USDT",
-    "B-RED_USDT",
-    "B-EPIC_USDT",
-    "B-ILV_USDT",
-    "B-PYTH_USDT",
-    "B-BANANAS31_USDT",
-    "B-NIL_USDT",
-    "B-DEXE_USDT",
-    "B-M_USDT",
-    "B-1000RATS_USDT",
-    "B-PLUME_USDT",
-    "B-XAI_USDT",
-    "B-WIF_USDT",
-    "B-AXL_USDT",
-    "B-PARTI_USDT",
-    "B-ZAMA_USDT",
-    "B-SUN_USDT",
-    "B-PAXG_USDT",
-    "B-RPL_USDT",
-    "B-SANTOS_USDT",
-    "B-ALCH_USDT",
-    "B-S_USDT",
-    "B-USTC_USDT",
-    "B-SAFE_USDT",
-    "B-DEEP_USDT",
-    "B-ACT_USDT",
-    "B-PUMP_USDT",
-    "B-THE_USDT",
-    "B-BASED_USDT",
-    "B-MELANIA_USDT",
-    "B-ANIME_USDT",
-    "B-TA_USDT",
-    "B-VVV_USDT",
-    "B-VELODROME_USDT",
-    "B-ZORA_USDT",
-    "B-TAG_USDT",
-    "B-CARV_USDT",
-    "B-PIXEL_USDT",
-    "B-BIO_USDT",
-    "B-O_USDT",
-    "B-RENDER_USDT",
-    "B-LINEA_USDT",
-    "B-SOLV_USDT",
-    "B-1MBABYDOGE_USDT",
-    "B-1000CAT_USDT",
-    "B-FARTCOIN_USDT",
-    "B-ZKC_USDT",
-    "B-HEI_USDT",
-    "B-COAI_USDT",
-    "B-BAN_USDT",
-    "B-FHE_USDT",
-    "B-AKE_USDT",
-    "B-MUBARAK_USDT",
-    "B-FORM_USDT",
-    "B-ORDER_USDT",
-    "B-TUT_USDT",
-    "B-MAVIA_USDT",
-    "B-VET_USDT",
-    "B-EVAA_USDT",
-    "B-BAND_USDT",
-    "B-PUNDIX_USDT",
-    "B-PROVE_USDT",
-    "B-ENJ_USDT",
-    "B-AXS_USDT",
-    "B-NAORIS_USDT",
-    "B-ZEN_USDT",
-    "B-SAPIEN_USDT",
-    "B-CHZ_USDT",
-    "B-ANKR_USDT",
-    "B-STABLE_USDT",
-    "B-CLANKER_USDT",
-    "B-OPEN_USDT",
-    "B-PIEVERSE_USDT",
-    "B-SENT_USDT",
-    "B-C98_USDT",
-    "B-HANA_USDT",
-    "B-US_USDT",
-    "B-BREV_USDT",
-    "B-NOM_USDT",
-    "B-LYN_USDT",
-    "B-SKR_USDT",
-    "B-SPACE_USDT",
-    "B-OPN_USDT",
-    "B-ROBO_USDT",
-    "B-OP_USDT",
-    "B-ZKP_USDT",
-    "B-XAG_USDT",
-    "B-ACU_USDT",
-    "B-FIGHT_USDT",
-    "B-MANTRA_USDT",
-    "B-GENIUS_USDT",
-    "B-BIRB_USDT",
-    "B-ESP_USDT",
-    "B-CFG_USDT",
-    "B-ZIL_USDT",
-    "B-COMP_USDT",
-    "B-MERL_USDT",
-    "B-RUNE_USDT",
-    "B-KSM_USDT",
-    "B-ONE_USDT",
-    "B-1000SHIB_USDT",
-    "B-APE_USDT",
-    "B-WOO_USDT",
-    "B-LDO_USDT",
-    "B-ICP_USDT",
-    "B-APT_USDT",
-    "B-CKB_USDT",
-    "B-1000PEPE_USDT",
-    "B-POLYX_USDT",
-    "B-TWT_USDT",
-    "B-STEEM_USDT",
-    "B-1000BONK_USDT",
-    "B-RONIN_USDT",
-    "B-STRK_USDT",
-    "B-W_USDT",
-    "B-IO_USDT",
-    "B-ZK_USDT",
-    "B-MEW_USDT",
-    "B-CETUS_USDT",
-    "B-COOKIE_USDT",
-    "B-PROMPT_USDT",
-    "B-ICNT_USDT",
-    "B-TREE_USDT",
-    "B-SKY_USDT",
-    "B-FLUID_USDT",
-    "B-IRYS_USDT",
-    "B-MEGA_USDT",
-    "B-MITO_USDT",
-    "B-NATGAS_USDT",
-    "B-RE_USDT",
-    "B-YB_USDT",
-    "B-MET_USDT",
-    "B-FOGO_USDT",
-    "B-BTW_USDT",
-    "B-ALLO_USDT",
-    "B-BROCCOLI714_USDT",
-    "B-HYPER_USDT",
-    "B-XPL_USDT",
-    "B-RESOLV_USDT",
-    "B-ASTER_USDT",
-    "B-KITE_USDT",
-    "B-SIGN_USDT",
-    "B-HOME_USDT",
-    "B-MON_USDT",
-    "B-CC_USDT",
-    "B-SAHARA_USDT",
-    "B-MIRA_USDT",
-    "B-EUL_USDT",
-    "B-TOWNS_USDT",
-    "B-SYRUP_USDT",
-    "B-C_USDT",
-    "B-DOLO_USDT",
-    "B-ALICE_USDT",
-    "B-BABY_USDT",
-    "B-SOMI_USDT",
-    "B-NOT_USDT",
-    "B-BARD_USDT",
-    "B-SPK_USDT",
-    "B-POWER_USDT",
-    "B-2Z_USDT",
-    "B-BANANA_USDT",
-    "B-ENSO_USDT",
-    "B-SYN_USDT",
-    "B-NXPC_USDT",
-    "B-GUN_USDT",
-    "B-XTZ_USDT",
-    "B-ONT_USDT",
-    "B-SKL_USDT",
-    "B-HOT_USDT",
-    "B-JTO_USDT",
-    "B-DOGS_USDT",
-    "B-EIGEN_USDT",
-    "B-GTC_USDT",
-    "B-GALA_USDT",
-    "B-NMR_USDT",
-    "B-CGPT_USDT",
-    "B-ZEREBRO_USDT",
-    "B-VANA_USDT",
-    "B-ICX_USDT",
-    "B-OGN_USDT",
-    "B-CELO_USDT",
-    "B-USDC_USDT",
-    "B-COW_USDT",
-    "B-0G_USDT",
-    "B-IOTA_USDT",
-    "B-SNX_USDT",
-    "B-DYDX_USDT",
-    "B-WLD_USDT",
-    "B-1000SATS_USDT",
-    "B-ONDO_USDT",
-    "B-AEVO_USDT",
-    "B-BRETT_USDT",
-    "B-LAYER_USDT",
-    "B-CRV_USDT",
-    "B-TLM_USDT",
-    "B-KOMA_USDT"
-  ],
-  "coin_map": {
-    "CHIP": "B-CHIP_USDT",
-    "BR": "B-BR_USDT",
-    "WCT": "B-WCT_USDT",
-    "VELVET": "B-VELVET_USDT",
-    "SXT": "B-SXT_USDT",
-    "WAL": "B-WAL_USDT",
-    "ATH": "B-ATH_USDT",
-    "TRIA": "B-TRIA_USDT",
-    "LAB": "B-LAB_USDT",
-    "SOON": "B-SOON_USDT",
-    "GRAM": "B-GRAM_USDT",
+  "spot_to_future": {
+    "ESPORTSUSDT": "B-ESPORTS_USDT",
+    "1INCHUSDT": "B-1INCH_USDT",
+    "BSBUSDT": "B-BSB_USDT",
+    "SANDUSDT": "B-SAND_USDT",
+    "BZUSDT": "B-BZ_USDT",
+    "PRLUSDT": "B-PRL_USDT",
+    "AUCTIONUSDT": "B-AUCTION_USDT",
+    "SFPUSDT": "B-SFP_USDT",
+    "CHIPUSDT": "B-CHIP_USDT",
+    "COTIUSDT": "B-COTI_USDT",
+    "CHRUSDT": "B-CHR_USDT",
+    "BILLUSDT": "B-BILL_USDT",
+    "MTLUSDT": "B-MTL_USDT",
+    "RIVERUSDT": "B-RIVER_USDT",
+    "BRUSDT": "B-BR_USDT",
+    "INUSDT": "B-IN_USDT",
+    "ZESTUSDT": "B-ZEST_USDT",
+    "ARPAUSDT": "B-ARPA_USDT",
+    "XNYUSDT": "B-XNY_USDT",
+    "ROSEUSDT": "B-ROSE_USDT",
+    "BEATUSDT": "B-BEAT_USDT",
+    "DUSKUSDT": "B-DUSK_USDT",
+    "STGUSDT": "B-STG_USDT",
+    "JELLYJELLYUSDT": "B-JELLYJELLY_USDT",
+    "MINAUSDT": "B-MINA_USDT",
+    "CFXUSDT": "B-CFX_USDT",
+    "STXUSDT": "B-STX_USDT",
+    "ARBUSDT": "B-ARB_USDT",
+    "USUALUSDT": "B-USUAL_USDT",
+    "XVGUSDT": "B-XVG_USDT",
+    "DATAIPUSDT": "B-DATAIP_USDT",
+    "GRVTUSDT": "B-GRVT_USDT",
+    "HEMIUSDT": "B-HEMI_USDT",
+    "INJUSDT": "B-INJ_USDT",
+    "AGLDUSDT": "B-AGLD_USDT",
+    "SEIUSDT": "B-SEI_USDT",
+    "BICOUSDT": "B-BICO_USDT",
+    "BANKUSDT": "B-BANK_USDT",
+    "SXTUSDT": "B-SXT_USDT",
+    "ASRUSDT": "B-ASR_USDT",
+    "BIGTIMEUSDT": "B-BIGTIME_USDT",
+    "ORDIUSDT": "B-ORDI_USDT",
+    "USELESSUSDT": "B-USELESS_USDT",
+    "NEARUSDT": "B-NEAR_USDT",
+    "1000LUNCUSDT": "B-1000LUNC_USDT",
+    "JUPUSDT": "B-JUP_USDT",
+    "GRIFFAINUSDT": "B-GRIFFAIN_USDT",
+    "FUSDT": "B-F_USDT",
+    "BOMEUSDT": "B-BOME_USDT",
+    "NEWTUSDT": "B-NEWT_USDT",
+    "GMXUSDT": "B-GMX_USDT",
+    "LISTAUSDT": "B-LISTA_USDT",
+    "GUSDT": "B-G_USDT",
+    "DIAUSDT": "B-DIA_USDT",
+    "PLAYUSDT": "B-PLAY_USDT",
+    "BUSDT": "B-B_USDT",
+    "UBUSDT": "B-UB_USDT",
+    "STBLUSDT": "B-STBL_USDT",
+    "PNUTUSDT": "B-PNUT_USDT",
+    "QUSDT": "B-Q_USDT",
+    "PTBUSDT": "B-PTB_USDT",
+    "FLOCKUSDT": "B-FLOCK_USDT",
+    "TRIAUSDT": "B-TRIA_USDT",
+    "HOLOUSDT": "B-HOLO_USDT",
+    "CATIUSDT": "B-CATI_USDT",
+    "PHAROSUSDT": "B-PHAROS_USDT",
+    "SCRTUSDT": "B-SCRT_USDT",
+    "BLUAIUSDT": "B-BLUAI_USDT",
+    "CHILLGUYUSDT": "B-CHILLGUY_USDT",
+    "KAIAUSDT": "B-KAIA_USDT",
+    "AEROUSDT": "B-AERO_USDT",
+    "JCTUSDT": "B-JCT_USDT",
+    "XAUUSDT": "B-XAU_USDT",
+    "ONUSDT": "B-ON_USDT",
+    "ORCAUSDT": "B-ORCA_USDT",
+    "ATUSDT": "B-AT_USDT",
+    "EDGEUSDT": "B-EDGE_USDT",
+    "MMTUSDT": "B-MMT_USDT",
+    "CLUSDT": "B-CL_USDT",
+    "VIRTUALUSDT": "B-VIRTUAL_USDT",
+    "AIGENSYNUSDT": "B-AIGENSYN_USDT",
+    "MOCAUSDT": "B-MOCA_USDT",
+    "MAGICUSDT": "B-MAGIC_USDT",
+    "ARCUSDT": "B-ARC_USDT",
+    "CAPUSDT": "B-CAP_USDT",
+    "MAGMAUSDT": "B-MAGMA_USDT",
+    "CTRUSDT": "B-CTR_USDT",
+    "SLXUSDT": "B-SLX_USDT",
+    "BTCUSDT": "B-BTC_USDT",
+    "ETHUSDT": "B-ETH_USDT",
+    "AVAAIUSDT": "B-AVAAI_USDT",
+    "BLESSUSDT": "B-BLESS_USDT",
+    "BCHUSDT": "B-BCH_USDT",
+    "IDUSDT": "B-ID_USDT",
+    "ARXUSDT": "B-ARX_USDT",
+    "VTHOUSDT": "B-VTHO_USDT",
+    "PIPPINUSDT": "B-PIPPIN_USDT",
+    "BLURUSDT": "B-BLUR_USDT",
+    "LTCUSDT": "B-LTC_USDT",
+    "TRXUSDT": "B-TRX_USDT",
+    "LIGHTUSDT": "B-LIGHT_USDT",
+    "LINKUSDT": "B-LINK_USDT",
+    "XRPUSDT": "B-XRP_USDT",
+    "TSTUSDT": "B-TST_USDT",
+    "XANUSDT": "B-XAN_USDT",
+    "GRAMUSDT": "B-GRAM_USDT",
+    "DOSUSDT": "B-DOS_USDT",
+    "ETCUSDT": "B-ETC_USDT",
+    "GPSUSDT": "B-GPS_USDT",
+    "XVSUSDT": "B-XVS_USDT",
+    "KAITOUSDT": "B-KAITO_USDT",
+    "ERAUSDT": "B-ERA_USDT",
+    "XLMUSDT": "B-XLM_USDT",
+    "ZECUSDT": "B-ZEC_USDT",
+    "ADAUSDT": "B-ADA_USDT",
+    "XMRUSDT": "B-XMR_USDT",
+    "BNBUSDT": "B-BNB_USDT",
+    "KASUSDT": "B-KAS_USDT",
+    "ATOMUSDT": "B-ATOM_USDT",
+    "DASHUSDT": "B-DASH_USDT",
+    "CYSUSDT": "B-CYS_USDT",
+    "BMTUSDT": "B-BMT_USDT",
+    "OPGUSDT": "B-OPG_USDT",
+    "WALUSDT": "B-WAL_USDT",
+    "NEOUSDT": "B-NEO_USDT",
+    "BATUSDT": "B-BAT_USDT",
+    "INITUSDT": "B-INIT_USDT",
+    "POPCATUSDT": "B-POPCAT_USDT",
+    "IOSTUSDT": "B-IOST_USDT",
+    "FFUSDT": "B-FF_USDT",
+    "TIAUSDT": "B-TIA_USDT",
+    "JSTUSDT": "B-JST_USDT",
+    "THETAUSDT": "B-THETA_USDT",
+    "ALGOUSDT": "B-ALGO_USDT",
+    "HAEDALUSDT": "B-HAEDAL_USDT",
+    "KAVAUSDT": "B-KAVA_USDT",
+    "ALPINEUSDT": "B-ALPINE_USDT",
+    "LQTYUSDT": "B-LQTY_USDT",
+    "SOLUSDT": "B-SOL_USDT",
+    "AVAXUSDT": "B-AVAX_USDT",
+    "OGUSDT": "B-OG_USDT",
+    "SKYAIUSDT": "B-SKYAI_USDT",
+    "SOONUSDT": "B-SOON_USDT",
+    "CVCUSDT": "B-CVC_USDT",
+    "AWEUSDT": "B-AWE_USDT",
+    "FILUSDT": "B-FIL_USDT",
+    "HUMAUSDT": "B-HUMA_USDT",
+    "HYPEUSDT": "B-HYPE_USDT",
+    "SQDUSDT": "B-SQD_USDT",
+    "MYXUSDT": "B-MYX_USDT",
+    "TAOUSDT": "B-TAO_USDT",
+    "HUSDT": "B-H_USDT",
+    "KNCUSDT": "B-KNC_USDT",
+    "ZRXUSDT": "B-ZRX_USDT",
+    "ATHUSDT": "B-ATH_USDT",
+    "VELVETUSDT": "B-VELVET_USDT",
+    "SLPUSDT": "B-SLP_USDT",
+    "EDENUSDT": "B-EDEN_USDT",
+    "TRUTHUSDT": "B-TRUTH_USDT",
+    "DOGEUSDT": "B-DOGE_USDT",
+    "RAREUSDT": "B-RARE_USDT",
+    "SOPHUSDT": "B-SOPH_USDT",
+    "GIGGLEUSDT": "B-GIGGLE_USDT",
+    "KGENUSDT": "B-KGEN_USDT",
+    "CLOUSDT": "B-CLO_USDT",
+    "FLUXUSDT": "B-FLUX_USDT",
+    "RECALLUSDT": "B-RECALL_USDT",
+    "RSRUSDT": "B-RSR_USDT",
+    "POLUSDT": "B-POL_USDT",
+    "ZBTUSDT": "B-ZBT_USDT",
+    "APRUSDT": "B-APR_USDT",
+    "GRASSUSDT": "B-GRASS_USDT",
+    "UAIUSDT": "B-UAI_USDT",
+    "RLCUSDT": "B-RLC_USDT",
+    "WETUSDT": "B-WET_USDT",
+    "WLFIUSDT": "B-WLFI_USDT",
+    "ARIAUSDT": "B-ARIA_USDT",
+    "NIGHTUSDT": "B-NIGHT_USDT",
+    "RAVEUSDT": "B-RAVE_USDT",
+    "1000000MOGUSDT": "B-1000000MOG_USDT",
+    "KATUSDT": "B-KAT_USDT",
+    "1000FLOKIUSDT": "B-1000FLOKI_USDT",
+    "LITUSDT": "B-LIT_USDT",
+    "YFIUSDT": "B-YFI_USDT",
+    "STOUSDT": "B-STO_USDT",
+    "SUSHIUSDT": "B-SUSHI_USDT",
+    "FRAXUSDT": "B-FRAX_USDT",
+    "ELSAUSDT": "B-ELSA_USDT",
+    "GWEIUSDT": "B-GWEI_USDT",
+    "INXUSDT": "B-INX_USDT",
+    "STORJUSDT": "B-STORJ_USDT",
+    "KERNELUSDT": "B-KERNEL_USDT",
+    "MOVEUSDT": "B-MOVE_USDT",
+    "WCTUSDT": "B-WCT_USDT",
+    "AAVEUSDT": "B-AAVE_USDT",
+    "AINUSDT": "B-AIN_USDT",
+    "AIOTUSDT": "B-AIOT_USDT",
+    "SIRENUSDT": "B-SIREN_USDT",
+    "TURTLEUSDT": "B-TURTLE_USDT",
+    "BELUSDT": "B-BEL_USDT",
+    "HIVEUSDT": "B-HIVE_USDT",
+    "SWARMSUSDT": "B-SWARMS_USDT",
+    "IOTXUSDT": "B-IOTX_USDT",
+    "MASKUSDT": "B-MASK_USDT",
+    "1000XECUSDT": "B-1000XEC_USDT",
+    "CTSIUSDT": "B-CTSI_USDT",
+    "LPTUSDT": "B-LPT_USDT",
+    "QTUMUSDT": "B-QTUM_USDT",
+    "AUSDT": "B-A_USDT",
+    "TAIKOUSDT": "B-TAIKO_USDT",
+    "FLOWUSDT": "B-FLOW_USDT",
+    "API3USDT": "B-API3_USDT",
+    "GMTUSDT": "B-GMT_USDT",
+    "JASMYUSDT": "B-JASMY_USDT",
+    "SPELLUSDT": "B-SPELL_USDT",
+    "QNTUSDT": "B-QNT_USDT",
+    "DOTUSDT": "B-DOT_USDT",
+    "TRBUSDT": "B-TRB_USDT",
+    "TACUSDT": "B-TAC_USDT",
+    "FETUSDT": "B-FET_USDT",
+    "ASTRUSDT": "B-ASTR_USDT",
+    "EGLDUSDT": "B-EGLD_USDT",
+    "AIOUSDT": "B-AIO_USDT",
+    "AVNTUSDT": "B-AVNT_USDT",
+    "UNIUSDT": "B-UNI_USDT",
+    "CROSSUSDT": "B-CROSS_USDT",
+    "LABUSDT": "B-LAB_USDT",
+    "ACHUSDT": "B-ACH_USDT",
+    "BSVUSDT": "B-BSV_USDT",
+    "GRTUSDT": "B-GRT_USDT",
+    "SUPERUSDT": "B-SUPER_USDT",
+    "ETHWUSDT": "B-ETHW_USDT",
+    "ACEUSDT": "B-ACE_USDT",
+    "MOVRUSDT": "B-MOVR_USDT",
+    "LSKUSDT": "B-LSK_USDT",
+    "ZETAUSDT": "B-ZETA_USDT",
+    "RVNUSDT": "B-RVN_USDT",
+    "DYMUSDT": "B-DYM_USDT",
+    "GLMUSDT": "B-GLM_USDT",
+    "PORTALUSDT": "B-PORTAL_USDT",
+    "ARUSDT": "B-AR_USDT",
+    "BBUSDT": "B-BB_USDT",
+    "MANAUSDT": "B-MANA_USDT",
+    "ZROUSDT": "B-ZRO_USDT",
+    "HBARUSDT": "B-HBAR_USDT",
+    "ENSUSDT": "B-ENS_USDT",
+    "PEOPLEUSDT": "B-PEOPLE_USDT",
+    "IMXUSDT": "B-IMX_USDT",
+    "LAUSDT": "B-LA_USDT",
+    "MEUSDT": "B-ME_USDT",
+    "JOEUSDT": "B-JOE_USDT",
+    "FIDAUSDT": "B-FIDA_USDT",
+    "METISUSDT": "B-METIS_USDT",
+    "EDUUSDT": "B-EDU_USDT",
+    "YGGUSDT": "B-YGG_USDT",
+    "PENDLEUSDT": "B-PENDLE_USDT",
+    "ARKMUSDT": "B-ARKM_USDT",
+    "ETHFIUSDT": "B-ETHFI_USDT",
+    "ENAUSDT": "B-ENA_USDT",
+    "BNTUSDT": "B-BNT_USDT",
+    "SAGAUSDT": "B-SAGA_USDT",
+    "GASUSDT": "B-GAS_USDT",
+    "RIFUSDT": "B-RIF_USDT",
+    "POWRUSDT": "B-POWR_USDT",
+    "CAKEUSDT": "B-CAKE_USDT",
+    "MEMEUSDT": "B-MEME_USDT",
+    "LUMIAUSDT": "B-LUMIA_USDT",
+    "LUNA2USDT": "B-LUNA2_USDT",
+    "REZUSDT": "B-REZ_USDT",
+    "TUSDT": "B-T_USDT",
+    "TNSRUSDT": "B-TNSR_USDT",
+    "TURBOUSDT": "B-TURBO_USDT",
+    "HMSTRUSDT": "B-HMSTR_USDT",
+    "SCRUSDT": "B-SCR_USDT",
+    "SUIUSDT": "B-SUI_USDT",
+    "GOATUSDT": "B-GOAT_USDT",
+    "UMAUSDT": "B-UMA_USDT",
+    "MAVUSDT": "B-MAV_USDT",
+    "MOODENGUSDT": "B-MOODENG_USDT",
+    "CYBERUSDT": "B-CYBER_USDT",
+    "ARKUSDT": "B-ARK_USDT",
+    "DRIFTUSDT": "B-DRIFT_USDT",
+    "WAXPUSDT": "B-WAXP_USDT",
+    "MORPHOUSDT": "B-MORPHO_USDT",
+    "AKTUSDT": "B-AKT_USDT",
+    "SSVUSDT": "B-SSV_USDT",
+    "ONGUSDT": "B-ONG_USDT",
+    "AVAUSDT": "B-AVA_USDT",
+    "MANTAUSDT": "B-MANTA_USDT",
+    "AIXBTUSDT": "B-AIXBT_USDT",
+    "ALTUSDT": "B-ALT_USDT",
+    "PHAUSDT": "B-PHA_USDT",
+    "SONICUSDT": "B-SONIC_USDT",
+    "PROMUSDT": "B-PROM_USDT",
+    "TRUMPUSDT": "B-TRUMP_USDT",
+    "SPXUSDT": "B-SPX_USDT",
+    "BERAUSDT": "B-BERA_USDT",
+    "SHELLUSDT": "B-SHELL_USDT",
+    "PENGUUSDT": "B-PENGU_USDT",
+    "KMNOUSDT": "B-KMNO_USDT",
+    "REDUSDT": "B-RED_USDT",
+    "EPICUSDT": "B-EPIC_USDT",
+    "ILVUSDT": "B-ILV_USDT",
+    "PYTHUSDT": "B-PYTH_USDT",
+    "BANANAS31USDT": "B-BANANAS31_USDT",
+    "NILUSDT": "B-NIL_USDT",
+    "DEXEUSDT": "B-DEXE_USDT",
+    "MUSDT": "B-M_USDT",
+    "1000RATSUSDT": "B-1000RATS_USDT",
+    "PLUMEUSDT": "B-PLUME_USDT",
+    "XAIUSDT": "B-XAI_USDT",
+    "WIFUSDT": "B-WIF_USDT",
+    "AXLUSDT": "B-AXL_USDT",
+    "PARTIUSDT": "B-PARTI_USDT",
+    "ZAMAUSDT": "B-ZAMA_USDT",
+    "SUNUSDT": "B-SUN_USDT",
+    "PAXGUSDT": "B-PAXG_USDT",
+    "RPLUSDT": "B-RPL_USDT",
+    "SANTOSUSDT": "B-SANTOS_USDT",
+    "ALCHUSDT": "B-ALCH_USDT",
+    "SUSDT": "B-S_USDT",
+    "USTCUSDT": "B-USTC_USDT",
+    "SAFEUSDT": "B-SAFE_USDT",
+    "DEEPUSDT": "B-DEEP_USDT",
+    "ACTUSDT": "B-ACT_USDT",
+    "PUMPUSDT": "B-PUMP_USDT",
+    "THEUSDT": "B-THE_USDT",
+    "BASEDUSDT": "B-BASED_USDT",
+    "MELANIAUSDT": "B-MELANIA_USDT",
+    "ANIMEUSDT": "B-ANIME_USDT",
+    "TAUSDT": "B-TA_USDT",
+    "VVVUSDT": "B-VVV_USDT",
+    "VELODROMEUSDT": "B-VELODROME_USDT",
+    "ZORAUSDT": "B-ZORA_USDT",
+    "TAGUSDT": "B-TAG_USDT",
+    "CARVUSDT": "B-CARV_USDT",
+    "PIXELUSDT": "B-PIXEL_USDT",
+    "BIOUSDT": "B-BIO_USDT",
+    "OUSDT": "B-O_USDT",
+    "RENDERUSDT": "B-RENDER_USDT",
+    "LINEAUSDT": "B-LINEA_USDT",
+    "SOLVUSDT": "B-SOLV_USDT",
+    "1MBABYDOGEUSDT": "B-1MBABYDOGE_USDT",
+    "1000CATUSDT": "B-1000CAT_USDT",
+    "FARTCOINUSDT": "B-FARTCOIN_USDT",
+    "ZKCUSDT": "B-ZKC_USDT",
+    "HEIUSDT": "B-HEI_USDT",
+    "COAIUSDT": "B-COAI_USDT",
+    "BANUSDT": "B-BAN_USDT",
+    "FHEUSDT": "B-FHE_USDT",
+    "AKEUSDT": "B-AKE_USDT",
+    "MUBARAKUSDT": "B-MUBARAK_USDT",
+    "FORMUSDT": "B-FORM_USDT",
+    "ORDERUSDT": "B-ORDER_USDT",
+    "TUTUSDT": "B-TUT_USDT",
+    "MAVIAUSDT": "B-MAVIA_USDT",
+    "VETUSDT": "B-VET_USDT",
+    "EVAAUSDT": "B-EVAA_USDT",
+    "BANDUSDT": "B-BAND_USDT",
+    "PUNDIXUSDT": "B-PUNDIX_USDT",
+    "PROVEUSDT": "B-PROVE_USDT",
+    "ENJUSDT": "B-ENJ_USDT",
+    "AXSUSDT": "B-AXS_USDT",
+    "NAORISUSDT": "B-NAORIS_USDT",
+    "ZENUSDT": "B-ZEN_USDT",
+    "SAPIENUSDT": "B-SAPIEN_USDT",
+    "CHZUSDT": "B-CHZ_USDT",
+    "ANKRUSDT": "B-ANKR_USDT",
+    "STABLEUSDT": "B-STABLE_USDT",
+    "CLANKERUSDT": "B-CLANKER_USDT",
+    "OPENUSDT": "B-OPEN_USDT",
+    "PIEVERSEUSDT": "B-PIEVERSE_USDT",
+    "SENTUSDT": "B-SENT_USDT",
+    "C98USDT": "B-C98_USDT",
+    "HANAUSDT": "B-HANA_USDT",
+    "USUSDT": "B-US_USDT",
+    "BREVUSDT": "B-BREV_USDT",
+    "NOMUSDT": "B-NOM_USDT",
+    "LYNUSDT": "B-LYN_USDT",
+    "SKRUSDT": "B-SKR_USDT",
+    "SPACEUSDT": "B-SPACE_USDT",
+    "OPNUSDT": "B-OPN_USDT",
+    "ROBOUSDT": "B-ROBO_USDT",
+    "OPUSDT": "B-OP_USDT",
+    "ZKPUSDT": "B-ZKP_USDT",
+    "XAGUSDT": "B-XAG_USDT",
+    "ACUUSDT": "B-ACU_USDT",
+    "FIGHTUSDT": "B-FIGHT_USDT",
+    "MANTRAUSDT": "B-MANTRA_USDT",
+    "GENIUSUSDT": "B-GENIUS_USDT",
+    "BIRBUSDT": "B-BIRB_USDT",
+    "ESPUSDT": "B-ESP_USDT",
+    "CFGUSDT": "B-CFG_USDT",
+    "ZILUSDT": "B-ZIL_USDT",
+    "COMPUSDT": "B-COMP_USDT",
+    "MERLUSDT": "B-MERL_USDT",
+    "RUNEUSDT": "B-RUNE_USDT",
+    "KSMUSDT": "B-KSM_USDT",
+    "ONEUSDT": "B-ONE_USDT",
+    "1000SHIBUSDT": "B-1000SHIB_USDT",
+    "APEUSDT": "B-APE_USDT",
+    "WOOUSDT": "B-WOO_USDT",
+    "LDOUSDT": "B-LDO_USDT",
+    "ICPUSDT": "B-ICP_USDT",
+    "APTUSDT": "B-APT_USDT",
+    "CKBUSDT": "B-CKB_USDT",
+    "1000PEPEUSDT": "B-1000PEPE_USDT",
+    "POLYXUSDT": "B-POLYX_USDT",
+    "TWTUSDT": "B-TWT_USDT",
+    "STEEMUSDT": "B-STEEM_USDT",
+    "1000BONKUSDT": "B-1000BONK_USDT",
+    "RONINUSDT": "B-RONIN_USDT",
+    "STRKUSDT": "B-STRK_USDT",
+    "WUSDT": "B-W_USDT",
+    "IOUSDT": "B-IO_USDT",
+    "ZKUSDT": "B-ZK_USDT",
+    "MEWUSDT": "B-MEW_USDT",
+    "CETUSUSDT": "B-CETUS_USDT",
+    "COOKIEUSDT": "B-COOKIE_USDT",
+    "PROMPTUSDT": "B-PROMPT_USDT",
+    "ICNTUSDT": "B-ICNT_USDT",
+    "TREEUSDT": "B-TREE_USDT",
+    "SKYUSDT": "B-SKY_USDT",
+    "FLUIDUSDT": "B-FLUID_USDT",
+    "IRYSUSDT": "B-IRYS_USDT",
+    "MEGAUSDT": "B-MEGA_USDT",
+    "MITOUSDT": "B-MITO_USDT",
+    "NATGASUSDT": "B-NATGAS_USDT",
+    "REUSDT": "B-RE_USDT",
+    "YBUSDT": "B-YB_USDT",
+    "METUSDT": "B-MET_USDT",
+    "FOGOUSDT": "B-FOGO_USDT",
+    "BTWUSDT": "B-BTW_USDT",
+    "ALLOUSDT": "B-ALLO_USDT",
+    "BROCCOLI714USDT": "B-BROCCOLI714_USDT",
+    "HYPERUSDT": "B-HYPER_USDT",
+    "XPLUSDT": "B-XPL_USDT",
+    "RESOLVUSDT": "B-RESOLV_USDT",
+    "ASTERUSDT": "B-ASTER_USDT",
+    "KITEUSDT": "B-KITE_USDT",
+    "SIGNUSDT": "B-SIGN_USDT",
+    "HOMEUSDT": "B-HOME_USDT",
+    "MONUSDT": "B-MON_USDT",
+    "CCUSDT": "B-CC_USDT",
+    "SAHARAUSDT": "B-SAHARA_USDT",
+    "MIRAUSDT": "B-MIRA_USDT",
+    "EULUSDT": "B-EUL_USDT",
+    "TOWNSUSDT": "B-TOWNS_USDT",
+    "SYRUPUSDT": "B-SYRUP_USDT",
+    "CUSDT": "B-C_USDT",
+    "DOLOUSDT": "B-DOLO_USDT",
+    "ALICEUSDT": "B-ALICE_USDT",
+    "BABYUSDT": "B-BABY_USDT",
+    "SOMIUSDT": "B-SOMI_USDT",
+    "NOTUSDT": "B-NOT_USDT",
+    "BARDUSDT": "B-BARD_USDT",
+    "SPKUSDT": "B-SPK_USDT",
+    "POWERUSDT": "B-POWER_USDT",
+    "2ZUSDT": "B-2Z_USDT",
+    "BANANAUSDT": "B-BANANA_USDT",
+    "ENSOUSDT": "B-ENSO_USDT",
+    "SYNUSDT": "B-SYN_USDT",
+    "NXPCUSDT": "B-NXPC_USDT",
+    "GUNUSDT": "B-GUN_USDT",
+    "XTZUSDT": "B-XTZ_USDT",
+    "ONTUSDT": "B-ONT_USDT",
+    "SKLUSDT": "B-SKL_USDT",
+    "HOTUSDT": "B-HOT_USDT",
+    "JTOUSDT": "B-JTO_USDT",
+    "DOGSUSDT": "B-DOGS_USDT",
+    "EIGENUSDT": "B-EIGEN_USDT",
+    "GTCUSDT": "B-GTC_USDT",
+    "GALAUSDT": "B-GALA_USDT",
+    "NMRUSDT": "B-NMR_USDT",
+    "CGPTUSDT": "B-CGPT_USDT",
+    "ZEREBROUSDT": "B-ZEREBRO_USDT",
+    "VANAUSDT": "B-VANA_USDT",
+    "ICXUSDT": "B-ICX_USDT",
+    "OGNUSDT": "B-OGN_USDT",
+    "CELOUSDT": "B-CELO_USDT",
+    "USDCUSDT": "B-USDC_USDT",
+    "COWUSDT": "B-COW_USDT",
+    "0GUSDT": "B-0G_USDT",
+    "IOTAUSDT": "B-IOTA_USDT",
+    "SNXUSDT": "B-SNX_USDT",
+    "DYDXUSDT": "B-DYDX_USDT",
+    "WLDUSDT": "B-WLD_USDT",
+    "1000SATSUSDT": "B-1000SATS_USDT",
+    "ONDOUSDT": "B-ONDO_USDT",
+    "AEVOUSDT": "B-AEVO_USDT",
+    "BRETTUSDT": "B-BRETT_USDT",
+    "LAYERUSDT": "B-LAYER_USDT",
+    "CRVUSDT": "B-CRV_USDT",
+    "TLMUSDT": "B-TLM_USDT",
+    "KOMAUSDT": "B-KOMA_USDT"
+  },
+  "coin_to_future": {
+    "ESPORTS": "B-ESPORTS_USDT",
+    "1INCH": "B-1INCH_USDT",
     "BSB": "B-BSB_USDT",
+    "SAND": "B-SAND_USDT",
+    "BZ": "B-BZ_USDT",
+    "PRL": "B-PRL_USDT",
+    "AUCTION": "B-AUCTION_USDT",
+    "SFP": "B-SFP_USDT",
+    "CHIP": "B-CHIP_USDT",
+    "COTI": "B-COTI_USDT",
+    "CHR": "B-CHR_USDT",
+    "BILL": "B-BILL_USDT",
     "MTL": "B-MTL_USDT",
-    "HAEDAL": "B-HAEDAL_USDT",
-    "CL": "B-CL_USDT",
-    "SLP": "B-SLP_USDT",
-    "BTC": "B-BTC_USDT",
-    "ADA": "B-ADA_USDT",
-    "LIGHT": "B-LIGHT_USDT",
-    "INIT": "B-INIT_USDT",
+    "RIVER": "B-RIVER_USDT",
+    "BR": "B-BR_USDT",
+    "IN": "B-IN_USDT",
+    "ZEST": "B-ZEST_USDT",
+    "ARPA": "B-ARPA_USDT",
+    "XNY": "B-XNY_USDT",
+    "ROSE": "B-ROSE_USDT",
+    "BEAT": "B-BEAT_USDT",
+    "DUSK": "B-DUSK_USDT",
+    "STG": "B-STG_USDT",
+    "JELLYJELLY": "B-JELLYJELLY_USDT",
+    "MINA": "B-MINA_USDT",
+    "CFX": "B-CFX_USDT",
+    "STX": "B-STX_USDT",
+    "ARB": "B-ARB_USDT",
+    "USUAL": "B-USUAL_USDT",
+    "XVG": "B-XVG_USDT",
+    "DATAIP": "B-DATAIP_USDT",
+    "GRVT": "B-GRVT_USDT",
+    "HEMI": "B-HEMI_USDT",
+    "INJ": "B-INJ_USDT",
+    "AGLD": "B-AGLD_USDT",
+    "SEI": "B-SEI_USDT",
+    "BICO": "B-BICO_USDT",
+    "BANK": "B-BANK_USDT",
+    "SXT": "B-SXT_USDT",
+    "ASR": "B-ASR_USDT",
+    "BIGTIME": "B-BIGTIME_USDT",
+    "ORDI": "B-ORDI_USDT",
+    "USELESS": "B-USELESS_USDT",
+    "NEAR": "B-NEAR_USDT",
+    "1000LUNC": "B-1000LUNC_USDT",
+    "JUP": "B-JUP_USDT",
+    "GRIFFAIN": "B-GRIFFAIN_USDT",
+    "F": "B-F_USDT",
+    "BOME": "B-BOME_USDT",
+    "NEWT": "B-NEWT_USDT",
+    "GMX": "B-GMX_USDT",
+    "LISTA": "B-LISTA_USDT",
+    "G": "B-G_USDT",
+    "DIA": "B-DIA_USDT",
     "PLAY": "B-PLAY_USDT",
-    "JST": "B-JST_USDT",
-    "LTC": "B-LTC_USDT",
-    "AIOT": "B-AIOT_USDT",
-    "ATOM": "B-ATOM_USDT",
+    "B": "B-B_USDT",
+    "UB": "B-UB_USDT",
+    "STBL": "B-STBL_USDT",
+    "PNUT": "B-PNUT_USDT",
     "Q": "B-Q_USDT",
     "PTB": "B-PTB_USDT",
+    "FLOCK": "B-FLOCK_USDT",
+    "TRIA": "B-TRIA_USDT",
+    "HOLO": "B-HOLO_USDT",
+    "CATI": "B-CATI_USDT",
+    "PHAROS": "B-PHAROS_USDT",
+    "SCRT": "B-SCRT_USDT",
+    "BLUAI": "B-BLUAI_USDT",
+    "CHILLGUY": "B-CHILLGUY_USDT",
+    "KAIA": "B-KAIA_USDT",
+    "AERO": "B-AERO_USDT",
+    "JCT": "B-JCT_USDT",
+    "XAU": "B-XAU_USDT",
+    "ON": "B-ON_USDT",
+    "ORCA": "B-ORCA_USDT",
+    "AT": "B-AT_USDT",
+    "EDGE": "B-EDGE_USDT",
+    "MMT": "B-MMT_USDT",
+    "CL": "B-CL_USDT",
+    "VIRTUAL": "B-VIRTUAL_USDT",
+    "AIGENSYN": "B-AIGENSYN_USDT",
+    "MOCA": "B-MOCA_USDT",
+    "MAGIC": "B-MAGIC_USDT",
+    "ARC": "B-ARC_USDT",
+    "CAP": "B-CAP_USDT",
+    "MAGMA": "B-MAGMA_USDT",
+    "CTR": "B-CTR_USDT",
+    "SLX": "B-SLX_USDT",
+    "BTC": "B-BTC_USDT",
+    "ETH": "B-ETH_USDT",
+    "AVAAI": "B-AVAAI_USDT",
+    "BLESS": "B-BLESS_USDT",
+    "BCH": "B-BCH_USDT",
+    "ID": "B-ID_USDT",
+    "ARX": "B-ARX_USDT",
+    "VTHO": "B-VTHO_USDT",
+    "PIPPIN": "B-PIPPIN_USDT",
+    "BLUR": "B-BLUR_USDT",
+    "LTC": "B-LTC_USDT",
+    "TRX": "B-TRX_USDT",
+    "LIGHT": "B-LIGHT_USDT",
+    "LINK": "B-LINK_USDT",
+    "XRP": "B-XRP_USDT",
+    "TST": "B-TST_USDT",
+    "XAN": "B-XAN_USDT",
+    "GRAM": "B-GRAM_USDT",
+    "DOS": "B-DOS_USDT",
+    "ETC": "B-ETC_USDT",
+    "GPS": "B-GPS_USDT",
+    "XVS": "B-XVS_USDT",
+    "KAITO": "B-KAITO_USDT",
+    "ERA": "B-ERA_USDT",
+    "XLM": "B-XLM_USDT",
+    "ZEC": "B-ZEC_USDT",
+    "ADA": "B-ADA_USDT",
+    "XMR": "B-XMR_USDT",
+    "BNB": "B-BNB_USDT",
+    "KAS": "B-KAS_USDT",
+    "ATOM": "B-ATOM_USDT",
+    "DASH": "B-DASH_USDT",
+    "CYS": "B-CYS_USDT",
+    "BMT": "B-BMT_USDT",
+    "OPG": "B-OPG_USDT",
+    "WAL": "B-WAL_USDT",
+    "NEO": "B-NEO_USDT",
+    "BAT": "B-BAT_USDT",
+    "INIT": "B-INIT_USDT",
+    "POPCAT": "B-POPCAT_USDT",
+    "IOST": "B-IOST_USDT",
+    "FF": "B-FF_USDT",
+    "TIA": "B-TIA_USDT",
+    "JST": "B-JST_USDT",
+    "THETA": "B-THETA_USDT",
+    "ALGO": "B-ALGO_USDT",
+    "HAEDAL": "B-HAEDAL_USDT",
+    "KAVA": "B-KAVA_USDT",
+    "ALPINE": "B-ALPINE_USDT",
+    "LQTY": "B-LQTY_USDT",
+    "SOL": "B-SOL_USDT",
+    "AVAX": "B-AVAX_USDT",
+    "OG": "B-OG_USDT",
+    "SKYAI": "B-SKYAI_USDT",
+    "SOON": "B-SOON_USDT",
     "CVC": "B-CVC_USDT",
     "AWE": "B-AWE_USDT",
-    "B": "B-B_USDT",
-    "HYPE": "B-HYPE_USDT",
-    "UB": "B-UB_USDT",
-    "TAIKO": "B-TAIKO_USDT",
-    "STBL": "B-STBL_USDT",
-    "EDEN": "B-EDEN_USDT",
-    "ETC": "B-ETC_USDT",
-    "XLM": "B-XLM_USDT",
-    "MYX": "B-MYX_USDT",
-    "CAP": "B-CAP_USDT",
-    "XMR": "B-XMR_USDT",
-    "DASH": "B-DASH_USDT",
-    "H": "B-H_USDT",
-    "MASK": "B-MASK_USDT",
-    "DATAIP": "B-DATAIP_USDT",
-    "GIGGLE": "B-GIGGLE_USDT",
-    "CROSS": "B-CROSS_USDT",
-    "BANK": "B-BANK_USDT",
-    "TAC": "B-TAC_USDT",
-    "ZBT": "B-ZBT_USDT",
-    "ERA": "B-ERA_USDT",
-    "GRVT": "B-GRVT_USDT",
-    "MMT": "B-MMT_USDT",
-    "USELESS": "B-USELESS_USDT",
-    "UAI": "B-UAI_USDT",
-    "WLFI": "B-WLFI_USDT",
-    "WET": "B-WET_USDT",
-    "TRX": "B-TRX_USDT",
-    "MAGMA": "B-MAGMA_USDT",
-    "FRAX": "B-FRAX_USDT",
-    "1000XEC": "B-1000XEC_USDT",
-    "AR": "B-AR_USDT",
-    "BLUAI": "B-BLUAI_USDT",
-    "ORDI": "B-ORDI_USDT",
-    "CLO": "B-CLO_USDT",
-    "OPG": "B-OPG_USDT",
-    "SKYAI": "B-SKYAI_USDT",
-    "AIGENSYN": "B-AIGENSYN_USDT",
-    "KGEN": "B-KGEN_USDT",
-    "APR": "B-APR_USDT",
-    "AT": "B-AT_USDT",
-    "BAT": "B-BAT_USDT",
-    "NEO": "B-NEO_USDT",
-    "JCT": "B-JCT_USDT",
-    "BILL": "B-BILL_USDT",
-    "HEMI": "B-HEMI_USDT",
-    "GPS": "B-GPS_USDT",
-    "BEAT": "B-BEAT_USDT",
-    "YFI": "B-YFI_USDT",
-    "XAU": "B-XAU_USDT",
-    "THETA": "B-THETA_USDT",
-    "RAVE": "B-RAVE_USDT",
-    "AVNT": "B-AVNT_USDT",
-    "LIT": "B-LIT_USDT",
-    "G": "B-G_USDT",
-    "AVAX": "B-AVAX_USDT",
-    "GRT": "B-GRT_USDT",
-    "SLX": "B-SLX_USDT",
-    "ALGO": "B-ALGO_USDT",
-    "DOS": "B-DOS_USDT",
-    "ETH": "B-ETH_USDT",
-    "BCH": "B-BCH_USDT",
-    "KAT": "B-KAT_USDT",
-    "XRP": "B-XRP_USDT",
-    "LINK": "B-LINK_USDT",
-    "ZEC": "B-ZEC_USDT",
-    "BNB": "B-BNB_USDT",
-    "PHAROS": "B-PHAROS_USDT",
-    "HUMA": "B-HUMA_USDT",
-    "QTUM": "B-QTUM_USDT",
-    "EGLD": "B-EGLD_USDT",
-    "IOST": "B-IOST_USDT",
-    "BMT": "B-BMT_USDT",
-    "STORJ": "B-STORJ_USDT",
-    "UNI": "B-UNI_USDT",
-    "HOLO": "B-HOLO_USDT",
-    "ARX": "B-ARX_USDT",
-    "ZRX": "B-ZRX_USDT",
-    "DOGE": "B-DOGE_USDT",
-    "DOT": "B-DOT_USDT",
-    "TRB": "B-TRB_USDT",
-    "SUSHI": "B-SUSHI_USDT",
-    "LSK": "B-LSK_USDT",
-    "KERNEL": "B-KERNEL_USDT",
-    "JUP": "B-JUP_USDT",
-    "SOL": "B-SOL_USDT",
-    "AAVE": "B-AAVE_USDT",
-    "GRIFFAIN": "B-GRIFFAIN_USDT",
     "FIL": "B-FIL_USDT",
-    "ASR": "B-ASR_USDT",
-    "CHR": "B-CHR_USDT",
-    "ALPINE": "B-ALPINE_USDT",
-    "RSR": "B-RSR_USDT",
-    "BEL": "B-BEL_USDT",
-    "HBAR": "B-HBAR_USDT",
-    "1INCH": "B-1INCH_USDT",
-    "BLESS": "B-BLESS_USDT",
-    "ZETA": "B-ZETA_USDT",
-    "ENS": "B-ENS_USDT",
-    "SAND": "B-SAND_USDT",
-    "XAN": "B-XAN_USDT",
-    "ROSE": "B-ROSE_USDT",
-    "DUSK": "B-DUSK_USDT",
-    "FF": "B-FF_USDT",
-    "AIN": "B-AIN_USDT",
-    "RVN": "B-RVN_USDT",
-    "TST": "B-TST_USDT",
-    "SFP": "B-SFP_USDT",
-    "CFX": "B-CFX_USDT",
-    "COTI": "B-COTI_USDT",
-    "RIVER": "B-RIVER_USDT",
-    "ESPORTS": "B-ESPORTS_USDT",
-    "1000000MOG": "B-1000000MOG_USDT",
-    "LQTY": "B-LQTY_USDT",
-    "XVS": "B-XVS_USDT",
-    "IMX": "B-IMX_USDT",
-    "RECALL": "B-RECALL_USDT",
-    "ON": "B-ON_USDT",
+    "HUMA": "B-HUMA_USDT",
+    "HYPE": "B-HYPE_USDT",
+    "SQD": "B-SQD_USDT",
+    "MYX": "B-MYX_USDT",
     "TAO": "B-TAO_USDT",
+    "H": "B-H_USDT",
+    "KNC": "B-KNC_USDT",
+    "ZRX": "B-ZRX_USDT",
+    "ATH": "B-ATH_USDT",
+    "VELVET": "B-VELVET_USDT",
+    "SLP": "B-SLP_USDT",
+    "EDEN": "B-EDEN_USDT",
+    "TRUTH": "B-TRUTH_USDT",
+    "DOGE": "B-DOGE_USDT",
+    "RARE": "B-RARE_USDT",
+    "SOPH": "B-SOPH_USDT",
+    "GIGGLE": "B-GIGGLE_USDT",
+    "KGEN": "B-KGEN_USDT",
+    "CLO": "B-CLO_USDT",
+    "FLUX": "B-FLUX_USDT",
+    "RECALL": "B-RECALL_USDT",
+    "RSR": "B-RSR_USDT",
+    "POL": "B-POL_USDT",
+    "ZBT": "B-ZBT_USDT",
+    "APR": "B-APR_USDT",
+    "GRASS": "B-GRASS_USDT",
+    "UAI": "B-UAI_USDT",
+    "RLC": "B-RLC_USDT",
+    "WET": "B-WET_USDT",
+    "WLFI": "B-WLFI_USDT",
+    "ARIA": "B-ARIA_USDT",
+    "NIGHT": "B-NIGHT_USDT",
+    "RAVE": "B-RAVE_USDT",
+    "1000000MOG": "B-1000000MOG_USDT",
+    "KAT": "B-KAT_USDT",
+    "1000FLOKI": "B-1000FLOKI_USDT",
+    "LIT": "B-LIT_USDT",
+    "YFI": "B-YFI_USDT",
+    "STO": "B-STO_USDT",
+    "SUSHI": "B-SUSHI_USDT",
+    "FRAX": "B-FRAX_USDT",
+    "ELSA": "B-ELSA_USDT",
+    "GWEI": "B-GWEI_USDT",
+    "INX": "B-INX_USDT",
+    "STORJ": "B-STORJ_USDT",
+    "KERNEL": "B-KERNEL_USDT",
+    "MOVE": "B-MOVE_USDT",
+    "WCT": "B-WCT_USDT",
+    "AAVE": "B-AAVE_USDT",
+    "AIN": "B-AIN_USDT",
+    "AIOT": "B-AIOT_USDT",
+    "SIREN": "B-SIREN_USDT",
+    "TURTLE": "B-TURTLE_USDT",
+    "BEL": "B-BEL_USDT",
+    "HIVE": "B-HIVE_USDT",
+    "SWARMS": "B-SWARMS_USDT",
+    "IOTX": "B-IOTX_USDT",
+    "MASK": "B-MASK_USDT",
+    "1000XEC": "B-1000XEC_USDT",
+    "CTSI": "B-CTSI_USDT",
+    "LPT": "B-LPT_USDT",
+    "QTUM": "B-QTUM_USDT",
+    "A": "B-A_USDT",
+    "TAIKO": "B-TAIKO_USDT",
+    "FLOW": "B-FLOW_USDT",
     "API3": "B-API3_USDT",
     "GMT": "B-GMT_USDT",
     "JASMY": "B-JASMY_USDT",
-    "BLUR": "B-BLUR_USDT",
-    "IN": "B-IN_USDT",
-    "BZ": "B-BZ_USDT",
+    "SPELL": "B-SPELL_USDT",
     "QNT": "B-QNT_USDT",
-    "AIO": "B-AIO_USDT",
-    "NEAR": "B-NEAR_USDT",
+    "DOT": "B-DOT_USDT",
+    "TRB": "B-TRB_USDT",
+    "TAC": "B-TAC_USDT",
     "FET": "B-FET_USDT",
-    "TRUTH": "B-TRUTH_USDT",
-    "GMX": "B-GMX_USDT",
-    "XNY": "B-XNY_USDT",
-    "AGLD": "B-AGLD_USDT",
-    "BICO": "B-BICO_USDT",
+    "ASTR": "B-ASTR_USDT",
+    "EGLD": "B-EGLD_USDT",
+    "AIO": "B-AIO_USDT",
+    "AVNT": "B-AVNT_USDT",
+    "UNI": "B-UNI_USDT",
+    "CROSS": "B-CROSS_USDT",
+    "LAB": "B-LAB_USDT",
+    "ACH": "B-ACH_USDT",
     "BSV": "B-BSV_USDT",
-    "BIGTIME": "B-BIGTIME_USDT",
-    "KAS": "B-KAS_USDT",
+    "GRT": "B-GRT_USDT",
+    "SUPER": "B-SUPER_USDT",
     "ETHW": "B-ETHW_USDT",
-    "MANA": "B-MANA_USDT",
     "ACE": "B-ACE_USDT",
-    "TURTLE": "B-TURTLE_USDT",
-    "NIGHT": "B-NIGHT_USDT",
     "MOVR": "B-MOVR_USDT",
-    "CYS": "B-CYS_USDT",
-    "LISTA": "B-LISTA_USDT",
-    "ARIA": "B-ARIA_USDT",
-    "FLUX": "B-FLUX_USDT",
-    "POPCAT": "B-POPCAT_USDT",
+    "LSK": "B-LSK_USDT",
+    "ZETA": "B-ZETA_USDT",
+    "RVN": "B-RVN_USDT",
+    "DYM": "B-DYM_USDT",
     "GLM": "B-GLM_USDT",
     "PORTAL": "B-PORTAL_USDT",
-    "PRL": "B-PRL_USDT",
-    "DIA": "B-DIA_USDT",
-    "NEWT": "B-NEWT_USDT",
-    "BOME": "B-BOME_USDT",
-    "KNC": "B-KNC_USDT",
-    "STO": "B-STO_USDT",
-    "CTR": "B-CTR_USDT",
-    "PNUT": "B-PNUT_USDT",
-    "FLOCK": "B-FLOCK_USDT",
-    "KAVA": "B-KAVA_USDT",
-    "RLC": "B-RLC_USDT",
+    "AR": "B-AR_USDT",
     "BB": "B-BB_USDT",
-    "OG": "B-OG_USDT",
+    "MANA": "B-MANA_USDT",
     "ZRO": "B-ZRO_USDT",
-    "RARE": "B-RARE_USDT",
-    "CATI": "B-CATI_USDT",
-    "1000LUNC": "B-1000LUNC_USDT",
-    "VIRTUAL": "B-VIRTUAL_USDT",
-    "MAGIC": "B-MAGIC_USDT",
-    "SOPH": "B-SOPH_USDT",
-    "MOCA": "B-MOCA_USDT",
-    "MINA": "B-MINA_USDT",
-    "F": "B-F_USDT",
-    "ASTR": "B-ASTR_USDT",
-    "HIVE": "B-HIVE_USDT",
-    "ARC": "B-ARC_USDT",
-    "AVAAI": "B-AVAAI_USDT",
-    "SCRT": "B-SCRT_USDT",
-    "CHILLGUY": "B-CHILLGUY_USDT",
-    "LPT": "B-LPT_USDT",
-    "ELSA": "B-ELSA_USDT",
-    "A": "B-A_USDT",
-    "ZEST": "B-ZEST_USDT",
-    "ORCA": "B-ORCA_USDT",
-    "USUAL": "B-USUAL_USDT",
-    "SWARMS": "B-SWARMS_USDT",
-    "VTHO": "B-VTHO_USDT",
-    "STX": "B-STX_USDT",
-    "GWEI": "B-GWEI_USDT",
-    "PIPPIN": "B-PIPPIN_USDT",
-    "INX": "B-INX_USDT",
-    "EDGE": "B-EDGE_USDT",
-    "CTSI": "B-CTSI_USDT",
-    "ARB": "B-ARB_USDT",
-    "JELLYJELLY": "B-JELLYJELLY_USDT",
-    "1000FLOKI": "B-1000FLOKI_USDT",
-    "KAITO": "B-KAITO_USDT",
-    "SIREN": "B-SIREN_USDT",
-    "XVG": "B-XVG_USDT",
-    "MOVE": "B-MOVE_USDT",
-    "IOTX": "B-IOTX_USDT",
-    "SEI": "B-SEI_USDT",
+    "HBAR": "B-HBAR_USDT",
+    "ENS": "B-ENS_USDT",
     "PEOPLE": "B-PEOPLE_USDT",
-    "TIA": "B-TIA_USDT",
-    "SUPER": "B-SUPER_USDT",
-    "ARPA": "B-ARPA_USDT",
-    "POL": "B-POL_USDT",
-    "FIDA": "B-FIDA_USDT",
-    "INJ": "B-INJ_USDT",
-    "SPELL": "B-SPELL_USDT",
-    "AUCTION": "B-AUCTION_USDT",
-    "AERO": "B-AERO_USDT",
-    "FLOW": "B-FLOW_USDT",
-    "SQD": "B-SQD_USDT",
-    "DYM": "B-DYM_USDT",
-    "KAIA": "B-KAIA_USDT",
-    "STG": "B-STG_USDT",
-    "GRASS": "B-GRASS_USDT",
-    "ID": "B-ID_USDT",
-    "ACH": "B-ACH_USDT",
+    "IMX": "B-IMX_USDT",
     "LA": "B-LA_USDT",
     "ME": "B-ME_USDT",
     "JOE": "B-JOE_USDT",
+    "FIDA": "B-FIDA_USDT",
     "METIS": "B-METIS_USDT",
     "EDU": "B-EDU_USDT",
     "YGG": "B-YGG_USDT",
@@ -993,5 +992,2977 @@
     "CRV": "B-CRV_USDT",
     "TLM": "B-TLM_USDT",
     "KOMA": "B-KOMA_USDT"
+  },
+  "risk_params": {
+    "ESPORTS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1INCH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BSB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SAND": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BZ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PRL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AUCTION": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SFP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CHIP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "COTI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CHR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BILL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MTL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RIVER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZEST": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARPA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XNY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ROSE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BEAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DUSK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JELLYJELLY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MINA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CFX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "USUAL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XVG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DATAIP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GRVT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HEMI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "INJ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AGLD": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SEI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BICO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BANK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SXT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ASR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BIGTIME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ORDI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "USELESS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NEAR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000LUNC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JUP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GRIFFAIN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "F": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BOME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NEWT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GMX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LISTA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "G": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PLAY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "B": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "UB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STBL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PNUT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "Q": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PTB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FLOCK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TRIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HOLO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CATI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PHAROS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SCRT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BLUAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CHILLGUY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KAIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AERO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JCT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XAU": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ON": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ORCA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EDGE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MMT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VIRTUAL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AIGENSYN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MOCA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MAGIC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CAP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MAGMA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CTR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SLX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BTC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ETH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AVAAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BLESS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BCH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ID": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VTHO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PIPPIN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BLUR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LTC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TRX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LIGHT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LINK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XRP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TST": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XAN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GRAM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DOS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ETC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GPS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XVS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KAITO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ERA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XLM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZEC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ADA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XMR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BNB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KAS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ATOM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DASH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CYS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BMT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OPG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WAL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NEO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "INIT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "POPCAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IOST": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FF": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JST": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "THETA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALGO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HAEDAL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KAVA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALPINE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LQTY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SOL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AVAX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SKYAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SOON": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CVC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AWE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FIL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HUMA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HYPE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SQD": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MYX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TAO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "H": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KNC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZRX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ATH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VELVET": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SLP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EDEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TRUTH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DOGE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RARE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SOPH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GIGGLE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KGEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CLO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FLUX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RECALL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RSR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "POL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZBT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "APR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GRASS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "UAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RLC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WET": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WLFI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NIGHT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RAVE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000000MOG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000FLOKI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LIT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "YFI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SUSHI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FRAX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ELSA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GWEI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "INX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STORJ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KERNEL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MOVE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WCT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AAVE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AIN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AIOT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SIREN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TURTLE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BEL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HIVE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SWARMS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IOTX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MASK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000XEC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CTSI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LPT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "QTUM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "A": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TAIKO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FLOW": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "API3": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GMT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JASMY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SPELL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "QNT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DOT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TRB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TAC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FET": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ASTR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EGLD": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AIO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AVNT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "UNI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CROSS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LAB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ACH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BSV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GRT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SUPER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ETHW": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ACE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MOVR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LSK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZETA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RVN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DYM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GLM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PORTAL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MANA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZRO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HBAR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ENS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PEOPLE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IMX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JOE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FIDA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "METIS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EDU": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "YGG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PENDLE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARKM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ETHFI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ENA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BNT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SAGA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GAS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RIF": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "POWR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CAKE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MEME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LUMIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LUNA2": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "REZ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "T": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TNSR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TURBO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HMSTR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SCR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SUI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GOAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "UMA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MAV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MOODENG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CYBER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ARK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DRIFT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WAXP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MORPHO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AKT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SSV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ONG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AVA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MANTA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AIXBT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PHA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SONIC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PROM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TRUMP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SPX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BERA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SHELL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PENGU": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KMNO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RED": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EPIC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ILV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PYTH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BANANAS31": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NIL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DEXE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "M": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000RATS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PLUME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WIF": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AXL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PARTI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZAMA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SUN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PAXG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RPL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SANTOS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALCH": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "S": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "USTC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SAFE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DEEP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ACT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PUMP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "THE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BASED": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MELANIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ANIME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VVV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VELODROME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZORA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TAG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CARV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PIXEL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BIO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "O": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RENDER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LINEA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SOLV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1MBABYDOGE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000CAT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FARTCOIN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZKC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HEI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "COAI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BAN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FHE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AKE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MUBARAK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FORM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ORDER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TUT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MAVIA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VET": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EVAA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BAND": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PUNDIX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PROVE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ENJ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AXS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NAORIS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SAPIEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CHZ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ANKR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STABLE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CLANKER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OPEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PIEVERSE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SENT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "C98": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HANA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "US": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BREV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NOM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LYN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SKR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SPACE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OPN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ROBO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZKP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XAG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ACU": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FIGHT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MANTRA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GENIUS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BIRB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ESP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CFG": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZIL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "COMP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MERL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RUNE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KSM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ONE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000SHIB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "APE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WOO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LDO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ICP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "APT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CKB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000PEPE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "POLYX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TWT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STEEM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000BONK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RONIN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "STRK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "W": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MEW": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CETUS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "COOKIE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "PROMPT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ICNT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TREE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SKY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FLUID": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IRYS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MEGA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MITO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NATGAS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "YB": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MET": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "FOGO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BTW": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALLO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BROCCOLI714": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HYPER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XPL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "RESOLV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ASTER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KITE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SIGN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HOME": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MON": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SAHARA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "MIRA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EUL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TOWNS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SYRUP": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "C": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DOLO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ALICE": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BABY": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SOMI": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NOT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BARD": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SPK": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "POWER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "2Z": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BANANA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ENSO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SYN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NXPC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GUN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "XTZ": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ONT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SKL": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "HOT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "JTO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DOGS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "EIGEN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GTC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "GALA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "NMR": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CGPT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ZEREBRO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "VANA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ICX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "OGN": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CELO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "USDC": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "COW": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "0G": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "IOTA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "SNX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "DYDX": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "WLD": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "1000SATS": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "ONDO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "AEVO": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "BRETT": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "LAYER": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "CRV": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "TLM": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    },
+    "KOMA": {
+      "leverage": 20,
+      "min_qty": 0.001,
+      "step_size": 0.001,
+      "max_leverage": 20
+    }
   }
 }
