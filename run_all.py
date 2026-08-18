@@ -1,7 +1,7 @@
 # run_all.py
 """
 Single-Terminal Interactive Master Runner for CoinDCX Autonomous Agent
-Provides interactive START / PAUSE trigger before launching live trading.
+Provides interactive START / SEARCH & FOCUS BAR before launching live trading.
 """
 
 import threading
@@ -10,7 +10,8 @@ import sys
 import logging
 import uvicorn
 
-from config import WEBHOOK_ENABLED, WEBHOOK_HOST, WEBHOOK_PORT, LOG_FILE
+import config
+from config import WEBHOOK_ENABLED, WEBHOOK_HOST, WEBHOOK_PORT, LOG_FILE, set_focus_coin
 from coindcx_master_agent import MasterAgent
 from webhook_server import app as webhook_fastapi_app
 from dashboard_unified import UnifiedDashboardApp
@@ -51,7 +52,7 @@ def start_webhook_server_thread():
         print(f"❌ Webhook server thread error: {e}", file=sys.stderr)
 
 def prompt_user_start():
-    """Displays Interactive Start Screen & Waits for User Approval to Start Trading"""
+    """Displays Interactive Start Screen & Search Bar to Focus on a Particular Coin"""
     console = Console()
     
     start_banner = Text()
@@ -60,20 +61,27 @@ def prompt_user_start():
     start_banner.append("🎯 Target Profit: $100.00 USD / Day\n", style="bold cyan")
     start_banner.append("⚡ Strategy: Dual-Direction (BUY & SELL) 1m Scalper\n", style="bold white")
     start_banner.append("🔒 Leverage: 20X Maximum Leverage\n\n", style="bold red")
-    start_banner.append("▶️  PRESS [ENTER] OR TYPE 'START' TO START TRADING LIVE  ◀️", style="bold green blink")
+    start_banner.append("🔍 COIN SEARCH & FOCUS BAR:\n", style="bold magenta")
+    start_banner.append("   • Press [ENTER] or type 'START' for ALL Altcoins\n", style="dim white")
+    start_banner.append("   • Or type coin name to FOCUS (e.g. SUI, AVAX, PEPE, NEAR, APT, FIL)\n\n", style="bold yellow")
+    start_banner.append("▶️  ENTER COMMAND OR COIN SYMBOL TO START LIVE TRADING  ◀️", style="bold green blink")
 
-    panel = Panel(Align.center(start_banner), border_style="green", title="[bold yellow]START TRADING CONTROL[/bold yellow]")
+    panel = Panel(Align.center(start_banner), border_style="cyan", title="[bold yellow]TERMINAL CONTROL & SEARCH BAR[/bold yellow]")
     console.print(panel)
     
     try:
-        user_inp = input("\n👉 Type 'START' or press ENTER to start trading now: ")
+        user_inp = input("\n👉 Enter Search/Focus Coin (or press ENTER to trade ALL): ").strip()
+        set_focus_coin(user_inp)
     except Exception:
         pass
     
-    console.print("\n🚀 STARTING LIVE TRADING ENGINE & DASHBOARD...\n", style="bold green")
+    if config.TARGETED_FOCUS_COIN:
+        console.print(f"\n🎯 TARGETED FOCUS MODE ACTIVATED: TRADING {config.TARGETED_FOCUS_COIN} ONLY!\n", style="bold green reverse")
+    else:
+        console.print("\n🌐 MULTI-ALTCOIN MODE ACTIVATED: TRADING ALL TOP VOLATILE ALTCOINS!\n", style="bold green")
 
 def main():
-    # 1. Interactive Start Button Prompt
+    # 1. Interactive Start & Coin Search Bar Prompt
     prompt_user_start()
 
     # 2. Start Master Agent in Background Thread

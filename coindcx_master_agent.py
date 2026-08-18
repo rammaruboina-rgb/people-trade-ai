@@ -3,6 +3,7 @@ import time
 import logging
 from datetime import datetime
 
+import config
 from config import (
     LOOP_INTERVAL_SEC,
     ALLOWED_FUTURES_COINS,
@@ -58,7 +59,8 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (INSTANT NO-SKIP MULTI-TRADE FUTURES | GOAL: {MAX_DAILY_TRADES} TRADES/DAY | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
+        focus_str = f"FOCUS: {config.TARGETED_FOCUS_COIN} ONLY" if config.TARGETED_FOCUS_COIN else "ALL ALTCOINS"
+        logger.info(f"🤖 Master Agent started in {mode_str} mode ({focus_str} | GOAL: {MAX_DAILY_TRADES} TRADES/DAY | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
@@ -70,12 +72,16 @@ class MasterAgent:
                 current_active_count = sum(1 for p in active_futures_positions.values() if p.get("active_pos", 0.0) != 0.0)
 
                 trades = load_trade_history()
-                sol_price = self.client.get_ticker_price("SOLUSDT")
-                realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, sol_price)
+                sui_price = self.client.get_ticker_price("SUIUSDT")
+                realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, sui_price)
                 self.daily_realized_pnl = realized_pnl
                 self.daily_trades_count = len([t for t in trades if t.get("timestamp", "").startswith(datetime.now().strftime("%Y-%m-%d"))])
 
-                top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=10)
+                # 1) Targeted Coin Focus Mode Filter
+                if config.TARGETED_FOCUS_COIN:
+                    top_trending_coins = [config.TARGETED_FOCUS_COIN]
+                else:
+                    top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=10)
 
                 for coin in top_trending_coins:
                     if current_active_count >= MAX_CONCURRENT_TRADES:
@@ -136,7 +142,7 @@ class MasterAgent:
                             "exit_price": "N/A",
                             "exit_reason": "N/A",
                             "confidence": 99.0,
-                            "signal_source": f"INSTANT_EXECUTION_{direction.upper()}_{coin}",
+                            "signal_source": f"FOCUS_MODE_{direction.upper()}_{coin}",
                             "news_summary": sig.get("summary", "N/A"),
                             "mode": mode_str
                         }

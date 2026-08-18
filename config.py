@@ -3,6 +3,7 @@
 Centralized Configuration Module for CoinDCX Master Trading Agent
 Configured for Multi-Trade Concurrent Scalping (Up to 5 Simultaneous Active Trades)
 Target: $20.00 USD / Day Profit Goal | Pure High-Volatility Altcoins
+Supports Targeted Coin Focus Mode (e.g. Focus on SUI only)
 SOL HAS BEEN PERMANENTLY EXCLUDED PER USER DIRECTIVE.
 """
 
@@ -32,6 +33,9 @@ DEFAULT_SL_PCT = 0.10
 DEFAULT_TP_PCT = 0.20
 MARGIN_MODE = "isolated"
 
+# Targeted Coin Focus Mode (None = Trade All Altcoins, "SUI" = Trade SUI Only)
+TARGETED_FOCUS_COIN = os.getenv("FOCUS_COIN", None)
+
 # Strategy Rules
 TIMEFRAME = "1m"
 MIN_CONFLUENCE_PCT = 50.0
@@ -58,6 +62,17 @@ ALLOWED_FUTURES_COINS = [
     "SUI", "AVAX", "XRP", "NEAR", "APT", "FIL", "INJ", "DOT", "SEI",
     "ARB", "OP", "PEPE", "SHIB", "BONK", "FLOKI", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO"
 ]
+
+def set_focus_coin(coin_name: str):
+    global TARGETED_FOCUS_COIN
+    if not coin_name or coin_name.upper() in ["START", "ALL", "NONE", ""]:
+        TARGETED_FOCUS_COIN = None
+    else:
+        clean = coin_name.upper().replace("FOCUS", "").replace("USDT", "").strip()
+        if clean in ALLOWED_FUTURES_COINS or f"B-{clean}_USDT" in ALLOWED_FUTURES_COINS:
+            TARGETED_FOCUS_COIN = clean
+        else:
+            TARGETED_FOCUS_COIN = clean
 
 def get_dynamic_daily_target_usd(equity_usd: float = 9.52) -> float:
     return DEFAULT_MAX_DAILY_TARGET_USD
