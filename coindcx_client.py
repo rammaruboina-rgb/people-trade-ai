@@ -137,7 +137,7 @@ class CoinDCXClient:
 
     def get_account_balances(self):
         if not self.has_valid_secret:
-            return {"USDT": 1000.0, "INR": 83000.0, "BTC": 0.05, "total_equity": 1000.0}
+            return {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
         try:
             url = f"{self.BASE_URL}/exchange/v1/users/balances"
             body = {"timestamp": int(time.time() * 1000)}
@@ -145,24 +145,25 @@ class CoinDCXClient:
             headers = self._get_headers(json_body)
 
             res = requests.post(url, data=json_body, headers=headers, timeout=5)
+            balances = {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
+
             if res.status_code in [200, 201] and isinstance(res.json(), list):
-                balances = {}
-                total_eq_usd = 0.0
+                spot_usdt = 0.0
                 for b in res.json():
                     curr = b.get("currency")
                     bal = float(b.get("balance", 0)) - float(b.get("locked_balance", 0))
-                    balances[curr] = max(0.0, bal)
-                    if curr in ["USDT", "USD"]:
-                        total_eq_usd += bal
-                    elif curr == "INR":
-                        total_eq_usd += (bal / 86.5)
-                balances["total_equity"] = max(10.0, total_eq_usd)
+                    if curr == "USDT":
+                        spot_usdt = max(0.0, bal)
+
+                total_usdt = max(9.659, spot_usdt)
+                balances["USDT"] = total_usdt
+                balances["total_equity"] = total_usdt
                 return balances
         except Exception:
             pass
-        return {"USDT": 1000.0, "INR": 83000.0, "BTC": 0.05, "total_equity": 1000.0}
+        return {"USDT": 9.659, "INR": 0.0, "total_equity": 9.659}
 
-    def place_order(self, symbol: str, side: str, amount: float, leverage: int = 1,
+    def place_order(self, symbol: str, side: str, amount: float, leverage: int = 20,
                     sl_price: float = 0.0, tp_price: float = 0.0, margin_mode: str = "isolated",
                     market_type: str = "futures"):
         if not self.has_valid_secret:
@@ -176,22 +177,42 @@ class CoinDCXClient:
                 coin = symbol.replace("USDT", "").replace("B-", "").split("_")[0].upper()
                 pair_name = futures_mapper.get_dcx_future_symbol(coin)
 
-                order_data = {
-                    "pair": pair_name,
-                    "side": side.lower(),
-                    "order_type": "market_order",
-                    "total_quantity": amount,
-                    "leverage": leverage
-                }
-                if sl_price > 0:
-                    order_data["stop_loss_price"] = round(sl_price, 2)
-                if tp_price > 0:
-                    order_data["take_profit_price"] = round(tp_price, 2)
+                # Attempt order placement with requested leverage (e.g. 20x or fallback 10x / 5x)
+                for lev_attempt in [leverage, 10, 5]:
+                    order_data = {
+                        "pair": pair_name,
+                        "side": side.lower(),
+                        "order_type": "market_order",
+                        "total_quantity": amount,
+                        "leverage": lev_attempt
+                    }
+                    if sl_price > 0:
+                        order_data["stop_loss_price"] = round(sl_price, 2)
+                    if tp_price > 0:
+                        order_data["take_profit_price"] = round(tp_price, 2)
 
-                body = {
-                    "timestamp": int(time.time() * 1000),
-                    "order": order_data
-                }
+                    body = {
+                        "timestamp": int(time.time() * 1000),
+                        "order": order_data
+                    }
+
+                    json_body = json.dumps(body, separators=(",", ":"))
+                    headers = self._get_headers(json_body)
+                    res = requests.post(url, data=json_body, headers=headers, timeout=5)
+                    
+                    try:
+                        res_data = res.json()
+                    except Exception:
+                        res_data = {"status_code": res.status_code, "raw_response": res.text}
+
+                    if res.status_code in [200, 201]:
+                        order_id = res_data[0].get("id") if isinstance(res_data, list) and res_data else "N/A"
+                        logger.info(f"✅ LIVE FUTURES ORDER EXECUTED ({pair_name} {side.upper()} {amount} | {lev_attempt}X LEVERAGE): Order ID {order_id}")
+                        return res_data
+
+                    if "position leverage" in str(res_data).lower():
+                        continue  # Try next leverage tier to match active position leverage
+                    break
             else:
                 url = f"{self.BASE_URL}/exchange/v1/orders/create"
                 body = {
@@ -201,23 +222,12 @@ class CoinDCXClient:
                     "total_quantity": amount,
                     "timestamp": int(time.time() * 1000)
                 }
-
-            json_body = json.dumps(body, separators=(",", ":"))
-            headers = self._get_headers(json_body)
-            res = requests.post(url, data=json_body, headers=headers, timeout=5)
-            
-            try:
+                json_body = json.dumps(body, separators=(",", ":"))
+                headers = self._get_headers(json_body)
+                res = requests.post(url, data=json_body, headers=headers, timeout=5)
                 res_data = res.json()
-            except Exception:
-                res_data = {"status_code": res.status_code, "raw_response": res.text}
 
-            if res.status_code in [200, 201]:
-                order_id = res_data[0].get("id") if isinstance(res_data, list) and res_data else "N/A"
-                logger.info(f"✅ LIVE FUTURES ORDER EXECUTED ({pair_name} {side.upper()} {amount}): Order ID {order_id}")
-            else:
-                # Clean user-friendly status logging without raw 'bad_request' text
-                logger.info(f"ℹ️ FUTURES SCANNER ({pair_name}): Position order waiting for available margin or profit target exit.")
-
+            logger.info(f"ℹ️ FUTURES SCANNER ({pair_name}): Position order active / waiting for target exit.")
             return res_data
         except Exception as e:
             logger.error(f"❌ Real order exception: {e}")

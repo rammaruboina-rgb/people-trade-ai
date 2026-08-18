@@ -55,13 +55,13 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (HIGH-CONVICTION +20% PROFIT ALTCOINS | CONFLUENCE: >=98% | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
+        logger.info(f"🤖 Master Agent started in {mode_str} mode (DUAL-DIRECTION BUY & SELL FUTURES | LEVERAGE: 20X | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
                 self.check_daily_reset()
                 balances = self.client.get_account_balances()
-                equity = balances.get("total_equity", 9.65)
+                equity = balances.get("total_equity", 9.659)
 
                 # Fetch daily PnL progress
                 trades = load_trade_history()
@@ -75,7 +75,7 @@ class MasterAgent:
                     time.sleep(LOOP_INTERVAL_SEC * 5)
                     continue
 
-                # 2) Full Account Protection Stop ($9.65)
+                # 2) Full Account Protection Stop ($9.659)
                 if self.daily_realized_pnl <= -DAILY_LOSS_LIMIT_USD:
                     logger.warning(f"🛑 DAILY LOSS LIMIT REACHED (${self.daily_realized_pnl:,.2f} <= -${DAILY_LOSS_LIMIT_USD:,.2f}). Pausing new entries today to preserve capital.")
                     time.sleep(LOOP_INTERVAL_SEC * 5)
@@ -157,24 +157,25 @@ class MasterAgent:
                             logger.info(f"🎯 +20% TAKE-PROFIT TRIGGERED ({coin} {side}): ${mark_price:,.2f}")
                             del self.active_positions[coin]
 
-                    # 2) Signal Evaluation for New FUTURES Entries
+                    # 2) Signal Evaluation for New FUTURES Entries (LONG or SHORT)
                     elif coin not in self.active_positions:
                         sig = self.strategy.evaluate_multi_source_signal(mark_price, p_hist, pair=candle_pair)
                         conf = sig["confidence"]
-                        side = sig.get("side", "LONG")
+                        direction = sig.get("direction", "long")
+                        side_order = "BUY" if direction == "long" else "SELL"
 
-                        if sig.get("action") == "EXECUTE" and conf >= 98.0:
+                        if sig.get("action") == "EXECUTE" and conf >= 90.0:
                             m_type = "futures"
                             coin_risk = futures_mapper.get_coin_risk_params(coin)
                             leverage = apply_leverage_cap(coin_risk["leverage"])
                             sl_price = sig.get("sl_price", round(mark_price * 0.90, 2))
                             tp_price = sig.get("tp_price", round(mark_price * 1.20, 2))
                             size = calc_position_size(equity, mark_price, sl_price, coin)
-                            liq_price = calc_liquidation_price(mark_price, side, leverage)
+                            liq_price = calc_liquidation_price(mark_price, direction.upper(), leverage)
 
                             resp = self.client.place_order(
                                 symbol=spot_sym,
-                                side=side,
+                                side=side_order,
                                 amount=size,
                                 leverage=leverage,
                                 sl_price=sl_price,
@@ -184,10 +185,10 @@ class MasterAgent:
 
                             if isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]:
                                 order_id = resp[0]["id"]
-                                logger.info(f"🚀 {coin} PERFECT +20% ALTCOIN FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
+                                logger.info(f"🚀 {coin} LIVE DUAL-DIRECTION FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
                                 self.active_positions[coin] = {
                                     "coin": coin,
-                                    "side": side,
+                                    "side": "LONG" if side_order == "BUY" else "SHORT",
                                     "entry_price": mark_price,
                                     "size": size,
                                     "leverage": leverage,
@@ -198,7 +199,7 @@ class MasterAgent:
                                     "liquidation_price": liq_price,
                                     "confidence": conf,
                                     "is_breakeven_set": False,
-                                    "signal_source": f"98%_PERFECT_ALTCOIN_{coin}_20PCT_SCALP",
+                                    "signal_source": f"90%_DUAL_DIRECTION_{direction.upper()}_{coin}",
                                     "news_summary": sig.get("summary", "N/A")
                                 }
 
