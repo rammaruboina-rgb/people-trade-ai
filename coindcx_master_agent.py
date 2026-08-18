@@ -9,6 +9,7 @@ from config import (
     get_dynamic_daily_target_usd,
     DEFAULT_MAX_DAILY_TARGET_USD,
     DAILY_LOSS_LIMIT_USD,
+    MAX_CONCURRENT_TRADES,
     BREAKEVEN_PROFIT_PCT,
     LOG_FILE
 )
@@ -54,7 +55,7 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (DUAL-DIRECTION BUY & SELL FUTURES | LEVERAGE AUTO-SYNC | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
+        logger.info(f"🤖 Master Agent started in {mode_str} mode (MULTI-TRADE DUAL-DIRECTION FUTURES | MAX {MAX_CONCURRENT_TRADES} CONCURRENT TRADES | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
@@ -64,6 +65,9 @@ class MasterAgent:
 
                 # Fetch active open futures positions directly from CoinDCX API
                 active_futures_positions = self.client.get_active_futures_positions()
+                
+                # Count current open positions (active_pos != 0.0)
+                current_active_count = sum(1 for p in active_futures_positions.values() if p.get("active_pos", 0.0) != 0.0)
 
                 # Fetch daily PnL progress
                 trades = load_trade_history()
@@ -71,17 +75,20 @@ class MasterAgent:
                 realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, eth_price)
                 self.daily_realized_pnl = realized_pnl
 
-                # 1) $100.00 Daily Profit Target Circuit Breaker
+                # 1) $20.00 Daily Profit Target Circuit Breaker
                 if self.daily_realized_pnl >= DEFAULT_MAX_DAILY_TARGET_USD:
-                    logger.info(f"🎉 $100.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target!")
+                    logger.info(f"🎉 $20.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target!")
                     time.sleep(LOOP_INTERVAL_SEC * 5)
                     continue
 
                 # Fetch Top 5 Trending Altcoins
                 top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=5)
 
-                # Execute trades across top trending altcoins
+                # Multi-Trade Concurrent Scalping Loop (Up to MAX_CONCURRENT_TRADES active at once)
                 for coin in top_trending_coins:
+                    if current_active_count >= MAX_CONCURRENT_TRADES:
+                        break
+
                     spot_sym = futures_mapper.get_spot_symbol(coin)
                     futures_sym = futures_mapper.get_dcx_future_symbol(coin)
                     candle_pair = f"B-{coin.upper()}_USDT"
@@ -98,7 +105,7 @@ class MasterAgent:
                     pos_info = active_futures_positions.get(futures_sym, {})
                     has_active_pos = pos_info.get("active_pos", 0.0) != 0.0
 
-                    # If no active position on CoinDCX for this pair, execute new order
+                    # If no active position on CoinDCX for this coin, execute new order
                     if not has_active_pos:
                         sig = self.strategy.evaluate_multi_source_signal(mark_price, p_hist, pair=candle_pair)
                         direction = sig.get("direction", "long")
@@ -108,7 +115,10 @@ class MasterAgent:
                         leverage = pos_info.get("leverage", coin_risk.get("leverage", 20))
                         sl_price = sig.get("sl_price", round(mark_price * (0.90 if direction == "long" else 1.10), 2))
                         tp_price = sig.get("tp_price", round(mark_price * (1.20 if direction == "long" else 0.80), 2))
-                        size = calc_position_size(equity, mark_price, sl_price, coin)
+                        
+                        # Size position according to equity divided by MAX_CONCURRENT_TRADES
+                        per_trade_equity = equity / MAX_CONCURRENT_TRADES
+                        size = calc_position_size(per_trade_equity, mark_price, sl_price, coin)
 
                         resp = self.client.place_order(
                             symbol=spot_sym,
@@ -134,12 +144,13 @@ class MasterAgent:
                             "exit_price": "N/A",
                             "exit_reason": "N/A",
                             "confidence": 99.0,
-                            "signal_source": f"20X_FUTURES_{direction.upper()}_{coin}",
+                            "signal_source": f"MULTI_TRADE_{direction.upper()}_{coin}",
                             "news_summary": sig.get("summary", "N/A"),
                             "mode": mode_str
                         }
                         log_trade(trade_row)
-                        logger.info(f"🚀 {coin} LIVE FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Order ID: {order_id}")
+                        current_active_count += 1
+                        logger.info(f"🚀 {coin} MULTI-TRADE LIVE FUTURES ORDER EXECUTED ({side_order}): {size} {coin} @ ${mark_price:,.2f} | Leverage: {leverage}x | Active Trades: {current_active_count}/{MAX_CONCURRENT_TRADES}")
 
                 time.sleep(LOOP_INTERVAL_SEC)
 

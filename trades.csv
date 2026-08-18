@@ -1209,3 +1209,16 @@
 {"timestamp": "2026-08-18T09:28:08.907825", "order_id": "PAPER_1787025488", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64160.18, "mode": "PAPER"}
 {"timestamp": "2026-08-18T09:28:29.154626", "order_id": "PAPER_1787025509", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64160.18, "mode": "PAPER"}
 {"timestamp": "2026-08-18T09:28:44.369014", "order_id": "PAPER_1787025524", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64160.19, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:29:04.717426", "order_id": "PAPER_1787025544", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64160.18, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:29:52.954368", "order_id": "PAPER_1787025592", "symbol": "BTCUSDT", "side": "sell", "amount": 0.001, "price": 64185.01, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:30:08.218142", "order_id": "PAPER_1787025608", "symbol": "BTCUSDT", "side": "sell", "amount": 0.001, "price": 64185.0, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:30:28.526920", "order_id": "PAPER_1787025628", "symbol": "BTCUSDT", "side": "sell", "amount": 0.001, "price": 64175.01, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:32:00.145560", "order_id": "PAPER_1787025720", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64118.45, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:32:33.692457", "order_id": "PAPER_1787025753", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64101.01, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:32:53.944590", "order_id": "PAPER_1787025773", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64096.42, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:33:09.220918", "order_id": "PAPER_1787025789", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64096.0, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:33:29.447548", "order_id": "PAPER_1787025809", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64090.01, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:33:44.676369", "order_id": "PAPER_1787025824", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64093.64, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:34:05.368974", "order_id": "PAPER_1787025845", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64093.65, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:34:45.690888", "order_id": "PAPER_1787025885", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64111.69, "mode": "PAPER"}
+{"timestamp": "2026-08-18T09:35:06.074258", "order_id": "PAPER_1787025906", "symbol": "BTCUSDT", "side": "buy", "amount": 0.001, "price": 64111.37, "mode": "PAPER"}
