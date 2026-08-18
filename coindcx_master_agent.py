@@ -22,7 +22,7 @@ from risk_engine import (
     calc_liquidation_price,
     calc_emergency_sl
 )
-from strategy_engine import StrategyEngine
+from strategy_engine import StrategyEngine, get_top_trending_altcoins
 from data_store import init_trades_csv, log_trade, load_trade_history, calculate_pnl
 
 logging.basicConfig(
@@ -55,34 +55,37 @@ class MasterAgent:
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY | LOSS LIMIT: -${DAILY_LOSS_LIMIT_USD:,.2f}/DAY).")
+        logger.info(f"🤖 Master Agent started in {mode_str} mode (ULTRA-AGGRESSIVE ALTCOINS | RISK: 50% | TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY).")
 
         while True:
             try:
                 self.check_daily_reset()
                 balances = self.client.get_account_balances()
-                equity = balances.get("total_equity", 10.0)
+                equity = balances.get("total_equity", 9.65)
 
                 # Fetch daily PnL progress
                 trades = load_trade_history()
-                btc_price = self.client.get_ticker_price("BTCUSDT")
-                realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, btc_price)
+                eth_price = self.client.get_ticker_price("ETHUSDT")
+                realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, eth_price)
                 self.daily_realized_pnl = realized_pnl
 
-                # 1) $50.00 Daily Profit Target Circuit Breaker
+                # 1) $100.00 Daily Profit Target Circuit Breaker
                 if self.daily_realized_pnl >= DEFAULT_MAX_DAILY_TARGET_USD:
-                    logger.info(f"🎉 $50.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target! Pausing new entries today to lock in profit.")
+                    logger.info(f"🎉 $100.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target! Pausing new entries today to lock in profit.")
                     time.sleep(LOOP_INTERVAL_SEC * 5)
                     continue
 
-                # 2) -$25.00 Daily Loss Limit Circuit Breaker
+                # 2) Full Account Protection Stop ($9.65)
                 if self.daily_realized_pnl <= -DAILY_LOSS_LIMIT_USD:
                     logger.warning(f"🛑 DAILY LOSS LIMIT REACHED (${self.daily_realized_pnl:,.2f} <= -${DAILY_LOSS_LIMIT_USD:,.2f}). Pausing new entries today to preserve capital.")
                     time.sleep(LOOP_INTERVAL_SEC * 5)
                     continue
 
-                # Multi-Coin Futures Scalping Loop
-                for coin in ALLOWED_FUTURES_COINS:
+                # Fetch Top 5 Trending Altcoins (Ranked by 24h/1h momentum, no BTC)
+                top_trending_coins = get_top_trending_altcoins(ALLOWED_FUTURES_COINS, top_n=5)
+
+                # Multi-Coin Futures Scalping Loop for Top Trending Altcoins
+                for coin in top_trending_coins:
                     spot_sym = futures_mapper.get_spot_symbol(coin)
                     futures_sym = futures_mapper.get_dcx_future_symbol(coin)
                     candle_pair = f"B-{coin.upper()}_USDT"
@@ -181,7 +184,7 @@ class MasterAgent:
 
                             if isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]:
                                 order_id = resp[0]["id"]
-                                logger.info(f"🚀 {coin} LIVE FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Order ID: {order_id}")
+                                logger.info(f"🚀 {coin} LIVE ALTCOIN FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Order ID: {order_id}")
                                 self.active_positions[coin] = {
                                     "coin": coin,
                                     "side": side,
@@ -195,7 +198,7 @@ class MasterAgent:
                                     "liquidation_price": liq_price,
                                     "confidence": conf,
                                     "is_breakeven_set": False,
-                                    "signal_source": f"90%_FUTURES_{coin}_1M_SCALP",
+                                    "signal_source": f"90%_ALTCOIN_{coin}_1M_SCALP",
                                     "news_summary": sig.get("summary", "N/A")
                                 }
 

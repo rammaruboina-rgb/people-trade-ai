@@ -11,52 +11,55 @@ from coindcx_futures_mapper import futures_mapper
 
 # System Prompt & Core Objective Configuration
 AGENT_SYSTEM_PROMPT = """
-You are the CoinDCX Max-Safety $50 Daily Profit Scalping Trading Brain for FUTURES only across BTC & Altcoins.
+You are the CoinDCX Ultra-Aggressive 1m Altcoin Scalping Trading Brain.
 
 CORE OBJECTIVE:
-- Daily Profit Target: $50.00 USD / day.
-- Daily Max Loss Limit: -$25.00 USD / day (Stop trading if -$25 loss reached).
-- Risk Per Trade: 5.0% of equity per scalp.
+- Initial Equity: $9.65 USD
+- Ultra-Aggressive Risk Per Trade: 50% of equity per trade
+- Daily Profit Target: $100.00 USD / day
+- Daily Max Loss Limit: $9.65 USD (Full account protection stop)
+- Target Assets: Top 5 Trending Altcoins (ETH, SOL, XRP, DOGE, AVAX, LINK, PEPE, SHIB, SUI, APT, etc. Excludes BTC).
 
 SIGNAL & ENTRY RULES:
 - Confluence score >= 90%.
-- 1m Candle Trend & Net-5-Candle Momentum filter.
-- Microstructure filter must pass.
+- 1m Candle Trend & MA20 filter.
+- Top 5 Trending Altcoins 1h momentum ranking.
 - Fully automated LIVE futures execution.
 
 PROFIT & LOSS TARGETS:
 - Take-Profit (TP): +1.0%
 - Stop-Loss (SL): -0.5%
 - Breakeven Trigger: +0.3% (locks in profit)
-
-DISPLAY:
-- Show all values in USD ($): balance, P&L, position size, profit/loss.
-- Mode must display as LIVE once funds are available and API keys are configured.
 """
 
-# Base Currency & Symbol Configuration (USD Trading)
+# Base Currency Configuration
 CURRENCY = "USD"
 CURRENCY_SYMBOL = "$"
 
-# Dynamic Allowed Altcoin Futures Symbols & Coins
+# Ultra-Aggressive Altcoin Futures List (Excludes BTC)
 ALLOWED_FUTURES_COINS = [
-    "BTC", "ETH", "SOL", "DOGE", "XRP", "ADA", "AVAX", "MATIC", "LINK", "PEPE", "SHIB", "SUI", "APT"
+    "ETH", "SOL", "XRP", "BNB", "ADA", "DOGE", "TRX", "LTC", "BCH", "EOS",
+    "LINK", "AVAX", "DOT", "ATOM", "NEAR", "APT", "SUI", "ARB", "OP", "SEI",
+    "TON", "FIL", "INJ", "HBAR", "UNI", "ETC", "ICP", "PEPE", "SHIB", "WIF",
+    "BONK", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO", "CRV", "AAVE", "MKR",
+    "GRT", "COMP", "SNX", "1INCH", "ZEC", "XLM", "ALGO", "VET", "FLOW", "KAS"
 ]
-ALLOWED_FUTURES_SYMBOLS = futures_mapper.active_instruments
 
-SYMBOL_SPOT = "BTCUSDT"
-SYMBOL_FUTURES = futures_mapper.get_dcx_future_symbol("BTC")
-CANDLE_PAIR = "B-BTC_USDT"
+ALLOWED_FUTURES_SYMBOLS = [futures_mapper.get_dcx_future_symbol(c) for c in ALLOWED_FUTURES_COINS]
 
-# Strategy Settings ($50/Day Profit Target)
-HIGH_CONFIDENCE_THRESHOLD = 90.0  # Confluence Gate set to >= 90%
-EQUITY_USD = 10.0                 # Futures Account Capital
-RISK_PER_TRADE_PCT = 5.0          # 5.0% risk per trade
-DEFAULT_MAX_DAILY_TARGET_USD = 50.0 # $50.00 USD Daily Profit Target
-DAILY_LOSS_LIMIT_USD = 25.0       # -$25.00 USD Daily Loss Limit Guard
+SYMBOL_SPOT = "ETHUSDT"
+SYMBOL_FUTURES = futures_mapper.get_dcx_future_symbol("ETH")
+CANDLE_PAIR = "B-ETH_USDT"
+
+# Ultra-Aggressive Strategy Settings
+HIGH_CONFIDENCE_THRESHOLD = 90.0  # Confluence Gate >= 90%
+EQUITY_USD = 9.65                 # $9.65 USD Initial Balance
+RISK_PER_TRADE_PCT = 50.0         # 50% equity risk per scalp
+DEFAULT_MAX_DAILY_TARGET_USD = 100.0 # $100.00 USD Daily Profit Target
+DAILY_LOSS_LIMIT_USD = 9.65       # $9.65 USD Daily Loss Limit Guard
+MAX_TRADES_PER_DAY = 50
 
 def get_dynamic_daily_target_usd(equity_usd: float) -> float:
-    """Returns $50.00 USD daily profit target"""
     return DEFAULT_MAX_DAILY_TARGET_USD
 
 # Risk & Protection (1m Scalp Parameters)
@@ -69,8 +72,8 @@ LIQUIDATION_SAFETY_BUFFER_PCT = 0.20  # 20% safety distance before liquidation
 # Leverage & Margin
 MAX_LEVERAGE_CAP = 5              # 5x leverage cap for major coins
 ALTCOIN_LEVERAGE_CAP = 3          # 3x leverage cap for altcoins
-MARGIN_MODE = "isolated"          # isolated margin mode (zero cross-account risk)
-MAX_FUTURES_MARGIN_UTILIZATION = 0.5  # Max 50% margin utilization
+MARGIN_MODE = "isolated"          # isolated margin mode
+MAX_FUTURES_MARGIN_UTILIZATION = 0.5
 
 # Webhook Server Configuration
 WEBHOOK_ENABLED = os.getenv("WEBHOOK_ENABLED", "false").lower() == "true"
