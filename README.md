@@ -124,8 +124,8 @@ coindcxagent/
 ### 2. Clone & Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/rammaruboina-rgb/coindcxagent-private.git
-cd coindcxagent-private
+git clone https://github.com/rammaruboina-rgb/people-trade-ai.git
+cd people-trade-ai
 
 # Create and activate python virtual environment
 python3 -m venv venv
