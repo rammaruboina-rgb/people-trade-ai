@@ -24,12 +24,23 @@ EQUITY_USD = float(os.getenv("EQUITY_USD", "10.00"))  # Real Account Equity Cali
 DEFAULT_MAX_DAILY_TARGET_USD = 10000.0  # Unlimited daily profit mode
 MAX_DAILY_TRADES = 999999               # Unlimited trades per day
 # Position Gate & Cooldown Rules
-MAX_OPEN_POSITIONS = 1
-MAX_CONCURRENT_TRADES = 1
+MAX_OPEN_POSITIONS = 3
+MAX_CONCURRENT_TRADES = 3
 REENTRY_COOLDOWN_SECONDS = 3
 MAX_DAILY_LOSS_PCT = 0.10
 BREAKEVEN_PROFIT_PCT = 0.01
 PAPER_TRADING = False  # HARDENED REAL CASH LIVE CAPITAL TRADING MODE
+
+# Multi-Trade Mode Configuration
+MULTI_TRADE_CONFIG = {
+    "enabled": True,
+    "max_concurrent_trades": 3,          # Up to 3 simultaneous positions allowed
+    "max_per_symbol": 1,                 # Max 1 position per coin symbol
+    "risk_per_trade_pct": 1.0,           # 1.0% equity risk per trade
+    "max_total_risk_pct": 3.0,           # 3.0% max total risk across all active trades
+    "min_overall_score": 70.0,           # Minimum 70/100 overall score required
+    "min_engine_score": 60.0,            # Minimum engine score requirement
+}
 
 # Risk Engine & Leverage Parameters (SAFE CONSERVATIVE 10X LEVERAGE | A+ SETUPS ONLY)
 RISK_PER_TRADE_PCT = 25.0           # Conservative margin per trade (25% of equity)

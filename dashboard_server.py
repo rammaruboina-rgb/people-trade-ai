@@ -1582,17 +1582,50 @@ def high_win_signal_api(symbol):
         and bias_pass
     )
 
+    multi_cfg = getattr(config, "MULTI_TRADE_CONFIG", {
+        "enabled": True,
+        "max_concurrent_trades": 3,
+        "max_per_symbol": 1,
+        "risk_per_trade_pct": 1.0,
+        "max_total_risk_pct": 3.0,
+        "min_overall_score": 70.0,
+        "min_engine_score": 60.0,
+    })
+
+    engine_scores = {
+        "wyckoff": min(100.0, confluence_pct),
+        "orderbook": 85.0 if ob_pass else 50.0,
+        "strategy": 90.0 if action_pass else 40.0,
+        "liquidity": 95.0 if liq_pass else 45.0,
+        "regime": 90.0 if regime_pass else 50.0,
+        "bias": 85.0 if bias_pass else 50.0,
+    }
+
+    overall_score = round(sum(engine_scores.values()) / len(engine_scores), 2)
+    min_engine = min(engine_scores.values())
+
+    signal_ok = (
+        overall_score >= multi_cfg.get("min_overall_score", 70.0) and
+        min_engine >= multi_cfg.get("min_engine_score", 60.0) and
+        trade_allowed
+    )
+
     return jsonify({
         "symbol": symbol.upper(),
-        "trade_allowed": trade_allowed,
-        "action": action if trade_allowed else "WAIT",
+        "trade_allowed": signal_ok,
+        "trade_allowed_by_signal": signal_ok,
+        "action": action if signal_ok else "WAIT",
         "confluence_pct": confluence_pct,
+        "overall_score": overall_score,
+        "min_engine_score": min_engine,
+        "scores": engine_scores,
         "market_cycle_phase": phase,
         "orderbook_imbalance": imb,
         "liquidity_ok": liq_ok,
         "spread_ok": spread_ok,
         "regime": regime,
         "chart_bias": bias,
+        "multi_trade_config": multi_cfg,
         "filters": {
             "min_confluence_80pct": min_conf_pass,
             "orderbook_pressure_aligned": ob_pass,

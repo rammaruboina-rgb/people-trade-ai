@@ -79,14 +79,43 @@ class MasterAgent:
 
         return False
 
-    def can_open_new_trade(self, open_positions_count: int, now_ts: float, current_equity: float) -> bool:
-        """Hard Gate: Enforces MAX_OPEN_POSITIONS = 1, REENTRY_COOLDOWN_SECONDS = 180, and Risk Limits"""
-        if open_positions_count >= getattr(config, "MAX_OPEN_POSITIONS", 1):
+    def can_open_new_trade(self, symbol: str, active_positions: dict, current_equity: float, now_ts: float) -> bool:
+        """Multi-Trade Risk Math Gate: Enforces max concurrent trades, 1 per symbol, and total risk cap"""
+        cfg = getattr(config, "MULTI_TRADE_CONFIG", {
+            "enabled": True,
+            "max_concurrent_trades": 3,
+            "max_per_symbol": 1,
+            "risk_per_trade_pct": 1.0,
+            "max_total_risk_pct": 3.0,
+        })
+
+        open_count = len(active_positions)
+        max_concurrent = cfg.get("max_concurrent_trades", getattr(config, "MAX_OPEN_POSITIONS", 3))
+
+        # 1) Max Concurrent Trades Check
+        if open_count >= max_concurrent:
+            return False
+
+        # 2) Per-Symbol Gate (Max 1 position per coin)
+        clean_coin = symbol.upper().replace("B-", "").replace("_USDT", "").replace("USDT", "")
+        for p_sym in active_positions.keys():
+            p_clean = p_sym.upper().replace("B-", "").replace("_USDT", "").replace("USDT", "")
+            if p_clean == clean_coin:
+                logger.info(f"🚫 MULTI-TRADE GATE: Position already open for {clean_coin}.")
+                return False
+
+        # 3) Total Risk Cap Check
+        risk_per_trade_usd = current_equity * (cfg.get("risk_per_trade_pct", 1.0) / 100.0)
+        current_open_risk = sum(float(p.get("margin", risk_per_trade_usd)) for p in active_positions.values())
+        max_allowed_total_risk = current_equity * (cfg.get("max_total_risk_pct", 3.0) / 100.0)
+
+        if (current_open_risk + risk_per_trade_usd) > max_allowed_total_risk and open_count > 0:
+            logger.info(f"🚫 MULTI-TRADE GATE: Total risk cap exceeded (${current_open_risk + risk_per_trade_usd:.2f} > ${max_allowed_total_risk:.2f}).")
             return False
 
         if self.last_exit_ts is not None:
             elapsed = now_ts - self.last_exit_ts
-            cooldown = getattr(config, "REENTRY_COOLDOWN_SECONDS", 180)
+            cooldown = getattr(config, "REENTRY_COOLDOWN_SECONDS", 3)
             if elapsed < cooldown:
                 remaining = int(cooldown - elapsed)
                 logger.info(f"⏳ RE-ENTRY COOLDOWN ACTIVE ({remaining}s remaining before next entry allowed)...")
@@ -202,21 +231,23 @@ class MasterAgent:
                             active_pos_count -= 1
 
                 # PHASE 2: IF HARD GATE PASSED, EVALUATE COMPLETED CANDLE SIGNALS FOR ENTRY
-                if self.can_open_new_trade(active_pos_count, now_ts, equity):
-                    from strategy_engine import fetch_ohlcv, candle_signal, calculate_tp_sl
-                    from scanner import get_liquid_top_n
-                    from catalyst_engine import get_market_regime
-                    from risk_config import get_max_leverage
+                from strategy_engine import fetch_ohlcv, candle_signal, calculate_tp_sl
+                from scanner import get_liquid_top_n
+                from catalyst_engine import get_market_regime
+                from risk_config import get_max_leverage
 
-                    # 1) Hard Liquidity Filter & Spread Gate (Scans Top 15 Trending Coins by 24h Volume)
-                    liquid_trending = get_liquid_top_n(self.client, ALLOWED_FUTURES_COINS, top_n=15)
-                    
-                    # 2) Market Regime Gate (Macro Trend Alignment)
-                    regime = get_market_regime()
+                # 1) Hard Liquidity Filter & Spread Gate (Scans Top 15 Trending Coins by 24h Volume)
+                liquid_trending = get_liquid_top_n(self.client, ALLOWED_FUTURES_COINS, top_n=15)
+                
+                # 2) Market Regime Gate (Macro Trend Alignment)
+                regime = get_market_regime()
 
-                    for coin in liquid_trending:
-                        if not is_allowed_symbol(coin):
-                            continue
+                for coin in liquid_trending:
+                    if not is_allowed_symbol(coin):
+                        continue
+
+                    if not self.can_open_new_trade(coin, active_futures_positions, equity, now_ts):
+                        continue
 
                         spot_sym = futures_mapper.get_spot_symbol(coin)
                         candle_pair = f"B-{coin.upper()}_USDT"
