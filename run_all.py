@@ -67,29 +67,37 @@ def prompt_user_start(cli_coin: str = None):
         return
 
     start_banner = Text()
-    start_banner.append("🚀 COINDCX 20X AUTONOMOUS FUTURES TRADER\n\n", style="bold yellow")
-    start_banner.append("💵 Equity Capital Base: $9.52 USDT\n", style="bold green")
+    start_banner.append("🚀 COINDCX 20X AUTONOMOUS FUTURES TRADER & CHAT CONSOLE\n\n", style="bold yellow")
+    start_banner.append(f"💵 Equity Capital Base: ${config.EQUITY_USD:.2f} USDT\n", style="bold green")
     start_banner.append("🎯 Target Profit: $100.00 USD / Day\n", style="bold cyan")
     start_banner.append("⚡ Strategy: Dual-Direction (BUY & SELL) 1m Scalper\n", style="bold white")
     start_banner.append("🔒 Leverage: 20X Maximum Leverage\n\n", style="bold red")
-    start_banner.append("🔍 COIN SEARCH & FOCUS BAR:\n", style="bold magenta")
-    start_banner.append("   • Press [ENTER] or type 'START' for ALL Altcoins\n", style="dim white")
-    start_banner.append("   • Or type coin name to FOCUS (e.g. SUI, AVAX, PEPE, NEAR, APT, FIL)\n\n", style="bold yellow")
-    start_banner.append("▶️  ENTER COMMAND OR COIN SYMBOL TO START LIVE TRADING  ◀️", style="bold green blink")
+    start_banner.append("💬 INTERACTIVE AGENT CHAT & FOCUS BAR:\n", style="bold magenta")
+    start_banner.append("   • Type chat commands: 'balance', 'trending', 'news', 'tweets', 'status'\n", style="dim white")
+    start_banner.append("   • Or type coin name to FOCUS (e.g. SOL, SUI, PEPE, NEAR, APT)\n", style="dim white")
+    start_banner.append("   • Or press [ENTER] to launch Live Multi-Altcoin Scalper\n\n", style="bold yellow")
+    start_banner.append("▶️  ENTER CHAT COMMAND OR COIN SYMBOL TO START LIVE TRADING  ◀️", style="bold green blink")
 
-    panel = Panel(Align.center(start_banner), border_style="cyan", title="[bold yellow]TERMINAL CONTROL & SEARCH BAR[/bold yellow]")
+    panel = Panel(Align.center(start_banner), border_style="cyan", title="[bold yellow]INTERACTIVE TERMINAL AGENT CHATBOX & CONTROL[/bold yellow]")
     console.print(panel)
     
     try:
-        user_inp = input("\n👉 Enter Search/Focus Coin (or press ENTER to trade ALL): ").strip()
-        set_focus_coin(user_inp)
-    except Exception:
+        user_inp = input("\n👉 Enter Command / Focus Coin (or press ENTER to start): ").strip()
+        if user_inp:
+            from agent_chat import handle_query
+            if any(cmd in user_inp.lower() for cmd in ["balance", "trending", "news", "tweets", "status", "equity", "pnl"]):
+                console.print(f"\n💬 AGENT RESPONSE FOR: '{user_inp}'", style="bold cyan")
+                handle_query(user_inp)
+                time.sleep(2)
+            else:
+                set_focus_coin(user_inp)
+    except Exception as e:
         pass
     
     if config.TARGETED_FOCUS_COIN:
         console.print(f"\n🎯 TARGETED FOCUS MODE ACTIVATED: TRADING {config.TARGETED_FOCUS_COIN} ONLY!\n", style="bold green reverse")
     else:
-        console.print("\n🌐 MULTI-ALTCOIN MODE ACTIVATED: TRADING ALL TOP VOLATILE ALTCOINS!\n", style="bold green")
+        console.print("\n🌐 MULTI-ALTCOIN MODE ACTIVATED: TRADING ALL 125+ TOP ALTCOINS & MEMES!\n", style="bold green")
 
 def main():
     args = parse_args()

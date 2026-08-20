@@ -13,14 +13,34 @@ import requests
 import logging
 import time
 import numpy as np
+from news_client import get_catalyst_event_score
+from wyckoff_engine import WyckoffEngine
 
 logger = logging.getLogger(__name__)
+wyckoff_engine = WyckoffEngine()
+
+def evaluate_wyckoff_signal(pair: str, equity: float = 20.0, btc_move_5m_pct: float = 0.0) -> dict:
+    """Fetches 5m, 15m, and 1h candles for pair and evaluates production Wyckoff decision"""
+    candles_5m = fetch_ohlcv(pair=pair, interval="5m", limit=100)
+    candles_15m = fetch_ohlcv(pair=pair, interval="15m", limit=20)
+    candles_1h = fetch_ohlcv(pair=pair, interval="1h", limit=20)
+
+    payload = {
+        "symbol": pair,
+        "candles_5m": candles_5m,
+        "candles_15m": candles_15m,
+        "candles_1h": candles_1h,
+        "equity": equity,
+        "btc_move_5m_pct": btc_move_5m_pct,
+        "risk_per_trade_pct": 0.25
+    }
+    return wyckoff_engine.evaluate(payload)
 
 MIN_CONFLUENCE_PCT = 50.0
 PROFIT_TARGET_PCT = 0.20
 STOP_LOSS_PCT = 0.10
 
-EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA"]
+EXCLUDED_COINS = ["BTC", "ETH", "SOL"]
 
 def fetch_ohlcv(pair: str = "B-SOL_USDT", interval: str = "1m", limit: int = 50) -> list:
     """Fetches real-time OHLCV candles directly from CoinDCX API for any timeframe"""
@@ -108,49 +128,187 @@ def atr_based_sl_tp(candles: list, direction: str, current_price: float):
     if atr <= 0 or (atr / current_price) < 0.002:
         atr = current_price * 0.005
 
+    decimals = 4 if current_price < 10.0 else 2
     if direction == "long":
-        sl_price = round(max(0.01, current_price - 2.0 * atr), 2)
-        tp_price = round(current_price + 4.0 * atr, 2)
+        sl_price = round(max(0.0001, current_price - 2.0 * atr), decimals)
+        tp_price = round(current_price + 4.0 * atr, decimals)
     else:
-        sl_price = round(current_price + 2.0 * atr, 2)
-        tp_price = round(max(0.01, current_price - 4.0 * atr), 2)
+        sl_price = round(current_price + 2.0 * atr, decimals)
+        tp_price = round(max(0.0001, current_price - 4.0 * atr), decimals)
 
     return sl_price, tp_price
 
-def predict_direction(candles: list, coin: str = "SOL") -> str:
+def candle_signal(candles: list) -> str:
     """
-    Predicts 'short' (SELL) or 'long' (BUY) dynamically based on 1m RSI & 5-candle price action.
+    Evaluates completed candles ONLY:
+    `candles[-3]` (previous completed candle)
+    `candles[-2]` (last completed candle)
+    Ignores currently forming candle (`candles[-1]`).
+    Returns 'long', 'short', or None.
     """
-    if not candles or len(candles) < 5:
-        return "short" if (int(time.time()) % 2 == 0) else "long"
+    if not candles or len(candles) < 3:
+        return None
+
+    previous = candles[-3]
+    signal = candles[-2]  # Completed candle; last candle may still be forming
+
+    po, ph, pl, pc = float(previous[1]), float(previous[2]), float(previous[3]), float(previous[4])
+    so, sh, sl, sc = float(signal[1]), float(signal[2]), float(signal[3]), float(signal[4])
+
+    previous_body = abs(pc - po)
+    signal_body = abs(sc - so)
+
+    if previous_body == 0 or signal_body == 0:
+        return None
+
+    bullish_engulfing = (
+        pc < po and
+        sc > so and
+        so <= pc and
+        sc >= po and
+        signal_body >= 1.2 * previous_body
+    )
+
+    bearish_engulfing = (
+        pc > po and
+        sc < so and
+        so >= pc and
+        sc <= po and
+        signal_body >= 1.2 * previous_body
+    )
+
+    if bullish_engulfing:
+        return "long"
+
+    if bearish_engulfing:
+        return "short"
+
+    # Secondary confirmation: EMA trend alignment on completed candles
+    closes = np.array([float(c[4]) for c in candles[:-1]])
+    if len(closes) >= 10:
+        ema5 = float(np.mean(closes[-5:]))
+        ema10 = float(np.mean(closes[-10:]))
+        if sc > so and sc > ema5 and ema5 > ema10:
+            return "long"
+        elif sc < so and sc < ema5 and ema5 < ema10:
+            return "short"
+
+    return None
+
+def calculate_tp_sl(entry_price: float, direction: str, tp_move: float = 0.015, sl_move: float = 0.008) -> tuple:
+    """
+    Calculates explicit price targets for TP and SL based on price movement percentage.
+    Default: 1.5% price move for TP (~45% gross ROE at 30X), 0.8% price move for SL (~24% loss at 30X).
+    """
+    if entry_price <= 0:
+        return 0.0, 0.0
+
+    direction_lower = str(direction).lower()
+    if direction_lower in ["long", "buy"]:
+        tp = entry_price * (1.0 + tp_move)
+        sl = entry_price * (1.0 - sl_move)
+    elif direction_lower in ["short", "sell"]:
+        tp = entry_price * (1.0 - tp_move)
+        sl = entry_price * (1.0 + sl_move)
+    else:
+        raise ValueError("direction must be 'long' or 'short'")
+
+    return round(tp, 4), round(sl, 4)
+
+def is_bullish_engulfing_strict(candles: list, idx: int = -1) -> bool:
+    """Strict Bullish Engulfing: Green candle body completely engulfs previous Red candle body"""
+    if not candles or len(candles) < abs(idx) + 1:
+        return False
+    prev_open, prev_close = candles[idx-1][1], candles[idx-1][4]
+    curr_open, curr_close = candles[idx][1], candles[idx][4]
+    
+    prev_is_red = prev_close < prev_open
+    curr_is_green = curr_close > curr_open
+    engulfs = (curr_open <= prev_close) and (curr_close >= prev_open)
+    return prev_is_red and curr_is_green and engulfs
+
+def is_bearish_engulfing_strict(candles: list, idx: int = -1) -> bool:
+    """Strict Bearish Engulfing: Red candle body completely engulfs previous Green candle body"""
+    if not candles or len(candles) < abs(idx) + 1:
+        return False
+    prev_open, prev_close = candles[idx-1][1], candles[idx-1][4]
+    curr_open, curr_close = candles[idx][1], candles[idx][4]
+    
+    prev_is_green = prev_close > prev_open
+    curr_is_red = curr_close < curr_open
+    engulfs = (curr_open >= prev_close) and (curr_close <= prev_open)
+    return prev_is_green and curr_is_red and engulfs
+
+def is_hammer_strict(candles: list, idx: int = -1) -> bool:
+    """Strict Hammer Pinbar: Lower wick >= 2x body height"""
+    if not candles or len(candles) < abs(idx):
+        return False
+    c_open, c_high, c_low, c_close = candles[idx][1], candles[idx][2], candles[idx][3], candles[idx][4]
+    body = max(0.0001, abs(c_close - c_open))
+    lower_wick = min(c_open, c_close) - c_low
+    upper_wick = c_high - max(c_open, c_close)
+    return (lower_wick >= 2.0 * body) and (upper_wick <= 0.5 * body)
+
+def is_shooting_star_strict(candles: list, idx: int = -1) -> bool:
+    """Strict Shooting Star Pinbar: Upper wick >= 2x body height"""
+    if not candles or len(candles) < abs(idx):
+        return False
+    c_open, c_high, c_low, c_close = candles[idx][1], candles[idx][2], candles[idx][3], candles[idx][4]
+    body = max(0.0001, abs(c_close - c_open))
+    upper_wick = c_high - max(c_open, c_close)
+    lower_wick = min(c_open, c_close) - c_low
+    return (upper_wick >= 2.0 * body) and (lower_wick <= 0.5 * body)
+
+def predict_direction(candles: list, coin: str = "SUI") -> str:
+    """
+    Predicts 'short' (SELL) or 'long' (BUY) using EMA(9)/EMA(21) trend and RSI momentum confluence.
+    """
+    if not candles or len(candles) < 2:
+        return "long"
 
     closes = np.array([c[4] for c in candles])
     current_price = closes[-1]
-    ma10 = float(np.mean(closes[-10:])) if len(closes) >= 10 else current_price
 
-    momentum_5 = closes[-1] - closes[-5]
-    momentum_1 = closes[-1] - closes[-2] if len(closes) >= 2 else 0.0
+    # Calculate EMA(9) and EMA(21) for accurate micro-trend direction
+    ema9 = float(np.mean(closes[-9:])) if len(closes) >= 9 else current_price
+    ema21 = float(np.mean(closes[-21:])) if len(closes) >= 21 else current_price
     rsi = calculate_rsi(closes, period=min(14, len(closes)-1))
 
-    if current_price < ma10 or momentum_5 < 0 or (rsi > 52 and momentum_1 < 0):
-        return "short"
-    
-    if current_price > ma10 or momentum_5 > 0:
+    # 1. Candlestick Pattern Signals
+    if is_bullish_engulfing_strict(candles) or is_hammer_strict(candles):
         return "long"
+    if is_bearish_engulfing_strict(candles) or is_shooting_star_strict(candles):
+        return "short"
 
-    return "short" if (int(time.time()) % 2 == 0) else "long"
+    # 2. Strict Technical Trend Rules
+    if ema9 > ema21 and rsi >= 48.0:
+        return "long"
+    elif ema9 < ema21 and rsi <= 52.0:
+        return "short"
+
+    # 3. Momentum Breakout Fallback
+    if current_price >= ema9:
+        return "long"
+    else:
+        return "short"
 
 def calculate_confluence(pair: str, candles: list, direction: str) -> float:
     if not candles or len(candles) < 5:
-        return 99.0
+        base_score = 95.0
+    else:
+        highs = np.array([c[2] for c in candles])
+        lows = np.array([c[3] for c in candles])
+        last5_range_pct = (highs[-1] - lows[-5]) / max(0.0001, lows[-5]) if len(highs) >= 5 else 0.01
+        vol_score = 25 if last5_range_pct >= 0.005 else 15
+        base_score = 70.0 + vol_score
 
-    highs = np.array([c[2] for c in candles])
-    lows = np.array([c[3] for c in candles])
-
-    last5_range_pct = (highs[-1] - lows[-5]) / max(0.0001, lows[-5]) if len(highs) >= 5 else 0.01
-    vol_score = 30 if last5_range_pct >= 0.005 else 15
-
-    return 70.0 + vol_score
+    # Incorporate Event Catalyst Score (Token Unlocks / Summits / Upgrades)
+    coin = pair.replace("B-", "").replace("_USDT", "").replace("USDT", "").upper()
+    cat_data = get_catalyst_event_score(coin)
+    catalyst_mod = cat_data.get("score_impact", 0.0) * 20.0  # Scale impact (-3.0% to +5.0%)
+    
+    final_confluence = min(100.0, max(50.0, base_score + catalyst_mod))
+    return final_confluence
 
 def get_top_trending_altcoins(allowed_coins: list, top_n: int = 5) -> list:
     """
@@ -179,12 +337,12 @@ def get_top_trending_altcoins(allowed_coins: list, top_n: int = 5) -> list:
         pass
 
     # Secondary Fallback: High Volatility Pure Altcoin Basket
-    fallback_basket = ["SOL", "SUI", "AVAX", "PEPE", "NEAR", "APT", "WIF", "FET", "TAO", "SHIB", "FIL", "INJ", "DOT", "SEI"]
+    fallback_basket = ["SUI", "AVAX", "XRP", "PEPE", "NEAR", "APT", "WIF", "FET", "TAO", "SHIB", "FIL", "INJ", "DOT", "SEI"]
     return [c for c in fallback_basket if c not in EXCLUDED_COINS][:top_n]
 
 def perfect_20pct_alt_strategy(
     pair: str,
-    equity_usd: float = 9.52,
+    equity_usd: float = None,
     confluence_pct: float = 99.0,
     candles: list = None
 ):
@@ -194,6 +352,9 @@ def perfect_20pct_alt_strategy(
       - Multi-TF Trend Alignment (1m, 5m, 15m)
       - ATR-Based Dynamic Stop-Loss & Take-Profit
     """
+    import config
+    if equity_usd is None:
+        equity_usd = getattr(config, "EQUITY_USD", 10.376)
     coin = pair.replace("B-", "").replace("_USDT", "").upper()
     if coin in EXCLUDED_COINS:
         return False, None, None, None, None, None, None
@@ -208,12 +369,16 @@ def perfect_20pct_alt_strategy(
 
     raw_quantity = (equity_usd * 20.0) / current_price
 
-    if coin == "SOL":
+    if coin in ["PEPE", "SHIB", "BONK", "FLOKI"]:
+        quantity = max(1000.0, round(raw_quantity, 0))
+    elif current_price >= 100.0:
+        quantity = max(0.01, round(raw_quantity, 3))
+    elif current_price >= 10.0:
         quantity = max(0.1, round(raw_quantity, 2))
-    elif coin in ["PEPE", "SHIB", "BONK", "FLOKI", "WIF"]:
-        quantity = max(1000000.0, round(raw_quantity, 0))
+    elif current_price >= 1.0:
+        quantity = max(0.5, round(raw_quantity, 1))
     else:
-        quantity = max(10.0, round(raw_quantity, 1))
+        quantity = max(1.0, round(raw_quantity, 1))
 
     return True, direction, quantity, current_price, sl_price, tp_price, None
 
@@ -222,6 +387,7 @@ class StrategyEngine:
         pass
 
     def evaluate_multi_source_signal(self, current_price: float, price_history: list, pair: str = "B-SOL_USDT"):
+        import config
         candles = fetch_ohlcv(pair=pair, interval="1m", limit=50)
         coin = pair.replace("B-SOL_USDT", "SOL").replace("B-", "").replace("_USDT", "").upper()
         direction = predict_direction(candles, coin=coin)
@@ -229,7 +395,7 @@ class StrategyEngine:
 
         pass_scalp, direction, qty, entry, sl, tp, _ = perfect_20pct_alt_strategy(
             pair=pair,
-            equity_usd=9.52,
+            equity_usd=getattr(config, "EQUITY_USD", 10.376),
             candles=candles
         )
 

@@ -15,8 +15,8 @@ from config import (
 )
 
 def apply_leverage_cap(requested_leverage: int) -> int:
-    """Enforces MAXIMUM 20X leverage limit"""
-    return min(20, max(1, requested_leverage))
+    """Enforces 100X leverage limit"""
+    return min(100, max(1, requested_leverage))
 
 def calc_sl_tp_prices(entry_price: float, side: str = "LONG", sl_pct: float = DEFAULT_SL_PCT, tp_pct: float = DEFAULT_TP_PCT) -> tuple:
     """Calculates strict USD price levels for Stop-Loss and Take-Profit"""
@@ -29,29 +29,32 @@ def calc_sl_tp_prices(entry_price: float, side: str = "LONG", sl_pct: float = DE
 
     return round(sl_price, 2), round(tp_price, 2)
 
-def calc_position_size(equity_usd: float, entry_price: float, sl_price: float, coin: str = "ETH") -> float:
-    """Calculates position size utilizing MAXIMUM 20X LEVERAGE"""
+def calc_position_size(equity_usd: float, entry_price: float, sl_price: float, coin: str = "ACE", override_leverage: int = None) -> float:
+    """Calculates position size utilizing requested LEVERAGE with safety collateral buffer"""
     coin_upper = coin.upper()
 
-    # Full 100% Margin Utilization ($9.659 USD)
-    effective_equity = max(9.659, equity_usd)
-    risk_amount_usd = effective_equity * 1.0  # 100% margin
+    if entry_price <= 0:
+        return 1.0
 
-    # Apply 20x Leverage Notional Size
-    leverage = 20
-    notional_usd = risk_amount_usd * leverage
+    from config import LEVERAGE
+    lev = override_leverage if override_leverage is not None else LEVERAGE
+    leverage = min(100, max(1, int(lev)))
+
+    # Allocate 90% of allocated per-trade equity to utilize FULL AMOUNT for trade
+    safe_margin = max(0.50, equity_usd * 0.90)
+    notional_usd = safe_margin * leverage
     raw_qty = notional_usd / entry_price
 
-    if coin_upper == "ETH":
-        return max(0.013, round(raw_qty, 3))
-    elif coin_upper == "SOL":
-        return max(0.1, round(raw_qty, 2))
-    elif coin_upper in ["PEPE", "SHIB", "BONK", "FLOKI"]:
-        return max(1000000.0, round(raw_qty, 0))
-    elif coin_upper == "TAO":
-        return max(0.01, round(raw_qty, 2))
+    if coin_upper in ["PEPE", "SHIB", "BONK", "FLOKI"]:
+        return max(1000.0, float(round(raw_qty, 0)))
+    elif entry_price >= 100.0:
+        return max(0.001, float(round(raw_qty, 3)))
+    elif entry_price >= 10.0:
+        return max(0.01, float(round(raw_qty, 2)))
+    elif entry_price >= 1.0:
+        return max(0.1, float(round(raw_qty, 1)))
     else:
-        return max(10.0, round(raw_qty, 1))
+        return max(1.0, float(round(raw_qty, 1)))
 
 def calc_liquidation_price(entry_price: float, side: str = "LONG", leverage: int = 20) -> float:
     """Calculates estimated isolated margin liquidation price"""

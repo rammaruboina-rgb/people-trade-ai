@@ -92,6 +92,11 @@ class CoinDCXFuturesMapper:
             self.coin_to_future_map[c] = fut
             self.risk_params[c] = {"leverage": 20, "min_qty": 0.001, "step_size": 0.001, "max_leverage": 20}
 
+    def is_valid_futures_coin(self, coin: str) -> bool:
+        clean = coin.replace("USDT", "").replace("B-", "").split("_")[0].upper()
+        # Verify coin is in mapped active instruments dictionary
+        return clean in self.coin_to_future_map
+
     def get_dcx_future_symbol(self, coin_or_spot: str) -> str:
         clean = coin_or_spot.replace("USDT", "").replace("B-", "").split("_")[0].upper()
         if clean in self.coin_to_future_map:

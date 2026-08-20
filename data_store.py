@@ -60,8 +60,10 @@ def calculate_pnl(trades, current_price):
 
     unrealized_pnl = 0.0
     if open_buy_price and current_price and current_price < 200000 and open_buy_price > 0:
-        raw_pnl = ((current_price - open_buy_price) / open_buy_price) * 9.52 * 20.0
-        unrealized_pnl = max(-9.52, min(100.0, raw_pnl))
+        import config
+        eq_usd = getattr(config, "EQUITY_USD", 10.376)
+        raw_pnl = ((current_price - open_buy_price) / open_buy_price) * eq_usd * 20.0
+        unrealized_pnl = max(-eq_usd, min(100.0, raw_pnl))
 
     total_pnl = realized_pnl + unrealized_pnl
     return round(realized_pnl, 2), round(unrealized_pnl, 2), round(total_pnl, 2)

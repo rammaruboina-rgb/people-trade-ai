@@ -20,6 +20,8 @@ from rich.table import Table
 from rich.text import Text
 from rich.align import Align
 
+from news_client import get_global_crypto_news_feed
+
 class UnifiedDashboardApp:
     def __init__(self):
         self.client = CoinDCXClient()
@@ -52,7 +54,7 @@ class UnifiedDashboardApp:
         tot_style = "bold green" if total_pnl >= 0 else "bold red"
 
         table.add_row(
-            f"${balances.get('total_equity', 9.52):,.2f}",
+            f"${balances.get('total_equity', config.EQUITY_USD):,.2f}",
             f"[{real_style}]${realized_pnl:,.2f}[/{real_style}]",
             f"[{unreal_style}]${unrealized_pnl:,.2f}[/{unreal_style}]",
             f"[{tot_style}]${total_pnl:,.2f}[/{tot_style}]"
@@ -117,18 +119,48 @@ class UnifiedDashboardApp:
 
         return Panel(table, border_style="magenta", title="[bold yellow]RECENT EXECUTION LEDGER[/bold yellow]")
 
+    def generate_global_news_panel(self) -> Panel:
+        news_data = get_global_crypto_news_feed()
+        bias = news_data.get("market_bias", "NEUTRAL ⚖️")
+        headlines = news_data.get("headlines", [])
+        next_sec = news_data.get("next_refresh_sec", 300)
+        
+        mins = next_sec // 60
+        secs = next_sec % 60
+        countdown_str = f"{mins}m {secs:02d}s"
+        
+        table = Table(expand=True, box=None, show_header=True, header_style="bold blue")
+        table.add_column("Time", justify="center", style="dim white")
+        table.add_column("Source", justify="center", style="bold cyan")
+        table.add_column("Global Crypto Headline / Macro Event", justify="left")
+        table.add_column("Impact", justify="center")
+
+        for item in headlines:
+            sent = item.get("sentiment", "NEUTRAL ⚖️")
+            sent_style = "bold green" if "BULLISH" in sent else ("bold red" if "BEARISH" in sent else "bold yellow")
+            table.add_row(
+                item.get("time", "Now"),
+                item.get("source", "Crypto"),
+                item.get("title", ""),
+                f"[{sent_style}]{sent}[/{sent_style}]"
+            )
+        if not headlines:
+            table.add_row("-", "-", "Fetching 5-min global crypto market news...", "-")
+
+        title_str = f"[bold yellow]🌐 GLOBAL CRYPTO NEWS TICKER (REFRESH IN: {countdown_str}) | MARKET SENTIMENT: [{bias}][/bold yellow]"
+        return Panel(table, border_style="blue", title=title_str)
+
     def generate_search_bar_panel(self) -> Panel:
         search_text = Text()
-        search_text.append("🔍 TARGET COIN SEARCH BAR: ", style="bold yellow")
+        search_text.append("💬 INTERACTIVE AGENT TERMINAL CHAT: ", style="bold yellow")
+        search_text.append("Run `./chat.sh` to chat live with your agent! ", style="bold green")
         
         if config.TARGETED_FOCUS_COIN:
-            search_text.append(f" [FOCUSED ON: {config.TARGETED_FOCUS_COIN}] ", style="bold green reverse")
-            search_text.append("  |  To change coin: run `python run_all.py --coin <SYMBOL>` (e.g. --coin SUI)", style="dim white")
+            search_text.append(f"| [FOCUSED ON: {config.TARGETED_FOCUS_COIN}] ", style="bold green reverse")
         else:
-            search_text.append(" [MODE: ALL ALTCOINS SCANNER] ", style="bold cyan reverse")
-            search_text.append("  |  To focus specific coin: run `python run_all.py --coin <SYMBOL>` (e.g. --coin SUI, AVAX, PEPE)", style="dim white")
+            search_text.append("| [MODE: ALL 125+ ALTCOINS & MEMES SCANNER] ", style="bold cyan reverse")
 
-        return Panel(Align.center(search_text), border_style="yellow", title="[bold cyan]TARGET COIN FOCUS & SEARCH CONTROL[/bold cyan]")
+        return Panel(Align.center(search_text), border_style="yellow", title="[bold cyan]🤖 INTERACTIVE TERMINAL CHATBOX & COIN SEARCH CONTROL[/bold cyan]")
 
     def generate_layout(self) -> Layout:
         layout = Layout()
@@ -140,7 +172,8 @@ class UnifiedDashboardApp:
         layout["main"].split_column(
             Layout(name="account", size=5),
             Layout(name="positions", ratio=1),
-            Layout(name="trades", ratio=1)
+            Layout(name="trades", ratio=1),
+            Layout(name="news", size=6)
         )
 
         balances = self.client.get_account_balances()
@@ -154,6 +187,8 @@ class UnifiedDashboardApp:
         layout["account"].update(self.generate_account_panel(balances, realized_pnl, unrealized_pnl))
         layout["positions"].update(self.generate_positions_table(positions))
         layout["trades"].update(self.generate_recent_trades_table(trades))
+        layout["news"].update(self.generate_global_news_panel())
         layout["search_bar"].update(self.generate_search_bar_panel())
 
         return layout
+

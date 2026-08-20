@@ -18,29 +18,49 @@ LOG_FILE = "trading_bot.log"
 TRADES_CSV = "trades_unified.csv"
 LOOP_INTERVAL_SEC = 1.0  # Ultra-fast 1.0s scan rate
 
-# Portfolio & Target Configuration
-EQUITY_USD = 9.52
-DEFAULT_MAX_DAILY_TARGET_USD = 20.0  # $20.00 USD / day target
-MAX_DAILY_TRADES = 20               # 20 Trades per day frequency goal
-DAILY_LOSS_LIMIT_USD = 9.52          # Max equity protection stop
-MAX_CONCURRENT_TRADES = 5          # Up to 5 multi-trades active simultaneously
-RISK_PER_TRADE_PCT = 100.0          # Full leverage equity margin sizing
-LEVERAGE = 20
-MAX_LEVERAGE_CAP = 20
-ALTCOIN_LEVERAGE_CAP = 20
-LIQUIDATION_SAFETY_BUFFER_PCT = 0.05
-DEFAULT_SL_PCT = 0.10
-DEFAULT_TP_PCT = 0.20
+# Execution Engine Mode
+PAPER_TRADING = False  # LIVE REAL CAPITAL TRADING ENABLED PER USER DIRECTIVE
+EQUITY_USD = float(os.getenv("EQUITY_USD", "10.00"))  # Real Account Equity Calibration
+DEFAULT_MAX_DAILY_TARGET_USD = 10000.0  # Unlimited daily profit mode
+MAX_DAILY_TRADES = 999999               # Unlimited trades per day
+# Position Gate & Cooldown Rules
+MAX_OPEN_POSITIONS = 1
+MAX_CONCURRENT_TRADES = 1
+REENTRY_COOLDOWN_SECONDS = 3
+MAX_DAILY_LOSS_PCT = 0.10
+BREAKEVEN_PROFIT_PCT = 0.01
+PAPER_TRADING = False  # HARDENED REAL CASH LIVE CAPITAL TRADING MODE
+
+# Risk Engine & Leverage Parameters (SAFE CONSERVATIVE 10X LEVERAGE | A+ SETUPS ONLY)
+RISK_PER_TRADE_PCT = 25.0           # Conservative margin per trade (25% of equity)
+LEVERAGE = 10                       # Safe 10x Isolated Leverage
+MAX_LEVERAGE_CAP = 10
+ALTCOIN_LEVERAGE_CAP = 10
 MARGIN_MODE = "isolated"
+LIQUIDATION_SAFETY_BUFFER_PCT = 0.20 # 20% safe buffer above liquidation price
+DEFAULT_SL_PCT = 0.010              # -1.0% price move Stop Loss (-10% ROE)
+DEFAULT_TP_PCT = 0.030              # +3.0% price move Take Profit (+30% ROE)
 
-# Targeted Coin Focus Mode (None = Trade All Altcoins, "SUI" = Trade SUI Only)
-TARGETED_FOCUS_COIN = os.getenv("FOCUS_COIN", None)
+# Multi-Target Partial Take Profit Parameters (T1, T2, T3 Scalping)
+T1_TP_PCT = 0.015   # T1 Target: +1.5% Price Move (+15% ROE @ 10X) -> Partial 33% Exit & SL to Breakeven
+T2_TP_PCT = 0.030   # T2 Target: +3.0% Price Move (+30% ROE @ 10X) -> Partial 33% Exit & SL to T1
+T3_TP_PCT = 0.050   # T3 Target: +5.0% Price Move (+50% ROE @ 10X) -> Runner 34% Exit (Full Trade Complete)
+TP_PRICE_MOVE_PCT = 0.030   # Default TP target
+SL_PRICE_MOVE_PCT = 0.010   # -1.0% price stop (-10% ROE at 10X)
+TARGET_PROFIT_PER_TRADE_USD = 3.00  # $3.00 USD profit per trade towards $10->$20 target
 
-# Strategy Rules
+# Daily Safety Risk Limits (HARD CAPITAL PROTECTION)
+MAX_DAILY_LOSS_PCT = 0.05      # 5% max daily equity loss limit (hard halt)
+MAX_CONSECUTIVE_LOSSES = 2     # Halt after 2 consecutive losses
+
+# Targeted Coin Focus Mode (None = Multi-Trade All Top Altcoins)
+TARGETED_FOCUS_COIN = None
+
+# Strategy Rules (HIGH CONFLUENCE A+ SETUPS ONLY)
 TIMEFRAME = "1m"
-MIN_CONFLUENCE_PCT = 50.0
-PROFIT_TARGET_PCT = 0.20  # +20.0% TP
-STOP_LOSS_PCT = 0.10      # -10.0% SL
+MIN_CONFLUENCE_PCT = 75.0      # Strict 75% minimum signal confidence
+PROFIT_TARGET_PCT = 0.30       # +30.0% ROE TP
+STOP_LOSS_PCT = 0.10           # -10.0% ROE SL
 BREAKEVEN_PROFIT_PCT = 0.05 # Move SL to entry at +5.0% profit
 
 # Webhook Server Parameters
@@ -55,24 +75,33 @@ SYMBOL_FUTURES = "B-SUI_USDT"
 CANDLE_PAIR = "B-SUI_USDT"
 CURRENCY = "USDT"
 
-# Explicitly Excluded Coins: BTC, ETH, DOGE, LTC, ADA, SOL (SOL BLACKLISTED PER USER INSTRUCTION)
-EXCLUDED_COINS = ["BTC", "ETH", "DOGE", "LTC", "ADA", "SOL"]
+# Unblocked All Coins Per User Directive: BTC, ETH, SOL, SUI, DOGE, etc.
+EXCLUDED_COINS = []
 
+# Full Multi-Coin Universe Including BTC, ETH, SOL & Top Altcoins
 ALLOWED_FUTURES_COINS = [
-    "SUI", "AVAX", "XRP", "NEAR", "APT", "FIL", "INJ", "DOT", "SEI",
-    "ARB", "OP", "PEPE", "SHIB", "BONK", "FLOKI", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO"
+    "BTC", "ETH", "SOL", "SUI", "DOGE", "AVAX", "NEAR", "PEPE", "WIF", "SEI", "INJ", "TON", "BONK", "SHIB", "FLOKI", "XRP", "ADA", "LINK", "MATIC"
 ]
 
 def set_focus_coin(coin_name: str):
     global TARGETED_FOCUS_COIN
-    if not coin_name or coin_name.upper() in ["START", "ALL", "NONE", ""]:
+    if not coin_name or coin_name.upper().strip() in ["START", "ALL", "NONE", ""]:
         TARGETED_FOCUS_COIN = None
     else:
-        clean = coin_name.upper().replace("FOCUS", "").replace("USDT", "").strip()
-        if clean in ALLOWED_FUTURES_COINS or f"B-{clean}_USDT" in ALLOWED_FUTURES_COINS:
-            TARGETED_FOCUS_COIN = clean
+        clean = (
+            coin_name.upper()
+            .replace("FOCUS", "")
+            .replace("B-", "")
+            .replace("_USDT", "")
+            .replace("USDT", "")
+            .strip()
+        )
+        if clean in EXCLUDED_COINS:
+            print(f"⚠️ {clean} is in EXCLUDED_COINS blacklist! Reverting to ALL coins mode.")
+            TARGETED_FOCUS_COIN = None
         else:
             TARGETED_FOCUS_COIN = clean
+
 
 def get_dynamic_daily_target_usd(equity_usd: float = 9.52) -> float:
     return DEFAULT_MAX_DAILY_TARGET_USD

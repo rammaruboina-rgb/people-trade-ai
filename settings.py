@@ -1,0 +1,47 @@
+import json
+from pathlib import Path
+
+CONFIG_PATH = Path(__file__).parent / "config.json"
+
+def load_config():
+    if not CONFIG_PATH.exists():
+        return {}
+    with CONFIG_PATH.open("r", encoding="utf-8") as f:
+        return json.load(f)
+
+CONFIG = load_config()
+
+EQUITY_USD = CONFIG.get("equity_usd", 10.376)
+TIMEFRAME = CONFIG.get("timeframe", "1m")
+RISK_PER_TRADE_PCT = CONFIG.get("risk_per_trade_pct", 100.0)
+PROFIT_TARGET_PCT = CONFIG.get("profit_target_pct", 0.20)
+STOP_LOSS_PCT = CONFIG.get("stop_loss_pct", 0.10)
+MIN_CONFLUENCE_PCT = CONFIG.get("min_confluence_pct", 98.0)
+
+TRADE_BTC = CONFIG.get("trade_btc", False)
+TRADE_SOL = CONFIG.get("trade_sol", True)
+TRADE_ETH = CONFIG.get("trade_eth", False)
+PURE_ALTCOINS_ONLY = CONFIG.get("pure_altcoins_only", False)
+ALLOWED_SYMBOLS = CONFIG.get("allowed_symbols", [
+    "SOLUSDT", "XRPUSDT", "BNBUSDT", "ADAUSDT", "DOGEUSDT", "TRXUSDT", "LTCUSDT", "BCHUSDT", "EOSUSDT",
+    "LINKUSDT", "AVAXUSDT", "DOTUSDT", "ATOMUSDT", "NEARUSDT", "APTUSDT", "SUIUSDT", "ARBUSDT",
+    "OPUSDT", "SEIUSDT", "TONUSDT", "FILUSDT", "INJUSDT", "HBARUSDT", "UNIUSDT", "ETCUSDT",
+    "ICPUSDT", "PEPEUSDT", "SHIBUSDT", "WIFUSDT", "BONKUSDT", "ONDOUSDT", "JUPUSDT", "ENAUSDT",
+    "FETUSDT", "RENDERUSDT", "TAOUSDT", "CRVUSDT", "AAVEUSDT", "MKRUSDT", "GRTUSDT", "COMPUSDT",
+    "SNXUSDT", "1INCHUSDT", "ZECUSDT", "XLMUSDT", "ALGOUSDT", "VETUSDT", "FLOWUSDT", "KASUSDT",
+    "PYTHUSDT", "API3USDT", "PENDLEUSDT", "TIAUSDT", "JASMYUSDT", "ENSUSDT", "DYDXUSDT", "LDOUSDT",
+    "GMXUSDT", "SANDUSDT", "MANAUSDT", "AXSUSDT", "APEUSDT", "CHZUSDT", "ROSEUSDT", "THETAUSDT",
+    "GALAUSDT", "RUNEUSDT", "STXUSDT", "KAVAUSDT", "ZILUSDT", "WLDUSDT", "CAKEUSDT", "CFXUSDT",
+    "ARUSDT", "BLURUSDT", "SFPUSDT", "MASKUSDT", "CELOUSDT", "BANDUSDT", "HOTUSDT", "BATUSDT",
+    "SXPUSDT", "QTUMUSDT", "ICXUSDT", "ANKRUSDT", "YFIUSDT", "ACHUSDT", "ZENUSDT", "DASHUSDT",
+    "LRCUSDT", "CELRUSDT", "OCEANUSDT", "SKLUSDT", "RSRUSDT", "IDUSDT", "1000FLOKIUSDT",
+    "1000PEPEUSDT", "1000BONKUSDT", "1000SHIBUSDT", "NOTUSDT", "MEMEUSDT", "FLOKIUSDT",
+    "BOMEUSDT", "POPCATUSDT", "MEWUSDT", "NEIROUSDT", "TURBOUSDT", "MYROUSDT",
+    "MOODENGUSDT", "GOATUSDT", "BRETTUSDT", "DEGENUSDT", "SPXUSDT", "PENGUUSDT",
+    "ZROUSDT", "OMUSDT", "AIUSDT", "ALTUSDT", "ARKMUSDT", "PORTALUSDT", "POLUSDT",
+    "STRKUSDT", "AEVOUSDT", "MEUSDT", "VIRTUALUSDT"
+])
+
+API_KEY = CONFIG.get("api_key", "")
+SECRET_KEY = CONFIG.get("secret_key", "")
+PASSPHRASE = CONFIG.get("passphrase", "")
