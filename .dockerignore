@@ -1,0 +1,14 @@
+.env
+.git
+.gitignore
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.killswitch
+trades_unified.csv
+trading_bot.log
+dist/
+build/
+*.egg-info/
