@@ -1651,7 +1651,7 @@ def call_ollama_qwen(prompt: str, symbol: str = "SUI") -> str:
         if r.status_code == 200:
             res_text = r.json().get("response", "").strip()
             if res_text:
-                return f"🤖 **People Trade AI (Ollama Qwen 3B)**: {res_text}"
+                return f"🤖 **People Trade AI Agent**: {res_text}"
     except Exception:
         pass
     w = analyze_wyckoff_phase(symbol)
