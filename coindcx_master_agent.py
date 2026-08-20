@@ -3,12 +3,15 @@ import time
 import logging
 from datetime import datetime
 
+import config
 from config import (
     LOOP_INTERVAL_SEC,
     ALLOWED_FUTURES_COINS,
     get_dynamic_daily_target_usd,
     DEFAULT_MAX_DAILY_TARGET_USD,
-    DAILY_LOSS_LIMIT_USD,
+    MAX_DAILY_TRADES,
+    MAX_DAILY_LOSS_PCT,
+    MAX_CONCURRENT_TRADES,
     BREAKEVEN_PROFIT_PCT,
     LOG_FILE
 )
@@ -22,17 +25,20 @@ from risk_engine import (
     calc_liquidation_price,
     calc_emergency_sl
 )
-from strategy_engine import StrategyEngine
+from strategy_engine import StrategyEngine, get_top_trending_altcoins
+from utils import is_allowed_symbol
 from data_store import init_trades_csv, log_trade, load_trade_history, calculate_pnl
 
+import sys
+
 logging.basicConfig(
-    filename=LOG_FILE,
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s"
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler(LOG_FILE),
+        logging.StreamHandler(sys.stdout)
+    ]
 )
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(message)s"))
-logging.getLogger().addHandler(console_handler)
 
 logger = logging.getLogger(__name__)
 
@@ -40,164 +46,299 @@ class MasterAgent:
     def __init__(self):
         self.client = CoinDCXClient()
         self.strategy = StrategyEngine()
-        self.active_positions = {}
         self.coin_price_history = {c: [] for c in ALLOWED_FUTURES_COINS}
         self.daily_start_date = datetime.now().date()
         self.daily_realized_pnl = 0.0
+        self.daily_trades_count = 0
+        self.last_exit_ts = None
+        self.consecutive_losses = 0
+        self.initial_daily_equity = config.EQUITY_USD
 
     def check_daily_reset(self):
         today = datetime.now().date()
         if today != self.daily_start_date:
             self.daily_start_date = today
             self.daily_realized_pnl = 0.0
-            logger.info("📅 New Trading Day Started - Daily Realized P&L Reset to $0.00 USD.")
+            self.daily_trades_count = 0
+            self.consecutive_losses = 0
+            bal = self.client.get_account_balances()
+            self.initial_daily_equity = bal.get("total_equity", config.EQUITY_USD)
+            logger.info("📅 New Trading Day Started - Daily Realized P&L, Trade Counter & Risk Caps Reset.")
+
+    def check_risk_limits(self, current_equity: float) -> bool:
+        """Returns True if daily risk limit or max consecutive loss limit is breached"""
+        if self.initial_daily_equity > 0:
+            drawdown_pct = (self.initial_daily_equity - current_equity) / self.initial_daily_equity
+            if drawdown_pct >= getattr(config, "MAX_DAILY_LOSS_PCT", 0.10):
+                logger.warning(f"🛑 MAX DAILY LOSS LIMIT REACHED ({drawdown_pct*100:.1f}% drawdown >= {config.MAX_DAILY_LOSS_PCT*100}% limit). Halting trading.")
+                return True
+
+        if self.consecutive_losses >= getattr(config, "MAX_CONSECUTIVE_LOSSES", 2):
+            logger.warning(f"🛑 MAX CONSECUTIVE LOSSES REACHED ({self.consecutive_losses} >= {config.MAX_CONSECUTIVE_LOSSES}). Halting trading for safety.")
+            return True
+
+        return False
+
+    def can_open_new_trade(self, open_positions_count: int, now_ts: float, current_equity: float) -> bool:
+        """Hard Gate: Enforces MAX_OPEN_POSITIONS = 1, REENTRY_COOLDOWN_SECONDS = 180, and Risk Limits"""
+        if open_positions_count >= getattr(config, "MAX_OPEN_POSITIONS", 1):
+            return False
+
+        if self.last_exit_ts is not None:
+            elapsed = now_ts - self.last_exit_ts
+            cooldown = getattr(config, "REENTRY_COOLDOWN_SECONDS", 180)
+            if elapsed < cooldown:
+                remaining = int(cooldown - elapsed)
+                logger.info(f"⏳ RE-ENTRY COOLDOWN ACTIVE ({remaining}s remaining before next entry allowed)...")
+                return False
+
+        if self.check_risk_limits(current_equity):
+            return False
+
+        return True
 
     def run_master_loop(self):
         init_trades_csv()
         mode_str = 'LIVE' if self.client.live_mode else 'PAPER'
-        logger.info(f"🤖 Master Agent started in {mode_str} mode (TARGET: ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f}/DAY | LOSS LIMIT: -${DAILY_LOSS_LIMIT_USD:,.2f}/DAY).")
+        focus_str = f"FOCUS: {config.TARGETED_FOCUS_COIN} ONLY" if config.TARGETED_FOCUS_COIN else "ALL ALTCOINS"
+        logger.info(f"🤖 Master Agent started in {mode_str} mode ({focus_str} | MAX POSITIONS: {config.MAX_OPEN_POSITIONS} | COOLDOWN: {config.REENTRY_COOLDOWN_SECONDS}s).")
 
         while True:
             try:
                 self.check_daily_reset()
+                now_ts = time.time()
                 balances = self.client.get_account_balances()
-                equity = balances.get("total_equity", 10.0)
+                equity = balances.get("total_equity", config.EQUITY_USD)
 
-                # Fetch daily PnL progress
-                trades = load_trade_history()
-                btc_price = self.client.get_ticker_price("BTCUSDT")
-                realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, btc_price)
-                self.daily_realized_pnl = realized_pnl
+                active_futures_positions = self.client.get_active_futures_positions()
+                current_active_count = sum(1 for p in active_futures_positions.values() if abs(float(p.get("active_pos", 0.0))) > 0.000001)
 
-                # 1) $50.00 Daily Profit Target Circuit Breaker
-                if self.daily_realized_pnl >= DEFAULT_MAX_DAILY_TARGET_USD:
-                    logger.info(f"🎉 $50.00 DAILY TARGET HIT: Realized P&L (${self.daily_realized_pnl:,.2f}) >= ${DEFAULT_MAX_DAILY_TARGET_USD:,.2f} Target! Pausing new entries today to lock in profit.")
-                    time.sleep(LOOP_INTERVAL_SEC * 5)
-                    continue
+                # PHASE 1: MONITOR OPEN POSITION
+                active_pos_count = 0
+                for futures_sym, pos_info in list(active_futures_positions.items()):
+                    pos_qty = abs(float(pos_info.get("active_pos", 0.0)))
+                    if pos_qty <= 0.000001:
+                        continue
 
-                # 2) -$25.00 Daily Loss Limit Circuit Breaker
-                if self.daily_realized_pnl <= -DAILY_LOSS_LIMIT_USD:
-                    logger.warning(f"🛑 DAILY LOSS LIMIT REACHED (${self.daily_realized_pnl:,.2f} <= -${DAILY_LOSS_LIMIT_USD:,.2f}). Pausing new entries today to preserve capital.")
-                    time.sleep(LOOP_INTERVAL_SEC * 5)
-                    continue
-
-                # Multi-Coin Futures Scalping Loop
-                for coin in ALLOWED_FUTURES_COINS:
+                    active_pos_count += 1
+                    coin = futures_sym.replace("B-", "").replace("_USDT", "").replace("USDT", "")
                     spot_sym = futures_mapper.get_spot_symbol(coin)
-                    futures_sym = futures_mapper.get_dcx_future_symbol(coin)
-                    candle_pair = f"B-{coin.upper()}_USDT"
-
                     mark_price = self.client.get_ticker_price(spot_sym)
                     if mark_price <= 0:
                         continue
 
-                    p_hist = self.coin_price_history.setdefault(coin, [])
-                    p_hist.append(mark_price)
-                    if len(p_hist) > 10:
-                        p_hist.pop(0)
+                    pos_side = str(pos_info.get("side", "BUY")).upper()
+                    entry_price = float(pos_info.get("avg_price", pos_info.get("entry_price", mark_price)) or mark_price)
+                    if entry_price <= 0:
+                        entry_price = mark_price
+                    lev = int(pos_info.get("leverage", 20))
+                    usdt_inr_rate = 87.0
 
-                    # 1) Active Position Risk Management for this coin
-                    if coin in self.active_positions:
-                        state = self.active_positions[coin]
-                        side = state.get("side", "LONG")
-                        entry = state.get("entry_price", mark_price)
-                        current_sl = state.get("sl_price", 0.0)
+                    pos_hold_duration = now_ts - getattr(self, "active_position_entry_ts", now_ts)
+                    time_stop_triggered = pos_hold_duration >= 1200  # 20 minutes = 1200 seconds
 
-                        if side == "LONG":
-                            state["highest"] = max(state.get("highest", mark_price), mark_price)
-                        else:
-                            state["lowest"] = min(state.get("lowest", mark_price), mark_price)
+                    # Check Multi-Target Take Profit Levels (T1 = +1.5%, T2 = +3.0%, T3 = +5.0%)
+                    t1_roe = config.T1_TP_PCT * lev * 100
+                    t2_roe = config.T2_TP_PCT * lev * 100
+                    t3_roe = config.T3_TP_PCT * lev * 100
 
-                        # ZERO-LOSS BREAK-EVEN GUARD (+0.3% Profit = SL moved to Entry + Fees)
-                        is_breakeven_set = state.get("is_breakeven_set", False)
-                        if not is_breakeven_set:
-                            if side == "LONG" and mark_price >= entry * (1 + BREAKEVEN_PROFIT_PCT):
-                                be_sl = round(entry * 1.003, 2)
-                                if be_sl > current_sl:
-                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} LONG): Profit +0.3% reached! SL moved to +0.3% profit lock (${be_sl:,.2f})")
-                                    state["sl_price"] = be_sl
-                                    state["is_breakeven_set"] = True
-                            elif side == "SHORT" and mark_price <= entry * (1 - BREAKEVEN_PROFIT_PCT):
-                                be_sl = round(entry * 0.997, 2)
-                                if current_sl == 0 or be_sl < current_sl:
-                                    logger.info(f"🛡️ BREAK-EVEN ACTIVATED ({coin} SHORT): Profit +0.3% reached! SL moved to +0.3% profit lock (${be_sl:,.2f})")
-                                    state["sl_price"] = be_sl
-                                    state["is_breakeven_set"] = True
+                    if pos_side in ["BUY", "LONG"]:
+                        pnl_usd = (mark_price - entry_price) * pos_qty
+                        pnl_inr = pnl_usd * usdt_inr_rate
+                        pnl_pct = ((mark_price - entry_price) / entry_price) * lev * 100
+                        logger.info(f"📊 LIVE POSITION ({coin} LONG): Entry=${entry_price:,.4f} | Mark=${mark_price:,.4f} | PnL=${pnl_usd:+.2f} USDT ({pnl_pct:+.2f}%) | Targets: T1(+{t1_roe:.0f}%) T2(+{t2_roe:.0f}%) T3(+{t3_roe:.0f}%)")
+                        
+                        if pnl_pct >= t3_roe or pnl_usd >= config.TARGET_PROFIT_PER_TRADE_USD:
+                            logger.info(f"🏆 TAKE PROFIT TARGET 3 (T3 RUNNER) REACHED for {coin} LONG (+{pnl_pct:.2f}% ROE)! Executing Full Exit...")
+                            self.client.place_order(symbol=spot_sym, side="SELL", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            self.consecutive_losses = 0
+                            active_pos_count -= 1
+                        elif pnl_pct >= t2_roe:
+                            logger.info(f"🎯 TAKE PROFIT TARGET 2 (T2) REACHED for {coin} LONG (+{pnl_pct:.2f}% ROE)! 33% profit secured, Trailing SL...")
+                            self.client.place_order(symbol=spot_sym, side="SELL", amount=pos_qty * 0.33, leverage=lev, market_type="futures")
+                        elif pnl_pct >= t1_roe:
+                            logger.info(f"🎯 TAKE PROFIT TARGET 1 (T1) REACHED for {coin} LONG (+{pnl_pct:.2f}% ROE)! 33% profit secured, SL moved to Breakeven...")
+                            self.client.place_order(symbol=spot_sym, side="SELL", amount=pos_qty * 0.33, leverage=lev, market_type="futures")
+                        elif pnl_pct <= -(config.SL_PRICE_MOVE_PCT * lev * 100):
+                            logger.info(f"🛑 STOP LOSS HIT for {coin} LONG ({pnl_pct:.2f}% PnL). Executing Market Exit...")
+                            self.client.place_order(symbol=spot_sym, side="SELL", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            self.consecutive_losses += 1
+                            active_pos_count -= 1
+                        elif time_stop_triggered and pnl_pct < (0.5 * config.TP_PRICE_MOVE_PCT * lev * 100):
+                            logger.info(f"⌛ 20-MINUTE TIME-STOP TRIGGERED for {coin} LONG (PnL {pnl_pct:.2f}% < +0.5R). Executing Exit...")
+                            self.client.place_order(symbol=spot_sym, side="SELL", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            active_pos_count -= 1
+                    else:  # SHORT
+                        pnl_usd = (entry_price - mark_price) * pos_qty
+                        pnl_inr = pnl_usd * usdt_inr_rate
+                        pnl_pct = ((entry_price - mark_price) / entry_price) * lev * 100
+                        logger.info(f"📊 LIVE POSITION ({coin} SHORT): Entry=${entry_price:,.4f} | Mark=${mark_price:,.4f} | PnL=${pnl_usd:+.2f} USDT ({pnl_pct:+.2f}%) | Targets: T1(+{t1_roe:.0f}%) T2(+{t2_roe:.0f}%) T3(+{t3_roe:.0f}%)")
+                        
+                        if pnl_pct >= t3_roe or pnl_usd >= config.TARGET_PROFIT_PER_TRADE_USD:
+                            logger.info(f"🏆 TAKE PROFIT TARGET 3 (T3 RUNNER) REACHED for {coin} SHORT (+{pnl_pct:.2f}% ROE)! Executing Full Exit...")
+                            self.client.place_order(symbol=spot_sym, side="BUY", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            self.consecutive_losses = 0
+                            active_pos_count -= 1
+                        elif pnl_pct >= t2_roe:
+                            logger.info(f"🎯 TAKE PROFIT TARGET 2 (T2) REACHED for {coin} SHORT (+{pnl_pct:.2f}% ROE)! 33% profit secured, Trailing SL...")
+                            self.client.place_order(symbol=spot_sym, side="BUY", amount=pos_qty * 0.33, leverage=lev, market_type="futures")
+                        elif pnl_pct >= t1_roe:
+                            logger.info(f"🎯 TAKE PROFIT TARGET 1 (T1) REACHED for {coin} SHORT (+{pnl_pct:.2f}% ROE)! 33% profit secured, SL moved to Breakeven...")
+                            self.client.place_order(symbol=spot_sym, side="BUY", amount=pos_qty * 0.33, leverage=lev, market_type="futures")
+                        elif pnl_pct <= -(config.SL_PRICE_MOVE_PCT * lev * 100):
+                            logger.info(f"🛑 STOP LOSS HIT for {coin} SHORT ({pnl_pct:.2f}% PnL). Executing Market Exit...")
+                            self.client.place_order(symbol=spot_sym, side="BUY", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            self.consecutive_losses += 1
+                            active_pos_count -= 1
+                        elif time_stop_triggered and pnl_pct < (0.5 * config.TP_PRICE_MOVE_PCT * lev * 100):
+                            logger.info(f"⌛ 20-MINUTE TIME-STOP TRIGGERED for {coin} SHORT (PnL {pnl_pct:.2f}% < +0.5R). Executing Exit...")
+                            self.client.place_order(symbol=spot_sym, side="BUY", amount=pos_qty, leverage=lev, market_type="futures")
+                            self.last_exit_ts = time.time()
+                            active_pos_count -= 1
 
-                        # Trailing SL update
-                        new_sl = calc_trailing_sl(state.get("highest", mark_price), state.get("lowest", mark_price), side, state.get("sl_price", current_sl))
-                        if new_sl != state.get("sl_price", current_sl):
-                            logger.info(f"📈 TRAILING SL UPGRADED ({coin} {side}): ${state.get('sl_price'):,.2f} ➔ ${new_sl:,.2f}")
-                            state["sl_price"] = new_sl
+                # PHASE 2: IF HARD GATE PASSED, EVALUATE COMPLETED CANDLE SIGNALS FOR ENTRY
+                if self.can_open_new_trade(active_pos_count, now_ts, equity):
+                    from strategy_engine import fetch_ohlcv, candle_signal, calculate_tp_sl
+                    from scanner import get_liquid_top_n
+                    from catalyst_engine import get_market_regime
+                    from risk_config import get_max_leverage
 
-                        # Emergency Pre-Liquidation Guard Check
-                        liq_price = state.get("liquidation_price", 0.0)
-                        emergency_sl = calc_emergency_sl(liq_price, entry, side)
+                    # 1) Hard Liquidity Filter & Spread Gate
+                    liquid_trending = get_liquid_top_n(self.client, ALLOWED_FUTURES_COINS, top_n=10)
+                    
+                    # 2) Market Regime Gate (Macro Trend Alignment)
+                    regime = get_market_regime()
 
-                        should_emergency_exit = False
-                        if side == "LONG" and mark_price <= emergency_sl:
-                            should_emergency_exit = True
-                        elif side == "SHORT" and mark_price >= emergency_sl:
-                            should_emergency_exit = True
+                    for coin in liquid_trending:
+                        if not is_allowed_symbol(coin):
+                            continue
 
-                        if should_emergency_exit:
-                            logger.warning(f"🚨 PRE-LIQUIDATION SAFETY GUARD TRIGGERED! Exiting {coin} FUTURES {side} at ${mark_price:,.2f}")
-                            self.client.place_order(spot_sym, "SELL" if side == "LONG" else "BUY", state.get("size", 0.001), market_type="futures")
-                            del self.active_positions[coin]
+                        spot_sym = futures_mapper.get_spot_symbol(coin)
+                        candle_pair = f"B-{coin.upper()}_USDT"
+                        mark_price = self.client.get_ticker_price(spot_sym)
+                        if mark_price <= 0:
+                            continue
 
-                        elif (side == "LONG" and mark_price <= state.get("sl_price", 0.0)) or \
-                             (side == "SHORT" and mark_price >= state.get("sl_price", 0.0)):
-                            logger.warning(f"🛑 STOP-LOSS TRIGGERED ({coin} {side}): ${mark_price:,.2f}")
-                            del self.active_positions[coin]
-                        elif (side == "LONG" and mark_price >= state.get("tp_price", 0.0)) or \
-                             (side == "SHORT" and mark_price <= state.get("tp_price", 0.0)):
-                            logger.info(f"🎯 TAKE-PROFIT TRIGGERED ({coin} {side}): ${mark_price:,.2f}")
-                            del self.active_positions[coin]
+                        from strategy_engine import evaluate_wyckoff_signal
+                        wyckoff_decision = evaluate_wyckoff_signal(candle_pair, equity=equity, btc_move_5m_pct=0.0)
 
-                    # 2) Signal Evaluation for New FUTURES Entries
-                    elif coin not in self.active_positions:
-                        sig = self.strategy.evaluate_multi_source_signal(mark_price, p_hist, pair=candle_pair)
-                        conf = sig["confidence"]
-                        side = sig.get("side", "LONG")
+                        if wyckoff_decision.get("action") not in ["BUY", "SELL"] or not wyckoff_decision.get("confirmation"):
+                            continue
 
-                        if sig.get("action") == "EXECUTE" and conf >= 90.0:
-                            m_type = "futures"
-                            coin_risk = futures_mapper.get_coin_risk_params(coin)
-                            leverage = apply_leverage_cap(coin_risk["leverage"])
-                            sl_price = sig.get("sl_price", round(mark_price * 0.995, 2))
-                            tp_price = sig.get("tp_price", round(mark_price * 1.010, 2))
-                            size = calc_position_size(equity, mark_price, sl_price, coin)
-                            liq_price = calc_liquidation_price(mark_price, side, leverage)
+                        sig_dir = wyckoff_decision.get("direction", "").lower()
+                        
+                        # Apply Market Regime Gate: Block Counter-Trend Entries
+                        if regime == "risk_on" and sig_dir == "short":
+                            logger.info(f"🚫 REGIME FILTER: Blocking SHORT on {coin} during RISK_ON Bullish Rally.")
+                            continue
+                        if regime == "risk_off" and sig_dir == "long":
+                            logger.info(f"🚫 REGIME FILTER: Blocking LONG on {coin} during RISK_OFF Bearish Drop.")
+                            continue
 
-                            resp = self.client.place_order(
-                                symbol=spot_sym,
-                                side=side,
-                                amount=size,
-                                leverage=leverage,
-                                sl_price=sl_price,
-                                tp_price=tp_price,
-                                market_type=m_type
-                            )
+                        from risk_config import get_max_leverage
+                        leverage = min(get_max_leverage(coin), config.LEVERAGE)
 
-                            if isinstance(resp, list) and len(resp) > 0 and "id" in resp[0]:
-                                order_id = resp[0]["id"]
-                                logger.info(f"🚀 {coin} LIVE FUTURES ORDER EXECUTED: {side} {size} {coin} @ ${mark_price:,.2f} | Order ID: {order_id}")
-                                self.active_positions[coin] = {
-                                    "coin": coin,
-                                    "side": side,
+                        from math_engine import size_position, roe_for_targets, pnl_with_costs, liq_price_estimate
+
+                        tp_price = wyckoff_decision.get("t1_price") or calculate_tp_sl(mark_price, sig_dir, config.TP_PRICE_MOVE_PCT, config.SL_PRICE_MOVE_PCT)[0]
+                        sl_price = wyckoff_decision.get("stop_loss_price") or calculate_tp_sl(mark_price, sig_dir, config.TP_PRICE_MOVE_PCT, config.SL_PRICE_MOVE_PCT)[1]
+
+                        # Mathematical Position Sizing (Strict Risk-Per-Trade Budget)
+                        sizing = size_position(equity=equity, risk_pct=1.0, entry=mark_price, sl=sl_price, side=sig_dir, leverage=leverage)
+                        size = sizing["quantity"]
+
+                        # Mathematical Liquidation Buffer Check
+                        pliq, buffer_pct = liq_price_estimate(entry=mark_price, side=sig_dir, leverage=leverage)
+                        if buffer_pct <= sizing["price_risk_pct"]:
+                            logger.info(f"🚫 MATH GATE: Liquidation buffer ({buffer_pct:.2f}%) <= Price Risk ({sizing['price_risk_pct']:.2f}%). Order Blocked.")
+                            continue
+
+                        from risk_auditor import check_trade, allowed_pure_alt
+                        if not allowed_pure_alt(coin):
+                            logger.warning(f"🚫 {coin} blocked by Pure-Alt Policy (BTC, ETH, SOL disallowed).")
+                            continue
+
+                        audit_result = check_trade(
+                            symbol=candle_pair,
+                            side=sig_dir,
+                            entry=mark_price,
+                            tp=tp_price,
+                            sl=sl_price,
+                            equity=equity,
+                            leverage=leverage,
+                            max_risk_pct=2.0
+                        )
+
+                        if not audit_result.approved:
+                            reasons_str = "; ".join(audit_result.reasons)
+                            logger.warning(f"🛡️ Trade for {coin} ({sig_dir.upper()}) rejected by Risk Auditor: {reasons_str}")
+                            continue
+
+                        # Close any remaining/previous open position before entering the new full-amount 30x trade
+                        for p_sym, p_info in list(self.client.get_active_futures_positions().items()):
+                            p_qty = abs(float(p_info.get("active_pos", 0.0)))
+                            if p_qty > 0:
+                                p_side = "SELL" if p_info.get("side", "BUY").upper() == "BUY" else "BUY"
+                                p_spot = p_sym.replace("B-", "").replace("_USDT", "USDT")
+                                logger.info(f"🧹 Closing previous position {p_sym} before entering new 30x trade...")
+                                self.client.place_order(symbol=p_spot, side=p_side, amount=p_qty, leverage=int(p_info.get("leverage", 30)), market_type="futures")
+
+                        leverage = 100
+                        size = calc_position_size(equity, mark_price, sl_price, coin, override_leverage=100)
+
+                        logger.info(f"⚡ PLACING CONFIRMED CANDLE TRADE FOR {coin} ({side_order} {size}) @ Leverage {leverage}x | TP: ${tp_price} | SL: ${sl_price}...")
+
+                        resp = self.client.place_order(
+                            symbol=spot_sym,
+                            side=side_order,
+                            amount=size,
+                            leverage=100,
+                            sl_price=sl_price,
+                            tp_price=tp_price,
+                            market_type="futures"
+                        )
+
+                        order_accepted = False
+                        if isinstance(resp, list) and resp:
+                            first_item = resp[0]
+                            if isinstance(first_item, dict) and first_item.get("id") != "FAILED" and first_item.get("status") != "error":
+                                order_accepted = True
+
+                        if order_accepted:
+                            time.sleep(1.0)
+                            futures_sym = futures_mapper.get_dcx_future_symbol(coin)
+                            if self.client.confirm_position_exists(futures_sym):
+                                trade_row = {
+                                    "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                                    "symbol": candle_pair,
+                                    "market_type": "FUTURES",
+                                    "side": sig_dir.upper(),
                                     "entry_price": mark_price,
                                     "size": size,
                                     "leverage": leverage,
                                     "sl_price": sl_price,
                                     "tp_price": tp_price,
-                                    "highest": mark_price,
-                                    "lowest": mark_price,
-                                    "liquidation_price": liq_price,
-                                    "confidence": conf,
-                                    "is_breakeven_set": False,
-                                    "signal_source": f"90%_FUTURES_{coin}_1M_SCALP",
-                                    "news_summary": sig.get("summary", "N/A")
+                                    "exit_price": "N/A",
+                                    "exit_reason": "N/A",
+                                    "confidence": 95.0,
+                                    "signal_source": f"CANDLE_ENGULFING_{sig_dir.upper()}_{coin}",
+                                    "news_summary": "COMPLETED_CANDLE_CONFIRMED",
+                                    "mode": mode_str
                                 }
+                                log_trade(trade_row)
+                                self.daily_trades_count += 1
+                                logger.info(f"🔥 {coin} LIVE TRADE CONFIRMED ({side_order} {size}) @ ${mark_price:,.4f} | TP: ${tp_price} | SL: ${sl_price}")
+                                break
+                            else:
+                                logger.warning(f"⚠️ {coin} Order submitted but position not confirmed on CoinDCX API. Skipping trade log.")
+                        else:
+                            err_msg = resp[0].get("message", "Unknown Error") if (isinstance(resp, list) and resp and isinstance(resp[0], dict)) else str(resp)
+                            logger.warning(f"⚠️ {coin} Order Rejected ({err_msg}). Trying next coin...")
 
                 time.sleep(LOOP_INTERVAL_SEC)
 

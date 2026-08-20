@@ -1,142 +1,194 @@
 # dashboard_unified.py
 """
-Unified Terminal Dashboard (Spot + Futures + X API + News + 90% Confluence Gate + Microstructure Filter)
-Displays all balances (INR ₹ & USDT $), positions, P&L, confidence scores, and trades.
+Unified Terminal Dashboard for CoinDCX Master Trading Agent
+Renders real-time Wallet Equity, Active Futures Positions, Live Signals, Trade Ledger & Search/Focus Bar.
 """
 
-import time
 import os
-import json
+import time
 from datetime import datetime
+
+import config
+from config import LOG_FILE, TRADES_CSV, MAX_CONCURRENT_TRADES
+from coindcx_client import CoinDCXClient
+from data_store import load_trade_history, calculate_pnl
 
 from rich.console import Console
 from rich.layout import Layout
 from rich.panel import Panel
 from rich.table import Table
-from rich.live import Live
 from rich.text import Text
 from rich.align import Align
 
-from config import SYMBOL_SPOT, SYMBOL_FUTURES, CANDLE_PAIR, LOG_FILE
-from coindcx_client import CoinDCXClient
-from strategy_engine import StrategyEngine
-from x_client import fetch_latest_from_all as fetch_x_tweets
-from data_store import load_trade_history, calculate_pnl
+from news_client import get_global_crypto_news_feed
 
 class UnifiedDashboardApp:
     def __init__(self):
         self.client = CoinDCXClient()
-        self.strategy = StrategyEngine()
         self.start_time = datetime.now()
-        self.price_history = []
 
-    def generate_layout(self):
-        btc_price = self.client.get_ticker_price(SYMBOL_SPOT)
-        if btc_price > 0:
-            self.price_history.append(btc_price)
-            if len(self.price_history) > 10:
-                self.price_history.pop(0)
-
-        balances = self.client.get_account_balances()
-        usdt_bal = balances.get("USDT", 0.0)
-        inr_bal = balances.get("INR", 0.0)
-        btc_bal = balances.get("BTC", 0.0)
-        total_equity = balances.get("total_equity", usdt_bal + (btc_bal * btc_price))
-
-        trades = load_trade_history()
-        realized_pnl, unrealized_pnl, total_pnl = calculate_pnl(trades, btc_price)
-
-        signal_info = self.strategy.evaluate_multi_source_signal(btc_price, self.price_history)
-        conf_score = signal_info["confidence"]
-        side = signal_info["side"]
-
-        eval_res = self.client.should_take_trade(CANDLE_PAIR, conf_score, side)
-        conf_status = f"✅ {conf_score:.1f}% EXECUTE (Microstructure PASSED)"
-
-        uptime_str = str(datetime.now() - self.start_time).split('.')[0]
-
-        # 1. Header Panel
+    def generate_header(self) -> Panel:
+        uptime = str(datetime.now() - self.start_time).split(".")[0]
         header_text = Text()
-        header_text.append("🔥 CoinDCX Max-Level Trading Brain ", style="bold white")
-        header_text.append(f"| ⏰ {datetime.now().strftime('%H:%M:%S')} ", style="yellow")
-        header_text.append(f"| ⏱️ Uptime: {uptime_str} ", style="green")
-        header_text.append(f"| 💵 Currency: USD ($) & INR (₹) ", style="bold cyan")
-        header_text.append(f"| Mode: {'LIVE (REAL TRADING)' if self.client.live_mode else 'PAPER SIMULATION'}", style="bold magenta" if self.client.live_mode else "bold yellow")
-        header_panel = Panel(Align.center(header_text), style="bold white on blue", expand=True)
+        header_text.append("🚀 COINDCX 20X AUTONOMOUS FUTURES TRADER  |  ", style="bold yellow")
+        
+        if config.TARGETED_FOCUS_COIN:
+            header_text.append(f"🎯 TARGETED FOCUS: {config.TARGETED_FOCUS_COIN} ONLY  |  ", style="bold green reverse")
+        else:
+            header_text.append("🌐 MODE: MULTI-ALTCOIN BASKET  |  ", style="bold cyan")
 
-        # 2. Left Panel: Market Data & Portfolio (INR ₹ + USD $)
-        left_table = Table.grid(padding=(0, 2))
-        left_table.add_column(style="bold white")
-        left_table.add_column(style="bold")
+        header_text.append(f"⏱️ Uptime: {uptime}  |  ", style="bold white")
+        header_text.append(f"🕒 {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}", style="bold dim white")
+        return Panel(Align.center(header_text), border_style="cyan", style="on black")
 
-        left_table.add_row("📊 Live BTC Price:", f"[bold yellow]${btc_price:,.2f}[/bold yellow]" if btc_price else "Loading...")
-        left_table.add_row("🇮🇳 Free INR Balance:", f"[bold green]₹{inr_bal:,.2f} INR[/bold green]")
-        left_table.add_row("💵 Free USDT Balance:", f"[bold green]${usdt_bal:,.2f} USDT[/bold green]")
-        left_table.add_row("₿ Free BTC Holdings:", f"{btc_bal:.6f} BTC (${btc_bal * btc_price:,.2f})")
-        left_table.add_row("💼 Total Equity (USD):", f"[bold white]${total_equity:,.2f}[/bold white]")
-        left_table.add_row("🎯 Target Pair:", f"{SYMBOL_SPOT} / {SYMBOL_FUTURES}")
+    def generate_account_panel(self, balances: dict, realized_pnl: float, unrealized_pnl: float) -> Panel:
+        table = Table(expand=True, box=None, show_header=True, header_style="bold yellow")
+        table.add_column("USDT Balance", justify="center")
+        table.add_column("Realized P&L", justify="center")
+        table.add_column("Unrealized P&L", justify="center")
+        table.add_column("Total Net Profit", justify="center")
 
-        left_panel = Panel(left_table, title="[bold yellow]CoinDCX Wallet & Portfolio[/bold yellow]", border_style="yellow")
+        total_pnl = realized_pnl + unrealized_pnl
+        real_style = "bold green" if realized_pnl >= 0 else "bold red"
+        unreal_style = "bold green" if unrealized_pnl >= 0 else "bold red"
+        tot_style = "bold green" if total_pnl >= 0 else "bold red"
 
-        # 3. Right Panel: Confluence & Signal Engine (90% Gate + Microstructure)
-        right_table = Table.grid(padding=(0, 2))
-        right_table.add_column(style="bold white")
-        right_table.add_column(style="bold")
-
-        right_table.add_row("🎯 Target Strategy Gate:", "[bold green]>= 90.0% ALWAYS EXECUTE[/bold green]")
-        right_table.add_row("⚡ Signal Direction:", f"[bold cyan]{side}[/bold cyan]")
-        right_table.add_row("🧠 Composite Confluence:", f"[bold yellow]{conf_score:.1f}%[/bold yellow]")
-        right_table.add_row("🔬 Microstructure Filter:", "[bold green]PASSED (Spread <= 0.15%, Depth >= $20k)[/bold green]")
-        right_table.add_row("🚦 Signal Decision:", f"[bold green]{conf_status}[/bold green]")
-        right_table.add_row("📈 Realized P&L:", f"[bold {'green' if realized_pnl >= 0 else 'red'}]${realized_pnl:+,.2f}[/bold {'green' if realized_pnl >= 0 else 'red'}]")
-        right_table.add_row("📊 Unrealized P&L:", f"[bold {'green' if unrealized_pnl >= 0 else 'red'}]${unrealized_pnl:+,.2f}[/bold {'green' if unrealized_pnl >= 0 else 'red'}]")
-
-        right_panel = Panel(right_table, title="[bold green]High-Confidence Signal Engine[/bold green]", border_style="green")
-
-        # Assemble layout
-        main_layout = Layout()
-        main_layout.split_column(
-            Layout(header_panel, size=3),
-            Layout(name="middle", size=9),
-            Layout(name="footer", size=10)
+        table.add_row(
+            f"${balances.get('total_equity', config.EQUITY_USD):,.2f}",
+            f"[{real_style}]${realized_pnl:,.2f}[/{real_style}]",
+            f"[{unreal_style}]${unrealized_pnl:,.2f}[/{unreal_style}]",
+            f"[{tot_style}]${total_pnl:,.2f}[/{tot_style}]"
         )
-        main_layout["middle"].split_row(
-            Layout(left_panel, ratio=1),
-            Layout(right_panel, ratio=1)
-        )
+        return Panel(table, border_style="green", title="[bold yellow]ACCOUNT CAPITAL & P&L PERFORMANCE[/bold yellow]")
 
-        # Footer Panel: Recent Live Orders Log
-        recent_trades_table = Table(expand=True, border_style="dim white")
-        recent_trades_table.add_column("Timestamp", style="dim white")
-        recent_trades_table.add_column("Symbol", style="bold cyan")
-        recent_trades_table.add_column("Market", style="bold yellow")
-        recent_trades_table.add_column("Side", style="bold magenta")
-        recent_trades_table.add_column("Price", style="bold white")
-        recent_trades_table.add_column("Size", style="bold white")
-        recent_trades_table.add_column("Confidence", style="bold green")
-        recent_trades_table.add_column("Mode", style="bold blue")
+    def generate_positions_table(self, positions: dict) -> Panel:
+        table = Table(expand=True, box=None, show_header=True, header_style="bold cyan")
+        table.add_column("Pair", justify="center")
+        table.add_column("Side", justify="center")
+        table.add_column("Size", justify="center")
+        table.add_column("Leverage", justify="center")
+        table.add_column("Entry Price", justify="center")
+        table.add_column("Liq Price", justify="center")
 
-        for t in trades[-4:]:
-            recent_trades_table.add_row(
-                t.get("timestamp", "")[11:19],
-                str(t.get("symbol", "")),
-                str(t.get("market_type", "")).upper(),
-                str(t.get("side", "")),
-                f"${float(t.get('entry_price', 0)):,.2f}" if t.get("entry_price") != "N/A" else "N/A",
-                f"{float(t.get('size', 0)):.6f}",
-                f"{float(t.get('confidence', 96.8)):.1f}%",
-                str(t.get("mode", "LIVE"))
+        active_count = 0
+        for pair, p in positions.items():
+            pos_size = float(p.get("active_pos", 0.0))
+            if pos_size != 0.0:
+                active_count += 1
+                side = p.get("side", "NONE").upper()
+                side_style = "bold green" if side == "BUY" or side == "LONG" else "bold red"
+                table.add_row(
+                    pair,
+                    f"[{side_style}]{side}[/{side_style}]",
+                    f"{abs(pos_size):,.2f}",
+                    f"{p.get('leverage', 20)}X",
+                    f"${float(p.get('avg_price', 0.0)):,.2f}",
+                    f"${float(p.get('liquidation_price', 0.0)):,.2f}"
+                )
+
+        if active_count == 0:
+            table.add_row("No Active Positions", "-", "-", "-", "-", "-")
+
+        title_str = f"[bold yellow]ACTIVE FUTURES POSITIONS ({active_count}/{MAX_CONCURRENT_TRADES})[/bold yellow]"
+        return Panel(table, border_style="yellow", title=title_str)
+
+    def generate_recent_trades_table(self, trades: list) -> Panel:
+        table = Table(expand=True, box=None, show_header=True, header_style="bold magenta")
+        table.add_column("Time", justify="center")
+        table.add_column("Symbol", justify="center")
+        table.add_column("Side", justify="center")
+        table.add_column("Price", justify="center")
+        table.add_column("Size", justify="center")
+        table.add_column("Signal Source", justify="center")
+
+        recent = list(reversed(trades[-5:])) if trades else []
+        for t in recent:
+            side = t.get("side", "LONG")
+            side_style = "bold green" if side == "LONG" or side == "BUY" else "bold red"
+            table.add_row(
+                t.get("timestamp", "").split(" ")[-1],
+                t.get("symbol", "N/A"),
+                f"[{side_style}]{side}[/{side_style}]",
+                f"${float(t.get('entry_price', 0.0)):,.2f}",
+                f"{float(t.get('size', 0.0)):,.2f}",
+                t.get("signal_source", "LIVE")
             )
 
-        footer_panel = Panel(recent_trades_table, title="[bold cyan]Live Order Execution Feed[/bold cyan]", border_style="cyan")
-        main_layout["footer"].update(footer_panel)
+        if not recent:
+            table.add_row("-", "-", "-", "-", "-", "-")
 
-        return main_layout
+        return Panel(table, border_style="magenta", title="[bold yellow]RECENT EXECUTION LEDGER[/bold yellow]")
 
-if __name__ == "__main__":
-    app = UnifiedDashboardApp()
-    console = Console()
-    with Live(app.generate_layout(), console=console, refresh_per_second=1) as live:
-        while True:
-            time.sleep(1)
-            live.update(app.generate_layout())
+    def generate_global_news_panel(self) -> Panel:
+        news_data = get_global_crypto_news_feed()
+        bias = news_data.get("market_bias", "NEUTRAL ⚖️")
+        headlines = news_data.get("headlines", [])
+        next_sec = news_data.get("next_refresh_sec", 300)
+        
+        mins = next_sec // 60
+        secs = next_sec % 60
+        countdown_str = f"{mins}m {secs:02d}s"
+        
+        table = Table(expand=True, box=None, show_header=True, header_style="bold blue")
+        table.add_column("Time", justify="center", style="dim white")
+        table.add_column("Source", justify="center", style="bold cyan")
+        table.add_column("Global Crypto Headline / Macro Event", justify="left")
+        table.add_column("Impact", justify="center")
+
+        for item in headlines:
+            sent = item.get("sentiment", "NEUTRAL ⚖️")
+            sent_style = "bold green" if "BULLISH" in sent else ("bold red" if "BEARISH" in sent else "bold yellow")
+            table.add_row(
+                item.get("time", "Now"),
+                item.get("source", "Crypto"),
+                item.get("title", ""),
+                f"[{sent_style}]{sent}[/{sent_style}]"
+            )
+        if not headlines:
+            table.add_row("-", "-", "Fetching 5-min global crypto market news...", "-")
+
+        title_str = f"[bold yellow]🌐 GLOBAL CRYPTO NEWS TICKER (REFRESH IN: {countdown_str}) | MARKET SENTIMENT: [{bias}][/bold yellow]"
+        return Panel(table, border_style="blue", title=title_str)
+
+    def generate_search_bar_panel(self) -> Panel:
+        search_text = Text()
+        search_text.append("💬 INTERACTIVE AGENT TERMINAL CHAT: ", style="bold yellow")
+        search_text.append("Run `./chat.sh` to chat live with your agent! ", style="bold green")
+        
+        if config.TARGETED_FOCUS_COIN:
+            search_text.append(f"| [FOCUSED ON: {config.TARGETED_FOCUS_COIN}] ", style="bold green reverse")
+        else:
+            search_text.append("| [MODE: ALL 125+ ALTCOINS & MEMES SCANNER] ", style="bold cyan reverse")
+
+        return Panel(Align.center(search_text), border_style="yellow", title="[bold cyan]🤖 INTERACTIVE TERMINAL CHATBOX & COIN SEARCH CONTROL[/bold cyan]")
+
+    def generate_layout(self) -> Layout:
+        layout = Layout()
+        layout.split_column(
+            Layout(name="header", size=3),
+            Layout(name="main", ratio=1),
+            Layout(name="search_bar", size=3)
+        )
+        layout["main"].split_column(
+            Layout(name="account", size=5),
+            Layout(name="positions", ratio=1),
+            Layout(name="trades", ratio=1),
+            Layout(name="news", size=6)
+        )
+
+        balances = self.client.get_account_balances()
+        positions = self.client.get_active_futures_positions()
+        trades = load_trade_history()
+        
+        sui_price = self.client.get_ticker_price("SUIUSDT")
+        realized_pnl, unrealized_pnl, _ = calculate_pnl(trades, sui_price)
+
+        layout["header"].update(self.generate_header())
+        layout["account"].update(self.generate_account_panel(balances, realized_pnl, unrealized_pnl))
+        layout["positions"].update(self.generate_positions_table(positions))
+        layout["trades"].update(self.generate_recent_trades_table(trades))
+        layout["news"].update(self.generate_global_news_panel())
+        layout["search_bar"].update(self.generate_search_bar_panel())
+
+        return layout
+

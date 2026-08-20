@@ -1,105 +1,114 @@
 # coindcx_futures_mapper.py
 """
-Dynamic CoinDCX Altcoin Futures Instrument Discovery & Risk Mapper
-Discovers all 495+ active CoinDCX futures markets dynamically.
-Maps coin names (BTC, ETH, SOL, DOGE, XRP, ADA, PEPE, SHIB, etc.) to exact DCX symbols.
-Includes automatic local disk caching & fallback protection for zero disruption during network glitches.
+CoinDCX Futures Symbol Mapper & Risk Parameter Store
+Maps spot tickers (e.g. ETHUSDT) to CoinDCX Derivatives Futures contracts (e.g. B-ETH_USDT)
+Enforces MAXIMUM 20X LEVERAGE across all pairs.
 """
 
 import json
-import logging
 import os
 import requests
+import logging
 
 logger = logging.getLogger(__name__)
 
-ACTIVE_INSTRUMENTS_URL = "https://api.coindcx.com/exchange/v1/derivatives/futures/data/active_instruments"
 CACHE_FILE = "coindcx_futures_symbols.json"
 
 class CoinDCXFuturesMapper:
     def __init__(self):
-        self.active_instruments = []
-        self.coin_map = {}
-        self.load_futures_instruments()
+        self.spot_to_future_map = {}
+        self.coin_to_future_map = {}
+        self.risk_params = {}
 
-    def load_futures_instruments(self):
-        """Fetch active futures instruments dynamically from CoinDCX API with disk cache fallback"""
-        # Try loading from local disk cache first
+        self.load_cache()
+        if not self.spot_to_future_map:
+            self.fetch_active_instruments()
+
+    def load_cache(self):
         if os.path.exists(CACHE_FILE):
             try:
                 with open(CACHE_FILE, "r") as f:
-                    cached_data = json.load(f)
-                    if isinstance(cached_data, dict) and "instruments" in cached_data:
-                        self.active_instruments = cached_data["instruments"]
-                        self.coin_map = cached_data.get("coin_map", {})
-            except Exception:
-                pass
+                    data = json.load(f)
+                    self.spot_to_future_map = data.get("spot_to_future", {})
+                    self.coin_to_future_map = data.get("coin_to_future", {})
+                    self.risk_params = data.get("risk_params", {})
+            except Exception as e:
+                logger.warning(f"Failed to load futures cache: {e}")
 
+    def save_cache(self):
         try:
-            res = requests.get(ACTIVE_INSTRUMENTS_URL, timeout=4)
+            with open(CACHE_FILE, "w") as f:
+                json.dump({
+                    "spot_to_future": self.spot_to_future_map,
+                    "coin_to_future": self.coin_to_future_map,
+                    "risk_params": self.risk_params
+                }, f, indent=2)
+        except Exception as e:
+            logger.warning(f"Failed to save futures cache: {e}")
+
+    def fetch_active_instruments(self):
+        url = "https://api.coindcx.com/exchange/v1/derivatives/futures/data/active_instruments"
+        try:
+            res = requests.get(url, timeout=5)
             if res.status_code == 200 and isinstance(res.json(), list):
-                self.active_instruments = res.json()
-                for symbol in self.active_instruments:
-                    if symbol.startswith("B-") and symbol.endswith("_USDT"):
-                        coin = symbol[2:-5].upper()
-                        self.coin_map[coin] = symbol
+                instruments = res.json()
+                for inst in instruments:
+                    if isinstance(inst, str):
+                        pair = inst
+                        base = inst.replace("B-", "").replace("_USDT", "").replace("USDT", "").upper()
+                    elif isinstance(inst, dict):
+                        pair = inst.get("pair")
+                        base = inst.get("target_currency_short_name", "").upper()
+                    else:
+                        continue
 
-                # Save updated disk cache
-                with open(CACHE_FILE, "w") as f:
-                    json.dump({"total": len(self.active_instruments), "instruments": self.active_instruments, "coin_map": self.coin_map}, f, indent=2)
+                    if pair and base:
+                        spot_sym = f"{base}USDT"
+                        self.spot_to_future_map[spot_sym] = pair
+                        self.coin_to_future_map[base] = pair
+
+                        # Force MAXIMUM 20X Leverage for all coins
+                        self.risk_params[base] = {
+                            "leverage": 20,
+                            "min_qty": 0.001,
+                            "step_size": 0.001,
+                            "max_leverage": 20
+                        }
+                self.save_cache()
                 return
-        except Exception:
-            pass
+        except Exception as e:
+            logger.warning(f"⚠️ Error fetching CoinDCX futures pairs ({e}). Using cached/fallback instruments.")
 
-        if not self.active_instruments:
-            self.active_instruments = self._fallback_instruments()
-            for symbol in self.active_instruments:
-                if symbol.startswith("B-") and symbol.endswith("_USDT"):
-                    coin = symbol[2:-5].upper()
-                    self.coin_map[coin] = symbol
-
-    def _fallback_instruments(self):
-        return [
-            "B-BTC_USDT", "B-ETH_USDT", "B-SOL_USDT", "B-DOGE_USDT", "B-XRP_USDT",
-            "B-ADA_USDT", "B-AVAX_USDT", "B-PEPE_USDT", "B-SHIB_USDT", "B-LINK_USDT",
-            "B-SUI_USDT", "B-APT_USDT", "B-ARB_USDT", "B-OP_USDT", "B-NEAR_USDT"
+        # Default fallback symbols with MAXIMUM 20X Leverage
+        default_coins = [
+            "ETH", "SOL", "XRP", "BNB", "ADA", "DOGE", "TRX", "LTC", "BCH", "EOS",
+            "LINK", "AVAX", "DOT", "ATOM", "NEAR", "APT", "SUI", "ARB", "OP", "SEI",
+            "TON", "FIL", "INJ", "HBAR", "UNI", "ETC", "ICP", "PEPE", "SHIB", "WIF",
+            "BONK", "ONDO", "JUP", "ENA", "FET", "RENDER", "TAO", "CRV", "AAVE", "MKR"
         ]
+        for c in default_coins:
+            fut = f"B-{c}_USDT"
+            self.spot_to_future_map[f"{c}USDT"] = fut
+            self.coin_to_future_map[c] = fut
+            self.risk_params[c] = {"leverage": 20, "min_qty": 0.001, "step_size": 0.001, "max_leverage": 20}
 
-    def get_dcx_future_symbol(self, coin: str) -> str:
-        """Map any coin symbol (e.g. BTC, ETH, SOL, DOGE) to exact DCX futures symbol"""
-        coin_upper = coin.upper()
-        if coin_upper in self.coin_map:
-            return self.coin_map[coin_upper]
-        return f"B-{coin_upper}_USDT"
+    def is_valid_futures_coin(self, coin: str) -> bool:
+        clean = coin.replace("USDT", "").replace("B-", "").split("_")[0].upper()
+        # Verify coin is in mapped active instruments dictionary
+        return clean in self.coin_to_future_map
 
-    def get_spot_symbol(self, coin: str) -> str:
-        """Map coin to spot symbol (e.g. BTCUSDT)"""
-        return f"{coin.upper()}USDT"
+    def get_dcx_future_symbol(self, coin_or_spot: str) -> str:
+        clean = coin_or_spot.replace("USDT", "").replace("B-", "").split("_")[0].upper()
+        if clean in self.coin_to_future_map:
+            return self.coin_to_future_map[clean]
+        return f"B-{clean}_USDT"
 
-    def get_coin_risk_params(self, coin: str):
-        coin_upper = coin.upper()
-        if coin_upper in ["BTC", "ETH"]:
-            return {
-                "risk_per_trade_pct": 1.5,
-                "sl_pct": 0.008,
-                "tp_pct": 0.010,
-                "leverage": 5,
-                "confidence_threshold": 90.0
-            }
-        else:
-            return {
-                "risk_per_trade_pct": 1.0,
-                "sl_pct": 0.008,
-                "tp_pct": 0.010,
-                "leverage": 3,
-                "confidence_threshold": 90.0
-            }
+    def get_spot_symbol(self, coin_or_future: str) -> str:
+        clean = coin_or_future.replace("USDT", "").replace("B-", "").split("_")[0].upper()
+        return f"{clean}USDT"
 
-    def get_all_supported_coins(self):
-        return list(self.coin_map.keys())
+    def get_coin_risk_params(self, coin: str) -> dict:
+        clean = coin.upper()
+        return self.risk_params.get(clean, {"leverage": 20, "min_qty": 0.001, "step_size": 0.001, "max_leverage": 20})
 
-# Singleton Mapper Instance
 futures_mapper = CoinDCXFuturesMapper()
-
-if __name__ == "__main__":
-    print(f"🚀 Loaded {len(futures_mapper.active_instruments)} CoinDCX Futures Pairs.")

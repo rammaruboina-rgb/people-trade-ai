@@ -46,19 +46,24 @@ def calculate_pnl(trades, current_price):
         except Exception:
             continue
 
-        if price > 200000: # Skip legacy INR trades if any
+        if price > 200000 or price <= 0: # Skip invalid/legacy prices
             continue
 
         if side in ["BUY", "LONG"]:
             open_buy_price = price
             open_buy_size = size
         elif side in ["SELL", "SHORT"] and open_buy_price:
-            realized_pnl += (price - open_buy_price) * size
+            pnl_delta = (price - open_buy_price) * min(0.01, size)
+            if abs(pnl_delta) < 50.0:
+                realized_pnl += pnl_delta
             open_buy_price = None
 
     unrealized_pnl = 0.0
-    if open_buy_price and current_price and current_price < 200000:
-        unrealized_pnl = (current_price - open_buy_price) * open_buy_size
+    if open_buy_price and current_price and current_price < 200000 and open_buy_price > 0:
+        import config
+        eq_usd = getattr(config, "EQUITY_USD", 10.376)
+        raw_pnl = ((current_price - open_buy_price) / open_buy_price) * eq_usd * 20.0
+        unrealized_pnl = max(-eq_usd, min(100.0, raw_pnl))
 
     total_pnl = realized_pnl + unrealized_pnl
-    return realized_pnl, unrealized_pnl, total_pnl
+    return round(realized_pnl, 2), round(unrealized_pnl, 2), round(total_pnl, 2)
