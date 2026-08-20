@@ -1636,6 +1636,27 @@ def high_win_signal_api(symbol):
         }
     })
 
+def call_ollama_qwen(prompt: str, symbol: str = "SUI") -> str:
+    """Queries local Ollama Qwen 3B (qwen2.5:3b) model for fast AI responses"""
+    try:
+        url = "http://localhost:11434/api/generate"
+        sys_prompt = f"You are People Trade AI, an expert crypto quant trading assistant analyzing {symbol}. Provide a concise, helpful response (2-3 sentences max)."
+        payload = {
+            "model": "qwen2.5:3b",
+            "prompt": f"{sys_prompt}\nUser Question: {prompt}",
+            "stream": False,
+            "options": {"num_predict": 120, "temperature": 0.3}
+        }
+        r = requests.post(url, json=payload, timeout=8)
+        if r.status_code == 200:
+            res_text = r.json().get("response", "").strip()
+            if res_text:
+                return f"🤖 **People Trade AI (Ollama Qwen 3B)**: {res_text}"
+    except Exception:
+        pass
+    w = analyze_wyckoff_phase(symbol)
+    return f"🤖 **People Trade AI Agent**: I am actively monitoring **{symbol}**.\n- Wyckoff Phase: **{w.get('phase')}** ({w.get('action')})\n- Confluence Confidence: **{w.get('confidence_pct')}%**\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for direct controls!"
+
 @app.route('/api/agent/chat', methods=['POST'])
 def agent_chat_api():
     try:
@@ -1669,16 +1690,15 @@ def agent_chat_api():
             resp = f"📰 **Live Global Market Sentiment**:\n- Market Bias: **{news.get('market_bias')}**\n- Bullish Ratio: **{news.get('bull_pct')}%**\n- Live Headlines Tracked: {news.get('total_count')} items"
 
         elif "start" in msg:
-            start_res = start_agent_api().get_json()
+            start_res = start_agent().get_json()
             resp = f"🚀 **Master Agent Command**: {start_res.get('message')}"
 
         elif "stop" in msg:
-            stop_res = stop_agent_api().get_json()
+            stop_res = stop_agent().get_json()
             resp = f"⏹️ **Master Agent Command**: {stop_res.get('message')}"
 
         else:
-            w = analyze_wyckoff_phase(symbol)
-            resp = f"🤖 **People Trade AI Agent**: I am actively monitoring **{symbol}**.\n- Current Wyckoff Structure: **{w.get('phase')}** ({w.get('action')})\n- Confluence Confidence: **{w.get('confidence_pct')}%**\n- Altcoin Strategy: Pure Altcoins (BTC/ETH Blocked)\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for specific controls!"
+            resp = call_ollama_qwen(msg, symbol)
 
         return jsonify({"status": "success", "response": resp})
     except Exception as e:
