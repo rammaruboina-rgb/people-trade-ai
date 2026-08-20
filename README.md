@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🤖 People Trade AI — Autonomous Trading Agent & Wyckoff Intelligence Console
+# 🤖 People Trade AI — Built for People. Powered by AI.
 
 [![Agent Name](https://img.shields.io/badge/Agent%20Name-People%20Trade%20AI-00f2fe?style=for-the-badge&logo=robot&logoColor=white)](#)
 [![GitHub Maintainer](https://img.shields.io/badge/GitHub-rammaruboina--rgb-7f00ff?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rammaruboina-rgb)
@@ -10,7 +10,7 @@
 [![UI Engine](https://img.shields.io/badge/Console-24%2F7%20Text--With--Agent-00e676?style=for-the-badge)](#)
 
 <p align="center">
-  <b>Institutional Wyckoff Structure Analysis • High-Win Signal Gate • Pure Altcoin Focus • Silent Web Terminal</b>
+  <b>Democratizing Institutional Wyckoff Intelligence & High-Win Confluence Scalping for Everyone</b>
 </p>
 
 ---
