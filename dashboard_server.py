@@ -20,7 +20,7 @@ HTML_TEMPLATE = """
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🤖 PeopleTrade AI - Built for People. Powered by AI.</title>
+    <title>🤖 People Trade AI - Built for People. Powered by AI.</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lightweight-charts@4.1.1/dist/lightweight-charts.standalone.production.js" defer></script>
     <style>
@@ -425,7 +425,7 @@ HTML_TEMPLATE = """
         <header>
             <div class="logo-section">
                 <h1 style="font-size: 2.1rem; font-weight: 900; background: linear-gradient(135deg, #60a5fa, #c084fc, #34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    🤖 PeopleTrade AI
+                    🤖 People Trade AI
                 </h1>
                 <div style="font-size: 0.88rem; font-weight: 700; color: #34d399; margin-top: 0.2rem; letter-spacing: 0.5px;">
                     ✨ “Built for People. Powered by AI.”
@@ -550,7 +550,7 @@ HTML_TEMPLATE = """
                     <span style="font-size: 1.6rem;">🚨</span>
                     <div>
                         <div id="high-alert-title" style="font-weight: 800; font-size: 1.05rem; color: #ff4d4d; letter-spacing: 0.5px;">HIGH ALERT: BOT ENTRY DETECTED</div>
-                        <div id="high-alert-sub" style="font-size: 0.88rem; color: #f3f4f6;">PeopleTrade AI Agent active entry on chart</div>
+                        <div id="high-alert-sub" style="font-size: 0.88rem; color: #f3f4f6;">People Trade AI Agent active entry on chart</div>
                     </div>
                 </div>
                 <span class="status-badge" style="background: #ef4444; color: #fff; font-weight: 800; font-size: 0.85rem;" id="high-alert-badge">HIGH ALERT 🚨</span>
@@ -658,7 +658,7 @@ HTML_TEMPLATE = """
                 <!-- Agent Chat Messages Window -->
                 <div id="agent-chat-window" style="height: 200px; overflow-y: auto; background: rgba(0,0,0,0.4); border: 1px solid var(--border-card); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.8rem;">
                     <div style="background: rgba(56, 189, 248, 0.1); border-left: 3px solid #38bdf8; padding: 0.6rem 0.8rem; border-radius: 4px; color: #e2e8f0;">
-                        🤖 <strong>PeopleTrade AI Agent</strong>: Welcome! Type any prompt below to text with me directly. Ask about Wyckoff phases, high-win gates, wallet equity, or coin analysis!
+                        🤖 <strong>People Trade AI Agent</strong>: Welcome! Type any prompt below to text with me directly. Ask about Wyckoff phases, high-win gates, wallet equity, or coin analysis!
                     </div>
                 </div>
 
@@ -1344,12 +1344,12 @@ HTML_TEMPLATE = """
                     if (banner) {
                         banner.style.display = 'flex';
                         document.getElementById('high-alert-title').innerText = `🚨 HIGH ALERT: BOT ENTRY ON ${currentSymbol.replace('USDT','')}`;
-                        document.getElementById('high-alert-sub').innerText = `PeopleTrade AI active position: ${pos.side} @ $${pos.price} (20x Leverage)`;
+                        document.getElementById('high-alert-sub').innerText = `People Trade AI active position: ${pos.side} @ $${pos.price} (20x Leverage)`;
                         document.getElementById('high-alert-badge').innerText = `👑⚡ BOT ENTRY (20X)`;
                     }
 
                     if (!highAlertActive) {
-                        speakMessage(`High Alert! PeopleTrade AI Bot Entry active on ${currentSymbol.replace('USDT','')}`);
+                        speakMessage(`High Alert! People Trade AI Bot Entry active on ${currentSymbol.replace('USDT','')}`);
                         highAlertActive = true;
                     }
                 } else {
@@ -1611,7 +1611,7 @@ def agent_chat_api():
         symbol = data.get('symbol', 'SUIUSDT').upper()
 
         if not msg:
-            return jsonify({"status": "success", "response": "🤖 PeopleTrade AI Agent: How can I assist your trading strategy today?"})
+            return jsonify({"status": "success", "response": "🤖 People Trade AI Agent: How can I assist your trading strategy today?"})
 
         if "win rate" in msg or "performance" in msg or "stats" in msg:
             resp = "🎯 **Institutional Gate Win-Rate Status**:\n- High-Win Gate Confluence Requirement: **80%++**\n- Core Altcoin Focus: Pure High-Vol Altcoins (BTC/ETH Excluded)\n- Targeted R:R Ratio: 1:3 (TP1 +15%, TP2 +30%, TP3 +50% ROE)\n- Risk Auditor Gate: Active 24/7."
@@ -1645,7 +1645,7 @@ def agent_chat_api():
 
         else:
             w = analyze_wyckoff_phase(symbol)
-            resp = f"🤖 **PeopleTrade AI Agent**: I am actively monitoring **{symbol}**.\n- Current Wyckoff Structure: **{w.get('phase')}** ({w.get('action')})\n- Confluence Confidence: **{w.get('confidence_pct')}%**\n- Altcoin Strategy: Pure Altcoins (BTC/ETH Blocked)\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for specific controls!"
+            resp = f"🤖 **People Trade AI Agent**: I am actively monitoring **{symbol}**.\n- Current Wyckoff Structure: **{w.get('phase')}** ({w.get('action')})\n- Confluence Confidence: **{w.get('confidence_pct')}%**\n- Altcoin Strategy: Pure Altcoins (BTC/ETH Blocked)\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for specific controls!"
 
         return jsonify({"status": "success", "response": resp})
     except Exception as e:

@@ -1,12 +1,12 @@
-# 🤖 PeopleTrade AI — Autonomous Trading Agent & Wyckoff Intelligence Console
+# 🤖 People Trade AI — Autonomous Trading Agent & Wyckoff Intelligence Console
 
-[![Agent Name](https://img.shields.io/badge/Agent%20Name-PeopleTrade%20AI-cyan.svg)](#)
+[![Agent Name](https://img.shields.io/badge/Agent%20Name-People%20Trade%20AI-cyan.svg)](#)
 [![GitHub Maintainer](https://img.shields.io/badge/GitHub-rammaruboina--rgb-blue.svg)](https://github.com/rammaruboina-rgb)
 [![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/exchange-CoinDCX%20Futures-orange.svg)](https://coindcx.com/)
 [![Execution](https://img.shields.io/badge/leverage-20X%20Isolated-red.svg)](#)
 
-**PeopleTrade AI** is an autonomous, multi-strategy **CoinDCX algorithmic trading agent** built for 24/7 altcoin scalping (1m/5m) and institutional Wyckoff market cycle structure analysis. Developed and maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)**.
+**People Trade AI** is an autonomous, multi-strategy **CoinDCX algorithmic trading agent** built for 24/7 altcoin scalping (1m/5m) and institutional Wyckoff market cycle structure analysis. Developed and maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)**.
 
 Featuring an interactive **Text-With-Agent** console, live Web3 on-chain whale tracker, global 5-minute crypto news stream, and real-time live trading dashboard.
 
