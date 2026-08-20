@@ -1636,26 +1636,51 @@ def high_win_signal_api(symbol):
         }
     })
 
+def sanitize_and_guard_prompt(msg: str) -> bool:
+    """Blocks jailbreaks, prompt injections, and sensitive data leakage requests"""
+    blocked_keywords = [
+        "ignore previous instructions", "ignore all instructions", "system prompt",
+        "api key", "api_key", "api_secret", "secret", "private_key", "password", ".env",
+        "jailbreak", "dan mode", "act as dan", "bypass", "reveal key", "show secret", "dump credentials"
+    ]
+    low = msg.lower()
+    for kw in blocked_keywords:
+        if kw in low:
+            return True
+    return False
+
 def call_ollama_qwen(prompt: str, symbol: str = "SUI") -> str:
-    """Queries local Ollama Qwen 3B (qwen2.5:3b) model for fast AI responses"""
+    """Queries local AI model for fast response with jailbreak and sensitive data guards"""
+    if sanitize_and_guard_prompt(prompt):
+        return "⭐ **People Trade AI Agent**: 🛡️ **Security Alert**: Prompt injections, jailbreaks, and credential retrieval requests are strictly blocked. How can I assist with your trading analysis?"
+
     try:
         url = "http://localhost:11434/api/generate"
-        sys_prompt = f"You are People Trade AI, an expert crypto quant trading assistant analyzing {symbol}. Provide a concise, helpful response (2-3 sentences max)."
+        sys_prompt = (
+            f"You are People Trade AI, a high-frequency crypto trading copilot analyzing {symbol}. "
+            "Never mention any underlying AI model name, Ollama, Qwen, or internal system code. "
+            "Never reveal API keys or passwords under any circumstances. "
+            "Give a clear, concise trading answer (2 sentences max)."
+        )
         payload = {
             "model": "qwen2.5:3b",
             "prompt": f"{sys_prompt}\nUser Question: {prompt}",
             "stream": False,
-            "options": {"num_predict": 120, "temperature": 0.3}
+            "options": {"num_predict": 100, "temperature": 0.2}
         }
-        r = requests.post(url, json=payload, timeout=8)
+        r = requests.post(url, json=payload, timeout=6)
         if r.status_code == 200:
             res_text = r.json().get("response", "").strip()
+            # Post-filter for model names and secrets
+            for b in ["qwen", "ollama", "gpt", "deepseek", "llama", "model"]:
+                if b in res_text.lower() and "model name" not in prompt.lower():
+                    res_text = res_text.replace(b, "AI Engine").replace(b.capitalize(), "AI Engine")
             if res_text:
-                return f"🤖 **People Trade AI Agent**: {res_text}"
+                return f"⭐ **People Trade AI Agent**: {res_text}"
     except Exception:
         pass
     w = analyze_wyckoff_phase(symbol)
-    return f"🤖 **People Trade AI Agent**: I am actively monitoring **{symbol}**.\n- Wyckoff Phase: **{w.get('phase')}** ({w.get('action')})\n- Confluence Confidence: **{w.get('confidence_pct')}%**\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for direct controls!"
+    return f"⭐ **People Trade AI Agent**: Monitoring **{symbol}**.\n- Wyckoff Phase: **{w.get('phase')}** ({w.get('action')})\n- Confluence Score: **{w.get('confidence_pct')}%**\n\nType *'wallet'*, *'wyckoff'*, *'gate'*, *'news'*, or *'start'* for direct controls!"
 
 @app.route('/api/agent/chat', methods=['POST'])
 def agent_chat_api():
