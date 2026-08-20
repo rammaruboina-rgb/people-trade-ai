@@ -1,0 +1,46 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="people-trade-ai",
+    version="1.0.0",
+    author="People Trade AI Team",
+    author_email="rammaruboina@gmail.com",
+    description="Autonomous Web3 & CoinDCX Futures Trading Agent powered by Multi-Layer Confluence and Institutional Wyckoff Schematic Analysis",
+    long_description=open("README.md").read(),
+    long_description_content_type="text/markdown",
+    url="https://github.com/rammaruboina-rgb/people-trade-ai",
+    py_modules=[
+        "coindcx_master_agent",
+        "coindcx_client",
+        "config",
+        "dashboard_server",
+        "wyckoff_engine",
+        "risk_auditor",
+        "math_engine",
+        "position_manager",
+        "strategy_engine",
+        "catalyst_engine",
+        "web3_model",
+        "futures_mapper",
+        "scanner",
+        "news_client"
+    ],
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires=">=3.8",
+    install_requires=[
+        "flask",
+        "numpy",
+        "ccxt",
+        "python-dotenv",
+        "requests",
+        "schedule",
+        "rich",
+        "fastapi",
+        "uvicorn",
+        "openai",
+    ],
+)
