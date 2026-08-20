@@ -7,7 +7,8 @@
 [![Python Version](https://img.shields.io/badge/Python-3.9%2B-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![Exchange](https://img.shields.io/badge/Exchange-CoinDCX%20Futures-ff6b00?style=for-the-badge&logo=bitcoin&logoColor=white)](https://coindcx.com/)
 [![Leverage](https://img.shields.io/badge/Leverage-20X%20Isolated-ff0055?style=for-the-badge)](#)
-[![UI Engine](https://img.shields.io/badge/Console-24%2F7%20Text--With--Agent-00e676?style=for-the-badge)](#)
+[![Discord Community](https://img.shields.io/badge/Discord-Join%20Community-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/Gt3ZAfMWy)
+[![GitHub Architecture Post](https://img.shields.io/badge/Guide-How%20It%20Works%20%26%20Psychology-00f2fe?style=for-the-badge&logo=readme&logoColor=white)](HOW_IT_WORKS_AND_PSYCHOLOGY.md)
 
 <p align="center">
   <b>Democratizing Institutional Wyckoff Intelligence & High-Win Confluence Scalping for Everyone</b>

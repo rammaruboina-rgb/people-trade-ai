@@ -1714,6 +1714,9 @@ def agent_chat_api():
             news = get_global_crypto_news_feed()
             resp = f"📰 **Live Global Market Sentiment**:\n- Market Bias: **{news.get('market_bias')}**\n- Bullish Ratio: **{news.get('bull_pct')}%**\n- Live Headlines Tracked: {news.get('total_count')} items"
 
+        elif "discord" in msg or "community" in msg or "group" in msg or "link" in msg:
+            resp = "💬 **Official Discord Community**: Join our live trader community at https://discord.gg/Gt3ZAfMWy 🚀"
+
         elif "start" in msg:
             start_res = start_agent().get_json()
             resp = f"🚀 **Master Agent Command**: {start_res.get('message')}"
