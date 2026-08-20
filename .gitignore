@@ -28,3 +28,9 @@ candles_chart.png
 .vscode/
 .idea/
 .DS_Store
+
+# Build & Package Artifacts
+build/
+dist/
+*.egg-info/
+
