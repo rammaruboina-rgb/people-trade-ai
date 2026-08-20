@@ -47,6 +47,11 @@ Equipped with a **24/7 Text-With-Agent REST console**, a live 5-minute global NL
 - **5-Min News Feed**: Auto-refreshes top crypto catalysts every 5 minutes with VADER/NLP sentiment scoring (-1.0 to +1.0).
 - **Web3 Whale Inflows**: Tracks decentralized liquidity shifts and large wallet movements for explosive breakout setups.
 
+### 🔒 5. Hardened Security & Manual-Only Withdrawals Policy
+- **Automated Withdrawals Hard Disabled**: The agent contains ZERO withdrawal capabilities (`ALLOW_AUTOMATED_WITHDRAWALS = False`).
+- **Manual Control Only**: Fund withdrawals can ONLY be initiated manually by the account owner inside the official CoinDCX App/Web.
+- **API Scope Safety**: Read & Futures Trading permissions ONLY. Never enable Withdrawal permissions on your API key.
+
 ---
 
 ## 🏗️ System Architecture

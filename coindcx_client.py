@@ -457,3 +457,12 @@ class CoinDCXClient:
         except Exception as e:
             logger.warning(f"⚠️ confirm_position_exists check failed: {e}")
             return False
+
+    def request_withdrawal(self, *args, **kwargs):
+        """
+        SECURITY MANDATE: Automated withdrawals are hard disabled.
+        Fund withdrawals can only be initiated manually by the user via the CoinDCX App/Web.
+        """
+        logger.critical("🛑 SECURITY POLICY BREACH: Automated withdrawal requested but HARD DISABLED.")
+        raise PermissionError("SECURITY REJECTION: Automated withdrawals are disabled on People Trade AI. Withdrawals must be done manually via CoinDCX.")
+

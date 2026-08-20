@@ -18,6 +18,9 @@ LOG_FILE = "trading_bot.log"
 TRADES_CSV = "trades_unified.csv"
 LOOP_INTERVAL_SEC = 1.0  # Ultra-fast 1.0s scan rate
 
+# Security Guard: Automated Withdrawals Disabled Per User Security Mandate
+ALLOW_AUTOMATED_WITHDRAWALS = False  # HARD DISABLED: Agent can NEVER perform withdrawals (Manual Only via CoinDCX)
+
 # Execution Engine Mode
 PAPER_TRADING = False  # LIVE REAL CAPITAL TRADING ENABLED PER USER DIRECTIVE
 EQUITY_USD = float(os.getenv("EQUITY_USD", "10.00"))  # Real Account Equity Calibration
