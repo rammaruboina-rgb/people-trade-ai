@@ -140,10 +140,17 @@ people-trade-ai/
 
 ## 🛠️ Installation & Setup
 
-### 1. System Requirements
+### 1. System Requirements & Wallet Funding
 - **OS**: Linux / macOS / WSL2
 - **Python**: 3.9+
 - **CoinDCX Account**: Valid Futures API Key & Secret
+
+> [!IMPORTANT]
+> **CRITICAL WALLET FUNDING REQUIREMENT**:
+> To execute trades, you **MUST deposit or transfer funds into your CoinDCX USDT-M Futures Wallet**.
+> - **Deposit Currency**: **USDT only** (INR or Spot wallet balances cannot be used directly for USDT-M Futures).
+> - **Wallet Transfer Steps**: Open **CoinDCX App/Web** $\rightarrow$ **Wallets** $\rightarrow$ **Transfer** $\rightarrow$ Transfer **USDT** from **Spot/Main Wallet** $\rightarrow$ **USDT Futures Wallet**.
+> - **Trading Margin**: The agent reads available equity directly from your **USDT Futures Wallet**. Without USDT in the Futures Wallet, order placement will be rejected for insufficient margin!
 
 ### 2. Clone Repository
 ```bash
