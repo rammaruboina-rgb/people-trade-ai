@@ -52,31 +52,31 @@ Equipped with a **24/7 Text-With-Agent REST console**, a live 5-minute global NL
 ## 🏗️ System Architecture
 
 ```mermaid
-flowchart TB
-    subgraph Market Data & Catalyst Ingestion
-        CDCX_MD["📊 CoinDCX 1m/5m Candlestick Stream"]
-        W3_WHALE["🐋 Web3 On-Chain Whale Liquidity Engine"]
-        NEWS_NLP["📰 Global Crypto News (5m NLP Refresh)"]
-        X_CATALYST["🐦 X (Twitter) Catalyst Sentiment Feed"]
-        TV_WEBHOOK["📡 TradingView Webhooks FastAPI"]
+flowchart TD
+    subgraph Market_Inputs["Market Data & Inputs"]
+        CDCX_MD["CoinDCX 1m/5m Candlestick Stream"]
+        W3_WHALE["Web3 On-Chain Liquidity Engine"]
+        NEWS_NLP["Global Crypto News (5m NLP Refresh)"]
+        X_CATALYST["X (Twitter) Catalyst Sentiment Feed"]
+        TV_WEBHOOK["TradingView Webhooks FastAPI"]
     end
 
-    subgraph Institutional Analysis & Signal Gating
-        WYCKOFF["🏛️ Wyckoff Structural Engine (Phases A-E)"]
-        MATH_ENG["📐 Pre-Breakout Math & Volatility Engine"]
-        ORDERBOOK["📚 Order Book Liquidity Imbalance Auditor"]
-        RISK_AUDIT["🛡️ Institutional Risk Auditor & Capital Gate"]
+    subgraph Core_Engines["Institutional Analysis & Signal Gating"]
+        WYCKOFF["Wyckoff Structural Engine (Phases A-E)"]
+        MATH_ENG["Pre-Breakout Math & Volatility Engine"]
+        ORDERBOOK["Order Book Liquidity Imbalance Auditor"]
+        RISK_AUDIT["Institutional Risk Auditor & Capital Gate"]
     end
 
-    subgraph High-Win Signal Confluence Gate
-        GATE{"⚡ High-Win Confluence Gate\n(Win Probability >= 80%)"}
+    subgraph Signal_Gate["High-Win Signal Confluence Gate"]
+        GATE["High-Win Confluence Gate (Win Probability >= 80%)"]
     end
 
-    subgraph Autonomous Execution & Monitoring
-        CDCX_EXEC["🚀 CoinDCX 20X Futures Order Execution"]
-        REST_CHAT["💬 24/7 Text-With-Agent Console (/api/agent/chat)"]
-        WEB_DASH["🖥️ Silent Web Terminal (http://127.0.0.1:5000)"]
-        KILL_SWITCH["🛑 Instant Emergency Kill-Switch (.killswitch)"]
+    subgraph Execution["Autonomous Execution & Monitoring"]
+        CDCX_EXEC["CoinDCX 20X Futures Order Execution"]
+        REST_CHAT["24/7 Text-With-Agent Console (/api/agent/chat)"]
+        WEB_DASH["Silent Web Terminal (http://127.0.0.1:5000)"]
+        KILL_SWITCH["Instant Emergency Kill-Switch (.killswitch)"]
     end
 
     CDCX_MD --> WYCKOFF
@@ -91,16 +91,11 @@ flowchart TB
     RISK_AUDIT --> GATE
 
     GATE -->|Approved Signal| CDCX_EXEC
-    GATE -->|Rejected| REST_CHAT
+    GATE -->|Rejected Signal| REST_CHAT
 
     CDCX_EXEC --> WEB_DASH
     CDCX_EXEC --> REST_CHAT
     KILL_SWITCH -.->|Halt Execution| CDCX_EXEC
-
-    style GATE fill:#7f00ff,stroke:#fff,stroke-width:2px,color:#fff
-    style WYCKOFF fill:#00f2fe,stroke:#000,stroke-width:1px,color:#000
-    style RISK_AUDIT fill:#ff0055,stroke:#fff,stroke-width:1px,color:#fff
-    style WEB_DASH fill:#00e676,stroke:#000,stroke-width:1px,color:#000
 ```
 
 ---
