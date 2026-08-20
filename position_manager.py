@@ -103,3 +103,25 @@ def evaluate_position_exits(
             return action
 
     return action
+
+def get_confidence_scaled_position(
+    confidence_score: float,
+    base_risk_budget_usd: float,
+    min_confidence: float = 70.0
+) -> float:
+    """
+    Kelly-Inspired Position Sizing:
+    - Score >= 80: High Conviction -> 1.5x Base Risk Allocation
+    - Score >= 60: Normal Conviction -> 1.0x Base Risk Allocation
+    - Score < 60: Low Conviction -> 0.5x Base Risk Allocation
+    """
+    if confidence_score < min_confidence:
+        return base_risk_budget_usd * 0.5
+
+    if confidence_score >= 80.0:
+        return base_risk_budget_usd * 1.5
+    elif confidence_score >= 60.0:
+        return base_risk_budget_usd * 1.0
+    else:
+        return base_risk_budget_usd * 0.5
+

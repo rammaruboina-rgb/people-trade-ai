@@ -144,8 +144,125 @@ def print_check(c: TradeCheck):
         for reason in c.reasons:
             print(" -", reason)
 
+def calculate_confidence_score(signals: dict) -> Tuple[float, List[str]]:
+    """
+    Weighted 0-100 Confidence Scoring Framework:
+    - Wyckoff Phase (25% Weight)
+    - Orderbook Imbalance (20% Weight)
+    - Strategy Engine Pattern Signal (20% Weight)
+    - News & Social NLP Sentiment (15% Weight)
+    - Web3 Whale Liquidity (10% Weight)
+    - Risk Auditor Gate Pass (10% Weight)
+    """
+    score = 0.0
+    reasons = []
+
+    wyckoff = str(signals.get("wyckoff", "")).lower()
+    if any(k in wyckoff for k in ["accumulation", "spring", "lps", "markup"]):
+        score += 25.0
+        reasons.append("+25 Wyckoff Accumulation/Spring Structure")
+    elif any(k in wyckoff for k in ["distribution", "upthrust", "lpsy", "markdown"]):
+        score += 25.0
+        reasons.append("+25 Wyckoff Distribution/Upthrust Structure")
+
+    ob = float(signals.get("orderbook_imbalance", 1.0))
+    if ob >= 1.3 or ob <= 0.7:
+        score += 20.0
+        reasons.append(f"+20 Orderbook Depth Imbalance ({ob:.2f})")
+    elif ob >= 1.15 or ob <= 0.85:
+        score += 12.0
+        reasons.append(f"+12 Moderate Orderbook Imbalance ({ob:.2f})")
+
+    strat = str(signals.get("strategy_signal", "")).lower()
+    if any(k in strat for k in ["buy", "sell", "strong", "engulfing", "reclaim"]):
+        score += 20.0
+        reasons.append("+20 Technical Strategy Pattern Trigger")
+
+    sent = float(signals.get("sentiment_score", 0.0))
+    if abs(sent) >= 0.35:
+        score += 15.0
+        reasons.append(f"+15 High Catalyst NLP Sentiment ({sent:+.2f})")
+    elif abs(sent) >= 0.15:
+        score += 8.0
+        reasons.append(f"+8 Moderate Catalyst Sentiment ({sent:+.2f})")
+
+    web3 = str(signals.get("web3_whale", "")).lower()
+    if any(k in web3 for k in ["inflow", "outflow", "surge", "whale"]):
+        score += 10.0
+        reasons.append("+10 Web3 Whale Liquidity Inflow")
+
+    if signals.get("risk_gate_pass", True):
+        score += 10.0
+        reasons.append("+10 Risk Auditor Margin Clearance")
+
+    return round(score, 1), reasons
+
+def audit_multi_indicator_vote(signals: dict) -> Dict[str, Any]:
+    """
+    Hard Multi-Indicator Vote Rule:
+    Requires at least 4 out of 6 independent engine votes in agreement,
+    and a confidence score >= 70 for trade authorization.
+    """
+    long_votes = 0
+    short_votes = 0
+    total_engines = 6
+
+    wyckoff = str(signals.get("wyckoff", "")).lower()
+    if any(k in wyckoff for k in ["accumulation", "spring", "lps", "buy"]): long_votes += 1
+    elif any(k in wyckoff for k in ["distribution", "upthrust", "lpsy", "sell"]): short_votes += 1
+
+    ob = float(signals.get("orderbook_imbalance", 1.0))
+    if ob >= 1.2: long_votes += 1
+    elif ob <= 0.8: short_votes += 1
+
+    strat = str(signals.get("strategy_signal", "")).lower()
+    if "buy" in strat or "long" in strat: long_votes += 1
+    elif "sell" in strat or "short" in strat: short_votes += 1
+
+    sent = float(signals.get("sentiment_score", 0.0))
+    if sent >= 0.20: long_votes += 1
+    elif sent <= -0.20: short_votes += 1
+
+    web3 = str(signals.get("web3_whale", "")).lower()
+    if "inflow" in web3 or "bullish" in web3: long_votes += 1
+    elif "outflow" in web3 or "bearish" in web3: short_votes += 1
+
+    tf_aligned = signals.get("tf_aligned", False)
+    tf_bias = str(signals.get("tf_directional_bias", "")).lower()
+    if tf_aligned and tf_bias == "bullish": long_votes += 1
+    elif tf_aligned and tf_bias == "bearish": short_votes += 1
+
+    score, breakdown = calculate_confidence_score(signals)
+
+    direction = "NEUTRAL"
+    approved = False
+    status = "REJECT_NO_CONFLUENCE"
+
+    if long_votes >= 4 and score >= 70.0:
+        direction = "LONG"
+        approved = True
+        status = "PASS_LONG"
+    elif short_votes >= 4 and score >= 70.0:
+        direction = "SHORT"
+        approved = True
+        status = "PASS_SHORT"
+    elif score >= 70.0:
+        status = "REJECT_VOTE_SPLIT"
+    else:
+        status = "REJECT_LOW_CONFIDENCE"
+
+    return {
+        "approved": approved,
+        "status": status,
+        "direction": direction,
+        "confidence_score": score,
+        "long_votes": long_votes,
+        "short_votes": short_votes,
+        "total_engines": total_engines,
+        "score_breakdown": breakdown,
+    }
+
 if __name__ == "__main__":
-    # Test example for pure altcoin (B-WLD_USDT)
     result = check_trade(
         symbol="B-WLD_USDT",
         side="short",
@@ -157,3 +274,4 @@ if __name__ == "__main__":
         max_risk_pct=2.0,
     )
     print_check(result)
+

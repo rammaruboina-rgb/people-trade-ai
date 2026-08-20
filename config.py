@@ -49,9 +49,15 @@ TP_PRICE_MOVE_PCT = 0.030   # Default TP target
 SL_PRICE_MOVE_PCT = 0.010   # -1.0% price stop (-10% ROE at 10X)
 TARGET_PROFIT_PER_TRADE_USD = 3.00  # $3.00 USD profit per trade towards $10->$20 target
 
-# Daily Safety Risk Limits (HARD CAPITAL PROTECTION)
-MAX_DAILY_LOSS_PCT = 0.05      # 5% max daily equity loss limit (hard halt)
-MAX_CONSECUTIVE_LOSSES = 2     # Halt after 2 consecutive losses
+# Daily & Weekly Circuit Breakers (Capital Protection)
+MAX_DAILY_LOSS_PCT = 0.03       # 3% max daily equity loss limit (hard circuit breaker)
+DAILY_LOSS_LIMIT_PCT = 3.0       # 3% daily drawdown stop
+WEEKLY_LOSS_LIMIT_PCT = 5.0      # 5% weekly drawdown stop
+MAX_CONSECUTIVE_LOSSES = 2       # Halt after 2 consecutive losses
+
+# Multi-Layer Confluence Settings
+MIN_CONFLUENCE_SCORE = 70.0      # Minimum 0-100 weighted score required for entry
+REQUIRED_VOTES = 4               # Minimum 4 out of 6 engine votes required
 
 # Targeted Coin Focus Mode (None = Multi-Trade All Top Altcoins)
 TARGETED_FOCUS_COIN = None
@@ -75,12 +81,13 @@ SYMBOL_FUTURES = "B-SUI_USDT"
 CANDLE_PAIR = "B-SUI_USDT"
 CURRENCY = "USDT"
 
-# Unblocked All Coins Per User Directive: BTC, ETH, SOL, SUI, DOGE, etc.
-EXCLUDED_COINS = []
+# 📌 SYSTEM DIRECTIVE NOTE: MAXIMUM FOCUS ON HIGH-VOLATILITY PURE ALTCOINS
+PURE_ALTCOIN_DIRECTIVE = "📌 SYSTEM DIRECTIVE: MAXIMUM FOCUS ON HIGH-VOLATILITY PURE ALTCOINS FOR FASTEST PROFIT TARGETS"
+EXCLUDED_COINS = ["BTC", "ETH"]  # Exclude heavy low-volatility coins for maximum altcoin focus
 
-# Full Multi-Coin Universe Including BTC, ETH, SOL & Top Altcoins
+# Prioritized Altcoin Universe (High-Volatility Pure Altcoins First)
 ALLOWED_FUTURES_COINS = [
-    "BTC", "ETH", "SOL", "SUI", "DOGE", "AVAX", "NEAR", "PEPE", "WIF", "SEI", "INJ", "TON", "BONK", "SHIB", "FLOKI", "XRP", "ADA", "LINK", "MATIC"
+    "SUI", "SOL", "AVAX", "NEAR", "PEPE", "WIF", "SEI", "INJ", "XRP", "ADA", "LINK", "DOGE", "BONK", "SHIB", "FLOKI", "TON", "MATIC"
 ]
 
 def set_focus_coin(coin_name: str):

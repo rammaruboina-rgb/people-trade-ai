@@ -113,3 +113,56 @@ def expectancy(win_rate: float, avg_win_usd: float, avg_loss_usd: float) -> floa
     Calculates expected USD return per trade based on historical edge.
     """
     return (win_rate * avg_win_usd) - ((1.0 - win_rate) * avg_loss_usd)
+
+def calculate_atr_14(candles: list) -> float:
+    """
+    candles: list of kline lists [timestamp, open, high, low, close, volume] or dicts
+    Calculates Average True Range over 14 periods.
+    """
+    if not candles or len(candles) < 15:
+        return 0.0
+
+    trs = []
+    for i in range(1, len(candles)):
+        c_prev = candles[i-1]
+        c_curr = candles[i]
+        
+        prev_close = float(c_prev[4]) if isinstance(c_prev, (list, tuple)) else float(c_prev.get('close', 0))
+        high = float(c_curr[2]) if isinstance(c_curr, (list, tuple)) else float(c_curr.get('high', 0))
+        low = float(c_curr[3]) if isinstance(c_curr, (list, tuple)) else float(c_curr.get('low', 0))
+        
+        tr = max(high - low, abs(high - prev_close), abs(low - prev_close))
+        trs.append(tr)
+
+    if not trs:
+        return 0.0
+    
+    recent_trs = trs[-14:]
+    return float(sum(recent_trs) / len(recent_trs))
+
+def get_dynamic_atr_stop(
+    entry: float,
+    atr_14: float,
+    side: str,
+    multiplier: float = 2.5,
+    fallback_pct: float = 0.015
+) -> Tuple[float, float]:
+    """
+    Calculates dynamic stop-loss and take-profit based on 2.5x ATR.
+    Prevents premature stops during volatility while tightening bounds in quiet markets.
+    """
+    if entry <= 0:
+        return 0.0, 0.0
+
+    atr_distance = atr_14 * multiplier if atr_14 > 0 else (entry * fallback_pct)
+    side_clean = str(side).lower()
+
+    if side_clean in ["long", "buy"]:
+        sl = max(0.0001, entry - atr_distance)
+        tp = entry + (atr_distance * 2.0)
+    else:
+        sl = entry + atr_distance
+        tp = max(0.0001, entry - (atr_distance * 2.0))
+
+    return round(sl, 6), round(tp, 6)
+

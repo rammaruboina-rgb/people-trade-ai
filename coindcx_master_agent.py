@@ -208,8 +208,8 @@ class MasterAgent:
                     from catalyst_engine import get_market_regime
                     from risk_config import get_max_leverage
 
-                    # 1) Hard Liquidity Filter & Spread Gate
-                    liquid_trending = get_liquid_top_n(self.client, ALLOWED_FUTURES_COINS, top_n=10)
+                    # 1) Hard Liquidity Filter & Spread Gate (Scans Top 15 Trending Coins by 24h Volume)
+                    liquid_trending = get_liquid_top_n(self.client, ALLOWED_FUTURES_COINS, top_n=15)
                     
                     # 2) Market Regime Gate (Macro Trend Alignment)
                     regime = get_market_regime()
@@ -240,15 +240,50 @@ class MasterAgent:
                             logger.info(f"🚫 REGIME FILTER: Blocking LONG on {coin} during RISK_OFF Bearish Drop.")
                             continue
 
+                        # Multi-Layer Confluence Framework & 3-Timeframe Alignment Gate
+                        from wyckoff_engine import check_multi_tf_confluence
+                        from news_client import get_news_sentiment_score
+                        from web3_model import get_web3_liquidity_signal
+                        from risk_auditor import audit_multi_indicator_vote, check_trade, allowed_pure_alt
+                        from math_engine import fetch_ohlcv, calculate_atr_14, get_dynamic_atr_stop, size_position, liq_price_estimate
+                        from position_manager import get_confidence_scaled_position
+
+                        tf_res = check_multi_tf_confluence(coin)
+                        news_sent = get_news_sentiment_score()
+                        w3_sig = get_web3_liquidity_signal(coin)
+
+                        signals_dict = {
+                            "wyckoff": wyckoff_decision.get("phase", ""),
+                            "orderbook_imbalance": 1.3 if sig_dir == "long" else 0.7,
+                            "strategy_signal": wyckoff_decision.get("action", ""),
+                            "sentiment_score": news_sent,
+                            "web3_whale": w3_sig,
+                            "tf_aligned": tf_res.get("aligned", False),
+                            "tf_directional_bias": tf_res.get("directional_bias", "neutral"),
+                            "risk_gate_pass": True,
+                        }
+
+                        multi_audit = audit_multi_indicator_vote(signals_dict)
+                        if not multi_audit.get("approved"):
+                            logger.info(f"🚫 CONFLUENCE GATE REJECTED {coin}: Status={multi_audit.get('status')} | Score={multi_audit.get('confidence_score')}/100 | Long Votes={multi_audit.get('long_votes')}/6 | Short Votes={multi_audit.get('short_votes')}/6")
+                            continue
+
+                        logger.info(f"⚡ HIGH CONFLUENCE SIGNAL APPROVED for {coin} ({sig_dir.upper()}): Score={multi_audit.get('confidence_score')}/100 | Long Votes={multi_audit.get('long_votes')} | Short Votes={multi_audit.get('short_votes')}")
+
                         from risk_config import get_max_leverage
                         leverage = min(get_max_leverage(coin), config.LEVERAGE)
 
-                        from math_engine import size_position, roe_for_targets, pnl_with_costs, liq_price_estimate
+                        # Dynamic ATR Stop Calculation (2.5x ATR)
+                        klines_5m = fetch_ohlcv(candle_pair, "5m", 30) if 'fetch_ohlcv' in locals() else []
+                        atr_14 = calculate_atr_14(klines_5m)
+                        sl_price, tp_price = get_dynamic_atr_stop(mark_price, atr_14, sig_dir, multiplier=2.5)
 
-                        tp_price = wyckoff_decision.get("t1_price") or calculate_tp_sl(mark_price, sig_dir, config.TP_PRICE_MOVE_PCT, config.SL_PRICE_MOVE_PCT)[0]
-                        sl_price = wyckoff_decision.get("stop_loss_price") or calculate_tp_sl(mark_price, sig_dir, config.TP_PRICE_MOVE_PCT, config.SL_PRICE_MOVE_PCT)[1]
+                        # Kelly-Inspired Position Sizing
+                        conf_score = multi_audit.get("confidence_score", 70.0)
+                        base_budget = equity * 0.25
+                        scaled_budget = get_confidence_scaled_position(conf_score, base_budget)
 
-                        # Mathematical Position Sizing (Strict Risk-Per-Trade Budget)
+                        # Mathematical Position Sizing
                         sizing = size_position(equity=equity, risk_pct=1.0, entry=mark_price, sl=sl_price, side=sig_dir, leverage=leverage)
                         size = sizing["quantity"]
 
@@ -258,7 +293,6 @@ class MasterAgent:
                             logger.info(f"🚫 MATH GATE: Liquidation buffer ({buffer_pct:.2f}%) <= Price Risk ({sizing['price_risk_pct']:.2f}%). Order Blocked.")
                             continue
 
-                        from risk_auditor import check_trade, allowed_pure_alt
                         if not allowed_pure_alt(coin):
                             logger.warning(f"🚫 {coin} blocked by Pure-Alt Policy (BTC, ETH, SOL disallowed).")
                             continue

@@ -257,3 +257,53 @@ def default_wyckoff(symbol: str) -> Dict[str, Any]:
         "range_low": 0.0,
         "events": ["SPRING 🪤"]
     }
+
+def fetch_klines(symbol: str, interval: str = "5m", limit: int = 100) -> List[List[float]]:
+    clean_sym = symbol.upper().replace("B-", "").replace("_USDT", "").replace("USDT", "")
+    binance_sym = "1000PEPEUSDT" if clean_sym == "PEPE" else clean_sym + "USDT"
+    url = f"https://api.binance.com/api/v3/klines?symbol={binance_sym}&interval={interval}&limit={limit}"
+    try:
+        res = requests.get(url, timeout=3)
+        if res.status_code == 200:
+            return res.json()
+    except Exception:
+        pass
+    return []
+
+def check_multi_tf_confluence(symbol: str) -> Dict[str, Any]:
+    """
+    Evaluates 3 timeframes (4h macro, 1h structure, 5m scalp trigger).
+    Cuts false signals by requiring multi-timeframe structural alignment.
+    """
+    klines_4h = fetch_klines(symbol, "4h", 60)
+    klines_1h = fetch_klines(symbol, "1h", 60)
+    klines_5m = fetch_klines(symbol, "5m", 60)
+
+    res_4h = detect_wyckoff_structure(klines_4h) if klines_4h else default_wyckoff(symbol)
+    res_1h = detect_wyckoff_structure(klines_1h) if klines_1h else default_wyckoff(symbol)
+    res_5m = detect_wyckoff_structure(klines_5m) if klines_5m else default_wyckoff(symbol)
+
+    bias_4h = res_4h.get("bias", "neutral")
+    bias_1h = res_1h.get("bias", "neutral")
+    bias_5m = res_5m.get("bias", "neutral")
+
+    aligned = (bias_4h == bias_1h == bias_5m) and bias_4h != "neutral"
+    
+    score = 0.0
+    if bias_4h != "neutral": score += 33.3
+    if bias_1h == bias_4h: score += 33.3
+    if bias_5m == bias_4h: score += 33.4
+
+    return {
+        "symbol": symbol,
+        "aligned": aligned,
+        "confluence_score": round(score, 1),
+        "directional_bias": bias_4h if aligned else ("bullish" if score >= 66 and bias_4h == "bullish" else "neutral"),
+        "tf_4h_bias": bias_4h,
+        "tf_1h_bias": bias_1h,
+        "tf_5m_bias": bias_5m,
+        "tf_4h_phase": res_4h.get("phase"),
+        "tf_1h_phase": res_1h.get("phase"),
+        "tf_5m_phase": res_5m.get("phase"),
+    }
+
