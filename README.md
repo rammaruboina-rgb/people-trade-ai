@@ -1,79 +1,106 @@
+<div align="center">
+
 # 🤖 People Trade AI — Autonomous Trading Agent & Wyckoff Intelligence Console
 
-[![Agent Name](https://img.shields.io/badge/Agent%20Name-People%20Trade%20AI-cyan.svg)](#)
-[![GitHub Maintainer](https://img.shields.io/badge/GitHub-rammaruboina--rgb-blue.svg)](https://github.com/rammaruboina-rgb)
-[![Python Version](https://img.shields.io/badge/python-3.9%2B-blue.svg)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/exchange-CoinDCX%20Futures-orange.svg)](https://coindcx.com/)
-[![Execution](https://img.shields.io/badge/leverage-20X%20Isolated-red.svg)](#)
+[![Agent Name](https://img.shields.io/badge/Agent%20Name-People%20Trade%20AI-00f2fe?style=for-the-badge&logo=robot&logoColor=white)](#)
+[![GitHub Maintainer](https://img.shields.io/badge/GitHub-rammaruboina--rgb-7f00ff?style=for-the-badge&logo=github&logoColor=white)](https://github.com/rammaruboina-rgb)
+[![Python Version](https://img.shields.io/badge/Python-3.9%2B-3776ab?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Exchange](https://img.shields.io/badge/Exchange-CoinDCX%20Futures-ff6b00?style=for-the-badge&logo=bitcoin&logoColor=white)](https://coindcx.com/)
+[![Leverage](https://img.shields.io/badge/Leverage-20X%20Isolated-ff0055?style=for-the-badge)](#)
+[![UI Engine](https://img.shields.io/badge/Console-24%2F7%20Text--With--Agent-00e676?style=for-the-badge)](#)
 
-**People Trade AI** is an autonomous, multi-strategy **CoinDCX algorithmic trading agent** built for 24/7 altcoin scalping (1m/5m) and institutional Wyckoff market cycle structure analysis. Developed and maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)**.
-
-Featuring an interactive **Text-With-Agent** console, live Web3 on-chain whale tracker, global 5-minute crypto news stream, and real-time live trading dashboard.
+<p align="center">
+  <b>Institutional Wyckoff Structure Analysis • High-Win Signal Gate • Pure Altcoin Focus • Silent Web Terminal</b>
+</p>
 
 ---
 
-## 🌟 Key Features
+</div>
 
-- **⚡ Deterministic State Machine Engine**: Maintains trade lifecycles across 7 deterministic states:
-  $$\text{SCAN} \longrightarrow \text{EVALUATE} \longrightarrow \text{PRE\_TRADE} \longrightarrow \text{OPEN} \longrightarrow \text{MANAGE} \longrightarrow \text{EXIT} \longrightarrow \text{REVIEW}$$
-- **🎯 Pure Altcoin Focus & Targeted Coin Mode**:
-  - Automatically filters & scans **125+ top altcoins and meme tokens** (SUI, PEPE, NEAR, AVAX, WLD, etc.).
-  - Supports CLI targeted coin focus (e.g. `--coin SUI` to trade only SUI or a single selected coin).
-  - Explicit symbol blacklist guard preventing accidental trades on BTC or ETH.
-- **🐋 Web3 & Catalyst Intelligence**:
-  - **On-Chain Whale Tracker**: Scans Web3 transactions and liquidity inflows/outflows for explosive momentum signals.
-  - **X (Twitter) Sentiment Engine**: Monitors top crypto leaders, influencers, and token metrics via X API.
-  - **Global News Aggregator**: Real-time 5-minute news feed refresh with NLP-based market sentiment scoring (-1.0 to +1.0).
-- **🛡️ Institutional Risk Management & Kill-Switches**:
-  - Max equity per-trade risk cap & position sizing calculations based on ATR distance.
-  - Daily loss limit stop (`DAILY_LOSS_LIMIT_USD`) and daily profit lock target.
-  - Dynamic stop-loss trailing (+5% profit breakeven move, +20% target exits).
-  - **Instant Emergency Kill-Switch**: Listens for `.killswitch` trigger file or environment flag to halt trading and close all open positions safely.
-- **📡 TradingView Webhook Server**: Embedded FastAPI server to process signals directly from external TradingView alerts.
-- **🖥️ Live Terminal Dashboard & Chat Console**:
-  - Built with `Rich` for a flicker-free, multi-panel live view of metrics, open positions, recent fills, catalyst feeds, and engine logs.
-  - Interactive terminal chat console (`chat.sh`) to query balance, check trending coins, news, or manually command the bot.
+## 🌟 Executive Overview
+
+**People Trade AI** is a state-of-the-art, 24/7 autonomous algorithmic futures trading agent engineered specifically for **CoinDCX Futures**. Designed around Richard D. Wyckoff's institutional market cycle theory, the agent continuously scans 125+ high-volume altcoins, detecting smart money accumulation, manipulation springs, and mark-up expansions while enforcing strict 20X isolated leverage risk boundaries.
+
+Equipped with a **24/7 Text-With-Agent REST console**, a live 5-minute global NLP news sentiment engine, an on-chain Web3 whale liquidity tracker, and a real-time TradingView-integrated web terminal, **People Trade AI** operates completely silently without audio dependencies.
+
+---
+
+## ⚡ Core Institutional Features
+
+### 🏛️ 1. Institutional Wyckoff Market Cycle Engine
+- **Phase A (Stop Trend)**: Detects Preliminary Support (PS), Selling Climax (SC), and Automatic Rally (AR).
+- **Phase B (Building Cause)**: Measures secondary tests (ST) and liquidity sweeps across resistance/support bounds.
+- **Phase C (Smart Money Test)**: Pinpoints high-probability **Accumulation Springs** and **Distribution Upthrusts (UTAD)**.
+- **Phase D (Sign of Strength)**: Identifies Last Point of Support (LPS) and Breakouts above Ice Line.
+- **Phase E (Markup Expansion)**: Rides momentum continuation with trailing stop-loss protection.
+
+### 🛡️ 2. High-Win Signal Gate & Risk Auditor
+- **Multi-Engine Confluence**: Evaluates signals across 6 specialized engines (Wyckoff + Order Book + Math + Catalyst + Web3 + Risk Auditor).
+- **Gate Threshold**: Trades are executed ONLY when signal confluence meets or exceeds the **80% Win-Probability Threshold**.
+- **Pure Altcoin Mandate**: Explicit symbol filtering that blocks BTC and ETH to focus 100% of capital on explosive altcoins.
+
+### 💬 3. 24/7 Text-With-Agent Console
+- Interactive natural language interface accessible via HTTP REST (`POST /api/agent/chat`) or CLI (`./chat.sh`).
+- Instant diagnostic responses for queries like `wyckoff`, `wallet`, `gate`, `news`, `pepe`, `sui`, or `start`.
+
+### 📰 4. Global 5-Minute News & Web3 Whale Tracker
+- **5-Min News Feed**: Auto-refreshes top crypto catalysts every 5 minutes with VADER/NLP sentiment scoring (-1.0 to +1.0).
+- **Web3 Whale Inflows**: Tracks decentralized liquidity shifts and large wallet movements for explosive breakout setups.
 
 ---
 
 ## 🏗️ System Architecture
 
 ```mermaid
-flowchart TD
-    subgraph Market Data & Inputs
-        CDCX_MD[CoinDCX Market Tickers / Candlesticks]
-        W3_API[Web3 On-Chain Data Engine]
-        X_API[X / Twitter Catalyst Engine]
-        NEWS_API[Global Crypto News Feed]
-        TV_WH[TradingView Webhooks FastAPI]
+flowchart TB
+    subgraph Market Data & Catalyst Ingestion
+        CDCX_MD["📊 CoinDCX 1m/5m Candlestick Stream"]
+        W3_WHALE["🐋 Web3 On-Chain Whale Liquidity Engine"]
+        NEWS_NLP["📰 Global Crypto News (5m NLP Refresh)"]
+        X_CATALYST["🐦 X (Twitter) Catalyst Sentiment Feed"]
+        TV_WEBHOOK["📡 TradingView Webhooks FastAPI"]
     end
 
-    subgraph Core Agent Loop
-        SE[Strategy Engine: 1m Scalp / 4h Swing Patterns]
-        RE[Risk Engine & Blacklist Filters]
-        STATE[Deterministic State Persistence Engine]
+    subgraph Institutional Analysis & Signal Gating
+        WYCKOFF["🏛️ Wyckoff Structural Engine (Phases A-E)"]
+        MATH_ENG["📐 Pre-Breakout Math & Volatility Engine"]
+        ORDERBOOK["📚 Order Book Liquidity Imbalance Auditor"]
+        RISK_AUDIT["🛡️ Institutional Risk Auditor & Capital Gate"]
     end
 
-    subgraph Execution & Monitoring
-        CDCX_EXEC[CoinDCX Futures & Spot API]
-        DASH[Rich Terminal Live Dashboard]
-        CHAT[Interactive Terminal Chat Console]
-        LOGS[JSON Logs & CSV Trade Ledgers]
+    subgraph High-Win Signal Confluence Gate
+        GATE{"⚡ High-Win Confluence Gate\n(Win Probability >= 80%)"}
     end
 
-    CDCX_MD --> SE
-    W3_API --> SE
-    X_API --> SE
-    NEWS_API --> SE
-    TV_WH --> SE
+    subgraph Autonomous Execution & Monitoring
+        CDCX_EXEC["🚀 CoinDCX 20X Futures Order Execution"]
+        REST_CHAT["💬 24/7 Text-With-Agent Console (/api/agent/chat)"]
+        WEB_DASH["🖥️ Silent Web Terminal (http://127.0.0.1:5000)"]
+        KILL_SWITCH["🛑 Instant Emergency Kill-Switch (.killswitch)"]
+    end
 
-    SE --> RE
-    RE -->|Approved| STATE
-    STATE --> CDCX_EXEC
+    CDCX_MD --> WYCKOFF
+    W3_WHALE --> MATH_ENG
+    NEWS_NLP --> WYCKOFF
+    X_CATALYST --> WYCKOFF
+    TV_WEBHOOK --> WYCKOFF
 
-    STATE --> DASH
-    STATE --> CHAT
-    STATE --> LOGS
+    WYCKOFF --> GATE
+    MATH_ENG --> GATE
+    ORDERBOOK --> GATE
+    RISK_AUDIT --> GATE
+
+    GATE -->|Approved Signal| CDCX_EXEC
+    GATE -->|Rejected| REST_CHAT
+
+    CDCX_EXEC --> WEB_DASH
+    CDCX_EXEC --> REST_CHAT
+    KILL_SWITCH -.->|Halt Execution| CDCX_EXEC
+
+    style GATE fill:#7f00ff,stroke:#fff,stroke-width:2px,color:#fff
+    style WYCKOFF fill:#00f2fe,stroke:#000,stroke-width:1px,color:#000
+    style RISK_AUDIT fill:#ff0055,stroke:#fff,stroke-width:1px,color:#fff
+    style WEB_DASH fill:#00e676,stroke:#000,stroke-width:1px,color:#000
 ```
 
 ---
@@ -81,53 +108,52 @@ flowchart TD
 ## 📁 Repository Structure
 
 ```text
-coindcxagent/
-├── run_all.py                 # Single-terminal master interactive runner & dashboard
-├── start_agent.sh             # Bash launcher script (Swing vs High-Leverage mode)
-├── chat.sh                    # Interactive CLI chat console launcher
-├── agent_chat.py              # Conversational agent interface for queries & commands
+people-trade-ai/
+├── dashboard_server.py         # Flask Web Dashboard & 24/7 Text-With-Agent REST Server
+├── coindcx_master_agent.py     # Central Autonomous Execution Orchestrator
+├── wyckoff_engine.py           # Institutional Wyckoff Structural Analysis Engine
+├── risk_auditor.py             # High-Win Gate Auditor & Equity Risk Manager
+├── position_manager.py         # 20X Isolated Futures Position Lifecycle Manager
 │
-├── coindcx_master_agent.py    # Central orchestrator integrating all engines
-├── coindcx_agent_futures_stp.py # Futures trade execution, trailing stops, & orders
-├── coindcx_client.py          # CoinDCX API HTTP & signature authentication client
-├── coindcx_futures_mapper.py  # Symbol normalization & futures contract mapping
+├── coindcx_client.py           # CoinDCX API Client (Signed HTTP Requests & HMAC)
+├── coindcx_futures_mapper.py   # Symbol Normalization & Contract Precision Mapper
+├── strategy_engine.py          # Candle Pattern & Momentum Breakdown Analytics
+├── math_engine.py              # ATR Volatility & Technical Indicator Calculations
+├── orderbook_engine.py         # Order Book Imbalance & Depth Analysis
 │
-├── strategy_engine.py         # Pattern detection (Engulfing, Hammers, Wick Reclaims)
-├── risk_engine.py             # Position sizing, drawdown limits & kill-switch guards
-├── catalyst_engine.py         # Global market catalyst aggregation
-├── web3_model.py              # On-chain whale inflows & Web3 liquidity tracking
-├── scan_web3_coins.py         # Web3 coin scanner & momentum ranker
-├── tweet_monitor.py           # X / Twitter influencer & sentiment analyzer
-├── x_client.py                # X (Twitter) API v2 client integration
-├── news_client.py             # Global news retriever & sentiment scoring
-├── webhook_server.py          # FastAPI listener for TradingView Webhook signals
+├── catalyst_engine.py          # News & Twitter Catalyst Sentiment Aggregator
+├── news_client.py              # 5-Minute Global News Retriever & NLP Sentiment Engine
+├── web3_model.py               # Web3 On-Chain Whale Inflow & Liquidity Tracker
+├── scan_web3_coins.py          # Altcoin Momentum Scanner (125+ Tokens)
 │
-├── dashboard_unified.py       # Live Rich UI terminal dashboard app
-├── data_store.py              # In-memory & JSON state store manager
-├── config.py                  # Global parameters, risk settings, & coin whitelists
+├── agent_chat.py               # Interactive CLI Chat Console Handler
+├── chat.sh                     # Bash Launcher for CLI Text Agent Console
+├── autotrade.sh                # Autonomous Bot Launcher Script
+├── config.py                   # Master Trading Parameters & Risk Settings
 │
-├── SOUL.md                    # Core bot identity, trading values, and boundaries
-├── QUALITY_SPEC.md            # System quality specification & lifecycle states
-├── requirements.txt           # Python dependencies
-└── .env                       # Environment credentials (API Keys & Tokens)
+├── requirements.txt            # Python Dependencies
+├── .gitignore                  # Security Rules (Protects .env & Secrets)
+└── README.md                   # System Architecture & Documentation
 ```
 
 ---
 
 ## 🛠️ Installation & Setup
 
-### 1. Prerequisites
-- Python 3.9 or higher
-- A valid [CoinDCX](https://coindcx.com/) Account with API Key and Secret
-- (Optional) X / Twitter API credentials for social sentiment monitoring
+### 1. System Requirements
+- **OS**: Linux / macOS / WSL2
+- **Python**: 3.9+
+- **CoinDCX Account**: Valid Futures API Key & Secret
 
-### 2. Clone & Environment Setup
+### 2. Clone Repository
 ```bash
-# Clone the repository
 git clone https://github.com/rammaruboina-rgb/people-trade-ai.git
 cd people-trade-ai
+```
 
-# Create and activate python virtual environment
+### 3. Virtual Environment & Dependencies
+```bash
+# Create virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
@@ -135,108 +161,71 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. Configure Credentials (`.env`)
-Create a `.env` file in the root directory (or update existing):
+### 4. Security Configuration (`.env`)
+Create a `.env` file in the root directory (**Never commit this file!**):
 ```ini
-COINDCX_API_KEY=your_coindcx_api_key
-COINDCX_API_SECRET=your_coindcx_api_secret
+COINDCX_API_KEY=your_coindcx_api_key_here
+COINDCX_API_SECRET=your_coindcx_api_secret_here
 MODE=LIVE
-
-# Optional X / Twitter API Credentials
-X_CONSUMER_KEY=your_x_consumer_key
-X_CONSUMER_SECRET=your_x_consumer_secret
-X_BEARER_TOKEN=your_x_bearer_token
-X_ACCESS_TOKEN=your_x_access_token
-X_REFRESH_TOKEN=your_x_refresh_token
 ```
 
 ---
 
 ## 🚀 Usage & Operating Modes
 
-### Mode 1: Master Interactive Dashboard & Scalper
-Launch the full master runner with live rich terminal dashboard:
+### Mode 1: Launch Silent Dashboard & Agent Server
+Start the dashboard web server on `http://127.0.0.1:5000`:
 ```bash
-python run_all.py
+python dashboard_server.py
 ```
-*Press `ENTER` on launch to trade all 125+ supported altcoins, or type a specific coin ticker (e.g. `SUI`, `PEPE`, `NEAR`).*
+Open **`http://127.0.0.1:5000`** in your browser to view live TradingView charts, real-time trade tapes, console logs, and text with the agent.
 
-### Mode 2: Targeted Coin Focus Mode (CLI)
-Focus execution exclusively on a single altcoin:
-```bash
-python run_all.py --coin SUI
-```
-
-### Mode 3: Autonomous Swing Agent Launcher
-Run via bash launcher:
-```bash
-# Default: Multi-day swing trading
-./start_agent.sh
-
-# High-leverage 20-minute scalp mode
-MODE=highleverage ./start_agent.sh
-```
-
-### Mode 4: Interactive Terminal Chat Console
-Launch the interactive command console to query account state and market analytics:
+### Mode 2: Interactive Text Console (CLI)
+Interact with the agent directly from the terminal:
 ```bash
 ./chat.sh
 ```
-*Supported query commands:* `balance`, `trending`, `news`, `tweets`, `status`, `equity`, `pnl`, or focus commands like `SOL`, `PEPE`, `NEAR`.
+*Supported Query Badges*: `wyckoff`, `wallet`, `gate`, `news`, `sui`, `pepe`, `status`.
 
-### Mode 5: TradingView Webhook Listener
-Enable webhook processing by running:
+### Mode 3: Targeted Single-Coin Mode
+Run the agent focused exclusively on one coin (e.g. SUI):
 ```bash
-WEBHOOK_ENABLED=true WEBHOOK_PORT=5000 python run_all.py
+python coindcx_master_agent.py --coin SUI
 ```
 
 ---
 
-## ⚙️ Configuration & Risk Customization
+## ⚙️ Institutional Risk & Safety Parameters
 
-All trading settings are centralized in `config.py`:
+All core risk parameters are configured in `config.py`:
 
-| Parameter | Default | Description |
+| Parameter | Value | Description |
 | :--- | :--- | :--- |
-| `EQUITY_USD` | `$9.52` | Base capital equity reference |
-| `DEFAULT_MAX_DAILY_TARGET_USD` | `$20.00` | Target daily profit target |
-| `DAILY_LOSS_LIMIT_USD` | `$9.52` | Hard daily loss limit before kill-switch |
-| `MAX_CONCURRENT_TRADES` | `5` | Maximum active concurrent positions |
-| `LEVERAGE` | `20` | Default leverage multiple (20X isolated) |
-| `TIMEFRAME` | `1m` | Primary candlestick timeframe |
-| `PROFIT_TARGET_PCT` | `0.20` | Default Take-Profit (+20.0%) |
-| `STOP_LOSS_PCT` | `0.10` | Default Stop-Loss (-10.0%) |
-| `BREAKEVEN_PROFIT_PCT` | `0.05` | Move Stop-Loss to Breakeven at +5.0% profit |
+| **`LEVERAGE`** | `20X` | Fixed Isolated Futures Leverage |
+| **`WIN_RATE_THRESHOLD`** | `80%` | Minimum Confluence Score for Entry |
+| **`PROFIT_TARGET_PCT`** | `+20.0%` | Primary Take-Profit Target (ROE) |
+| **`STOP_LOSS_PCT`** | `-10.0%` | Hard Stop-Loss Boundary (ROE) |
+| **`BREAKEVEN_PROFIT_PCT`**| `+5.0%` | Move Stop-Loss to Entry Price |
+| **`SYMBOL_BLACKLIST`** | `["BTCUSDT", "ETHUSDT"]` | Explicit Altcoin-Only Filter |
 
 ---
 
-## 🛑 Emergency Controls & Kill-Switch
+## 🛑 Emergency Kill-Switch
 
-To instantly stop trading and liquidate all open positions:
-1. **File Trigger**: Create a `.killswitch` file in the project root:
-   ```bash
-   touch .killswitch
-   ```
-2. **Environment Variable**: Set `KILL_SWITCH=true` in `.env`.
-
----
-
-## 📊 Auditing & State Persistence
-
-Trade executions, signals, and post-trade debriefs are recorded continuously in:
-- `state/open_positions.json`: Active trade snapshot with entry, SL, TP, and sizing.
-- `state/trade_log.json`: Post-trade evaluation objects and R-multiple tracking.
-- `trades_unified.csv`: CSV ledger of all filled orders.
-- `trading_bot.log`: Detailed engine logs.
+To immediately halt trading and close all open futures positions:
+```bash
+touch .killswitch
+```
+Or click the **`EMERGENCY KILL-SWITCH`** button inside the web dashboard.
 
 ---
 
 ## 👤 Author & Maintainer
 
-Created & Maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)** 🚀
+Maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)** 🚀
 
 ---
 
-## ⚠️ Disclaimer
+## ⚠️ Risk Disclaimer
 
-*This software is created for automated cryptocurrency trading research and execution on CoinDCX. Cryptocurrency trading involves substantial financial risk. Use at your own risk. Always verify configuration settings and test thoroughly prior to executing live funds.*
+*This repository contains automated algorithmic cryptocurrency trading software. Cryptocurrency futures trading involves significant financial risk. Always test configuration parameters thoroughly before deploying capital.*
