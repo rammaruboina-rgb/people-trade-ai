@@ -294,7 +294,7 @@ class MasterAgent:
                             continue
 
                         if not allowed_pure_alt(coin):
-                            logger.warning(f"🚫 {coin} blocked by Pure-Alt Policy (BTC, ETH, SOL disallowed).")
+                            logger.warning(f"🚫 {coin} blocked by asset policy.")
                             continue
 
                         audit_result = check_trade(

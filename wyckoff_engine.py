@@ -9,8 +9,8 @@ import requests
 import numpy as np
 from typing import Dict, List, Tuple, Optional, Any
 
-# Pure Altcoin Guard (Excludes BTC, ETH, SOL per user directive)
-PURE_ALTCOIN_EXCLUSIONS = ["BTC", "ETH", "SOL"]
+# All assets allowed per user directive (BTC, ETH, and Altcoins active)
+PURE_ALTCOIN_EXCLUSIONS = []
 
 def detect_wyckoff_structure(candles: List[List[float]], lookback: int = 120) -> Dict[str, Any]:
     """

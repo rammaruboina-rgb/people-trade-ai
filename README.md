@@ -37,7 +37,7 @@ Equipped with a **24/7 Text-With-Agent REST console**, a live 5-minute global NL
 ### 🛡️ 2. High-Win Signal Gate & Risk Auditor
 - **Multi-Engine Confluence**: Evaluates signals across 6 specialized engines (Wyckoff + Order Book + Math + Catalyst + Web3 + Risk Auditor).
 - **Gate Threshold**: Trades are executed ONLY when signal confluence meets or exceeds the **80% Win-Probability Threshold**.
-- **Pure Altcoin Mandate**: Explicit symbol filtering that blocks BTC and ETH to focus 100% of capital on explosive altcoins.
+- **Full Market Asset Coverage**: Multi-token trading engine scanning BTC, ETH, and 125+ top altcoins for maximum high-win signal opportunities.
 
 ### 💬 3. 24/7 Text-With-Agent Console
 - Interactive natural language interface accessible via HTTP REST (`POST /api/agent/chat`) or CLI (`./chat.sh`).
@@ -206,7 +206,7 @@ All core risk parameters are configured in `config.py`:
 | **`PROFIT_TARGET_PCT`** | `+20.0%` | Primary Take-Profit Target (ROE) |
 | **`STOP_LOSS_PCT`** | `-10.0%` | Hard Stop-Loss Boundary (ROE) |
 | **`BREAKEVEN_PROFIT_PCT`**| `+5.0%` | Move Stop-Loss to Entry Price |
-| **`SYMBOL_BLACKLIST`** | `["BTCUSDT", "ETHUSDT"]` | Explicit Altcoin-Only Filter |
+| **`SYMBOL_BLACKLIST`** | `[]` | Multi-Asset Coverage (BTC, ETH, Altcoins Enabled) |
 
 ---
 
