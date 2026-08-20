@@ -658,7 +658,7 @@ HTML_TEMPLATE = """
                 <!-- Agent Chat Messages Window -->
                 <div id="agent-chat-window" style="height: 200px; overflow-y: auto; background: rgba(0,0,0,0.4); border: 1px solid var(--border-card); border-radius: 8px; padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 0.8rem;">
                     <div style="background: rgba(56, 189, 248, 0.1); border-left: 3px solid #38bdf8; padding: 0.6rem 0.8rem; border-radius: 4px; color: #e2e8f0;">
-                        🤖 <strong>People Trade AI Agent</strong>: Welcome! Type any prompt below to text with me directly. Ask about Wyckoff phases, high-win gates, wallet equity, or coin analysis!
+                        ⭐ <strong>People Trade AI Agent</strong>: Welcome! Type any prompt below to text with me directly. Ask about Wyckoff phases, high-win gates, wallet equity, or coin analysis!
                     </div>
                 </div>
 
@@ -1690,7 +1690,7 @@ def agent_chat_api():
         symbol = data.get('symbol', 'SUIUSDT').upper()
 
         if not msg:
-            return jsonify({"status": "success", "response": "🤖 People Trade AI Agent: How can I assist your trading strategy today?"})
+            return jsonify({"status": "success", "response": "⭐ People Trade AI Agent: How can I assist your trading strategy today?"})
 
         if "win rate" in msg or "performance" in msg or "stats" in msg:
             resp = "🎯 **Institutional Gate Win-Rate Status**:\n- High-Win Gate Confluence Requirement: **80%++**\n- Core Altcoin Focus: Pure High-Vol Altcoins (BTC/ETH Excluded)\n- Targeted R:R Ratio: 1:3 (TP1 +15%, TP2 +30%, TP3 +50% ROE)\n- Risk Auditor Gate: Active 24/7."
