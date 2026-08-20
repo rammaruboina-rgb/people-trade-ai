@@ -228,6 +228,15 @@ Or click the **`EMERGENCY KILL-SWITCH`** button inside the web dashboard.
 
 ---
 
+## 💬 Community & Discord Support
+
+Join our official live Discord community for strategy discussions, market updates, and trading support:
+
+👉 **[Join People Trade AI Discord Server](https://discord.gg/Gt3ZAfMWy)**  
+*Discord Link:* `https://discord.gg/Gt3ZAfMWy`
+
+---
+
 ## 👤 Author & Maintainer
 
 Maintained by **[rammaruboina-rgb](https://github.com/rammaruboina-rgb)** 🚀
